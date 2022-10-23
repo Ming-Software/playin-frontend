@@ -20,21 +20,27 @@ export const AboutPage = () => {
             <section className="section" id="about">
                 <div className="section-heading">
                     <h3 className="title is-2">Sobre Nós</h3>
-                    <div className="">
+                    <div className="has-text-justified">
                         <p>
                             A nossa equipa nasceu de uma longa amizade. Tudo
                             começou em 2018, quando todos entramos para o ensino
                             superior no curso Mestrado Integrado de Engenharia
-                            Informátia na Universidade do Minho. Trabalhamos
-                            juntos desde então e decidimos criar a Ming
-                            Software.
+                            Informática na Universidade do Minho. Trabalhamos
+                            juntos desde então e decidimos criar a{" "}
+                            <strong>Ming Software</strong>. Constituída por um
+                            grupo de amigos, a <strong>Ming Software </strong>
+                            surge do sonho de todos os elementos, sendo o nosso
+                            objetivo-mor a disponibilização de ferramentas úteis
+                            para a comunidade, apostando na competência e no
+                            trabalho árduo, de modo a levar o nosso{" "}
+                            <strong> Ming </strong> mais adiante.
                         </p>
                     </div>
                 </div>
             </section>
 
             {/* Imagens e nomes */}
-            <div className="columns is-gapless is-multiline is-mobile">
+            <div className="columns is-multiline is-mobile">
                 <div className="column ml-6 my-6">
                     <strong> Rodrigo Meira </strong>
                     <figure className="image is-128x128">
