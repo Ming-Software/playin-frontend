@@ -1,52 +1,40 @@
-import { useState } from "react";
+import { JSXElementConstructor, ReactElement, ReactFragment, ReactPortal, useState } from "react";
 import { Link } from "react-router-dom";
 
-export const Topbar = () => {
+//The TopBar receives de user email as an argument.
+//To use TopBar it is necessary to have a user legged in to show his email.
 
-  //const[loged] = useState[Boolean](false)
+export const Topbar = (email: { userEmail: string;}) => {
 
     return (
     <nav className="navbar" role="navigation" aria-label="main navigation">
     <div className="navbar-brand">
-      <Link to="/login" className="navbar-item">
-        <img src="logo-color.png" width="100%" height="100%"/>
-      </Link>
-  
-      <a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
+        <Link to="/login" className="navbar-item">
+          <img src="logo-color.png" className="image is-64x64"/>
+        </Link>
+        <div className="navbar-start">
+          <Link to="/events" className="navbar-item">
+            Eventos
+          </Link>
+    
+          <Link to="/newEvent" className="navbar-item">
+            Criar Evento
+          </Link>
+    
+          <Link to="/myEvents" className="navbar-item">
+            Meus Eventos
+          </Link>
+        </div>
     </div>
-  
-    <div id="navbarBasicExample" className="navbar-menu">
-      <div className="navbar-start">
-        <Link to="/events" className="navbar-item">
-          Eventos
-        </Link>
-  
-        <Link to="/newEvent" className="navbar-item">
-          Criar Evento
-        </Link>
-  
-        <Link to="/myEvents" className="navbar-item">
-        Meus Eventos
-        </Link>
-      </div>
-  
       <div className="navbar-end">
         <div className="navbar-item">
           <div className="buttons">
-            <a className="button is-primary">
-              <strong>Sign up</strong>
-            </a>
-            <a className="button is-light">
-              Log in
-            </a>
+            <Link to="/myPage" className="button is-primary">
+              <strong>{email.userEmail}</strong>
+            </Link>
           </div>
         </div>
       </div>
-    </div>
   </nav>)
 }
 
