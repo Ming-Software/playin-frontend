@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import ApiService from "../Services/Api.service";
 
- export const SignUp = () => {
-
+export const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [errorEmail, setErrorEmail] = useState(false);
@@ -10,35 +9,34 @@ import ApiService from "../Services/Api.service";
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorPassword, setErrorPassword] = useState(false);
 
-
-  const isValidEmail = (email:string) => {
+  const isValidEmail = (email: string) => {
     return /\S+@\S+\.\S+/.test(email);
-  }
-  
-  const emailHandler = (event:React.FormEvent<HTMLInputElement>) => {
-    if(!event.currentTarget.value){ //se nao tiver nada dentro da caixa
-        setErrorEmail(true)
-    }
-    else if (!isValidEmail(event.currentTarget.value)) {
+  };
+
+  const emailHandler = (event: React.FormEvent<HTMLInputElement>) => {
+    if (!event.currentTarget.value) {
+      //se nao tiver nada dentro da caixa
+      setErrorEmail(true);
+    } else if (!isValidEmail(event.currentTarget.value)) {
       setErrorEmail(true);
     } else {
       setErrorEmail(false);
     }
-    
+
     setEmail(event.currentTarget.value);
   };
 
-  const confirmPasswordHandler = (event:React.FormEvent<HTMLInputElement>) => {
-    setConfirmPassword(event.currentTarget.value)
-    if(password !== event.currentTarget.value) {
-      console.log(confirmPassword)
-      setErrorPassword(true)
+  const confirmPasswordHandler = (event: React.FormEvent<HTMLInputElement>) => {
+    setConfirmPassword(event.currentTarget.value);
+    if (password !== event.currentTarget.value) {
+      console.log(confirmPassword);
+      setErrorPassword(true);
     } else {
-      setErrorPassword(false)
-      console.log(confirmPassword)
+      setErrorPassword(false);
+      console.log(confirmPassword);
     }
   };
-  
+
   return (
     <>
       <header className="hero is-primary">
@@ -47,74 +45,114 @@ import ApiService from "../Services/Api.service";
           <p className="subtitle">By Ming Software</p>
         </div>
       </header>
-        <main className="hero">
+      <main className="hero">
         <div className="hero-body">
-            <div className="columns is-centered">
+          <div className="columns is-centered">
             <div className="column is-half">
-            <form className="box is-link">
-              <figure className="image container is-128x128">
-                <img src="./logo-color.png" />
-              </figure>
+              <form className="box is-link">
+                <figure className="image container is-128x128">
+                  <img src="./logo-color.png" />
+                </figure>
                 <div className="field">
                   <label className="label">Name</label>
                   <div className="control">
-                    <input className="input is-primary" value={name} type="text" placeholder="insert here.." onChange={event => setName(event.currentTarget.value)}/>
+                    <input
+                      className="input is-primary"
+                      value={name}
+                      type="text"
+                      placeholder="insert here.."
+                      onChange={(event) => setName(event.currentTarget.value)}
+                    />
                   </div>
                 </div>
 
                 <div className="field">
                   <label className="label">Email</label>
-                  <div className="control"> 
-                    <input value={email} className="input is-primary" type="email" placeholder="e.g. rodrigoslb2000@example.com" onChange={emailHandler} />
-                    {errorEmail && email.length==0 && <p className="help is-danger">Email required</p>}
-                    {errorEmail && email.length!=0 && <p className="help is-danger">Email not valid</p>}
+                  <div className="control">
+                    <input
+                      value={email}
+                      className="input is-primary"
+                      type="email"
+                      placeholder="e.g. rodrigoslb2000@example.com"
+                      onChange={emailHandler}
+                    />
+                    {errorEmail && email.length == 0 && <p className="help is-danger">Email required</p>}
+                    {errorEmail && email.length != 0 && <p className="help is-danger">Email not valid</p>}
                   </div>
                 </div>
 
                 <div className="field">
                   <label className="label">Password</label>
-                  <div className="control"> 
-                    <input value={password} className="input is-primary" type="password" placeholder="******" onChange={event => setPassword(event.currentTarget.value)} />
+                  <div className="control">
+                    <input
+                      value={password}
+                      className="input is-primary"
+                      type="password"
+                      placeholder="******"
+                      onChange={(event) => setPassword(event.currentTarget.value)}
+                    />
                   </div>
                 </div>
 
                 <div className="field">
                   <label className="label">Confirm Password</label>
-                  <div className="control"> 
-                    <input value={confirmPassword} className="input is-primary" type="password" placeholder="******" onChange={confirmPasswordHandler}/>
+                  <div className="control">
+                    <input
+                      value={confirmPassword}
+                      className="input is-primary"
+                      type="password"
+                      placeholder="******"
+                      onChange={confirmPasswordHandler}
+                    />
                     {errorPassword && <p className="help is-danger">Password not match</p>}
                   </div>
                 </div>
 
                 <label className="label">Social Preference</label>
-                <label className="checkbox">
-                  <input type="checkbox"/> None
-                  <input type="checkbox" /> Competitive
-                  <input type="checkbox" /> Social 
-                </label>
+                <div className="control">
+                  <label className="radio">
+                    <input type="radio" name="foobar" /> None
+                  </label>
+                  <label className="radio">
+                    <input type="radio" name="foobar" /> Competitive
+                  </label>
+                  <label className="radio">
+                    <input type="radio" name="foobar" /> Social
+                  </label>
+                </div>
 
                 <label className="label">Activity Preference</label>
-                <label className="checkbox">
-                  <input type="checkbox"/> None 
-                  <input type="checkbox" /> Football
-                  <input type="checkbox" /> Futsal 
-                  <input type="checkbox" /> Voleyball 
-                  <input type="checkbox" /> Padel 
-                  <input type="checkbox" /> Tennis
-                </label>
-               
+                <div className="field is-grouped is-grouped-multiline">
+                  <p className="control">
+                    <input type="checkbox" /> None
+                  </p>
+                  <p className="control">
+                    <input type="checkbox" /> Football
+                  </p>
+                  <p className="control">
+                    <input type="checkbox" /> Futsal
+                  </p>
+                  <p className="control">
+                    <input type="checkbox" /> Voleyball
+                  </p>
+                  <p className="control">
+                    <input type="checkbox" /> Padel
+                  </p>
+                  <p className="control">
+                    <input type="checkbox" /> Tennis
+                  </p>
+                </div>
 
- 
-            <button className="button is-primary is-fullwidth has-text-center" type="submit">Sign Up</button>
-        </form>
+                <button className="button is-primary is-fullwidth has-text-center" type="submit">
+                  Sign Up
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
-        </div>
-        </div>
-        </main>
+      </main>
     </>
-    )
-}
+  );
+};
 
 export default SignUp;
-
-
