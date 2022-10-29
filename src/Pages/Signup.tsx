@@ -1,56 +1,43 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import ApiService from "../Services/Api.service";
 
  export const SignUp = () => {
 
-  const [descricao, setDescricao] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [error, setError] = useState<String>();
+  const [errorEmail, setErrorEmail] = useState(false);
   const [password, setPassword] = useState("");
-  const [prefAct, setPrefAct] = useState("");
-  const [prefSocial, setPrefSocial] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errorPassword, setErrorPassword] = useState(false);
 
-    function handleSubmit(e: { preventDefault: () => void; }) {
-      e.preventDefault();
-      console.log('You clicked submit.');
-    }
 
-  const isValidEmail =(email:string) => {
+  const isValidEmail = (email:string) => {
     return /\S+@\S+\.\S+/.test(email);
   }
   
   const emailHandler = (event:React.FormEvent<HTMLInputElement>) => {
-    if(!event.currentTarget.value){
-        setError("Email is Required.")
+    if(!event.currentTarget.value){ //se nao tiver nada dentro da caixa
+        setErrorEmail(true)
     }
     else if (!isValidEmail(event.currentTarget.value)) {
-      setError("Email is invalid.");
+      setErrorEmail(true);
     } else {
-      setError("");
+      setErrorEmail(false);
     }
     
     setEmail(event.currentTarget.value);
   };
 
-  const passwordHandler = (event:React.FormEvent<HTMLInputElement>) => {
-    setPassword(event.currentTarget.value);
-  }
-
-  const prefActHandler = (event:React.FormEvent<HTMLInputElement>) => {
-    if(!event.currentTarget.value) {
-      setError("Activities preferences are required.")
+  const confirmPasswordHandler = (event:React.FormEvent<HTMLInputElement>) => {
+    setConfirmPassword(event.currentTarget.value)
+    if(password !== event.currentTarget.value) {
+      console.log(confirmPassword)
+      setErrorPassword(true)
     } else {
-      setPrefAct(event.currentTarget.value)
+      setErrorPassword(false)
+      console.log(confirmPassword)
     }
-  }
-
-  const prefSocialHandler = (event:React.FormEvent<HTMLInputElement>) => {
-    if(!event.currentTarget.value) {
-      setError("Social preferences are required.")
-    } else {
-      setPrefAct(event.currentTarget.value)
-    }
-  }
-
+  };
   
   return (
     <>
@@ -65,14 +52,13 @@ import { useState } from "react";
             <div className="columns is-centered">
             <div className="column is-half">
             <form className="box is-link">
-                <h1 className="title">SignUp</h1>
-
+              <figure className="image container is-128x128">
+                <img src="./logo-color.png" />
+              </figure>
                 <div className="field">
-                  <label className="label">Descrição</label>
+                  <label className="label">Name</label>
                   <div className="control">
-                    <input className="input is-primary" type="text" placeholder="insert here.." />
-                    {descricao.length==0 && <p className="help is-danger">{error}</p>}
-                    {error && descricao.length!=0 && <p className="help is-danger">{error}</p>}
+                    <input className="input is-primary" value={name} type="text" placeholder="insert here.." onChange={event => setName(event.currentTarget.value)}/>
                   </div>
                 </div>
 
@@ -80,44 +66,46 @@ import { useState } from "react";
                   <label className="label">Email</label>
                   <div className="control"> 
                     <input value={email} className="input is-primary" type="email" placeholder="e.g. rodrigoslb2000@example.com" onChange={emailHandler} />
-                    {email.length==0 && <p className="help is-danger">{error}</p>}
-                    {error && email.length!=0 && <p className="help is-danger">{error}</p>}
+                    {errorEmail && email.length==0 && <p className="help is-danger">Email required</p>}
+                    {errorEmail && email.length!=0 && <p className="help is-danger">Email not valid</p>}
                   </div>
                 </div>
 
                 <div className="field">
                   <label className="label">Password</label>
-                  <div className="control">
-                   <input value={password} className="input is-primary" type="password" placeholder="********" onChange={passwordHandler}/>
-                   {password.length==0 && <p className="help is-danger">{error}</p>}
-                   {error && password.length!=0 && <p className="help is-danger">{error}</p>}
-                   </div>
+                  <div className="control"> 
+                    <input value={password} className="input is-primary" type="password" placeholder="******" onChange={event => setPassword(event.currentTarget.value)} />
+                  </div>
                 </div>
 
-            <div className="field">
-                <label className="label">Preferências de Atividades</label>
-                <div className="control">
-                <input value={prefAct} className="input is-primary" type="text" placeholder="insert here.."  onChange={prefActHandler}/>
-                {prefAct.length==0 && <p className="help is-danger">{error}</p>}
-                {error && prefAct.length!=0 && <p className="help is-danger">{error}</p>}
+                <div className="field">
+                  <label className="label">Confirm Password</label>
+                  <div className="control"> 
+                    <input value={confirmPassword} className="input is-primary" type="password" placeholder="******" onChange={confirmPasswordHandler}/>
+                    {errorPassword && <p className="help is-danger">Password not match</p>}
+                  </div>
                 </div>
-            </div>
 
-            <div className="field">
-                <label className="label">Preferências Sociais</label>
-                <div className="control">
-                <input value={prefSocial} className="input is-primary" type="text" placeholder="insert here.."  onChange={prefSocialHandler} />
-                {prefSocial.length==0 && <p className="help is-danger">{error}</p>}
-                {error && prefSocial.length!=0 && <p className="help is-danger">{error}</p>}
-                </div>
-            </div>
+                <label className="label">Social Preference</label>
+                <label className="checkbox">
+                  <input type="checkbox"/> None
+                  <input type="checkbox" /> Competitive
+                  <input type="checkbox" /> Social 
+                </label>
 
-            <div className="field">
+                <label className="label">Activity Preference</label>
+                <label className="checkbox">
+                  <input type="checkbox"/> None 
+                  <input type="checkbox" /> Football
+                  <input type="checkbox" /> Futsal 
+                  <input type="checkbox" /> Voleyball 
+                  <input type="checkbox" /> Padel 
+                  <input type="checkbox" /> Tennis
+                </label>
+               
+
+ 
             <button className="button is-primary is-fullwidth has-text-center" type="submit">Sign Up</button>
-            </div>
-            <footer>
-                <p>&copy; Ming Software</p>
-        </footer>
         </form>
         </div>
         </div>

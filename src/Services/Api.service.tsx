@@ -2,7 +2,7 @@ import axios from "axios"
 
 
 const config = {
-    api: 'http://localhost:6532',
+    api: 'https://playin-backend.fly.dev',
     options: {
       headers: { 'content-type': 'application/json' },
     },
