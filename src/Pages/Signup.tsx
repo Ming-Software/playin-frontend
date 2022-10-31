@@ -64,32 +64,22 @@ export const SignUp = () => {
   const prefActHandler = (data: string) => {
     if (data === "Football") {
       setFootball(data);
-      setErrorFootball(!errorFootball);
+      setErrorFootball(true);
     }
     if (data === "Futsal") {
       setFutsal(data);
-      setErrorFutsal(!errorFutsal);
+      setErrorFutsal(true);
     }
     if (data === "Voleyball") {
       setVoleyball(data);
-      setErrorVoleyball(!errorVoleyball);
+      setErrorVoleyball(true);
     }
     if (data === "Padel") {
       setPadel(data);
-      setErrorPadel(!errorPadel);
+      setErrorPadel(true);
     }
     if (data === "Tennis") {
       setTennis(data);
-      setErrorTennis(!errorTennis);
-    }
-    if (data === "None") {
-      setNone(data);
-
-      setErrorNone(!errorNone);
-      setErrorFootball(true);
-      setErrorFutsal(true);
-      setErrorVoleyball(true);
-      setErrorPadel(true);
       setErrorTennis(true);
     }
   };
@@ -112,12 +102,12 @@ export const SignUp = () => {
     console.log(email);
     console.log(password);
     console.log(confirmPassword);
-    console.log(none);
+    //console.log(none);
     console.log(football);
-    //console.log(futsal);
-    //console.log(voleyball);
-    //console.log(padel);
-    //console.log(tennis);
+    console.log(futsal);
+    console.log(voleyball);
+    console.log(padel);
+    console.log(tennis);
     console.log(competitive);
   };
 
@@ -207,9 +197,6 @@ export const SignUp = () => {
 
                 <label className="label">Activity Preference</label>
                 <div className="field is-grouped is-grouped-multiline">
-                  <p className="control">
-                    <input type="checkbox" value={none} onChange={() => prefActHandler("None")} /> None
-                  </p>
                   <p className="control">
                     <input type="checkbox" value={football} onChange={() => prefActHandler("Football")} /> Football
                   </p>
