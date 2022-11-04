@@ -9,29 +9,25 @@ export const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorPassword, setErrorPassword] = useState(false);
 
-  const [prefSocial, setPrefSocial] = useState("");
-  const [errorPrefSocial, setErrorPrefSocial] = useState(false);
-
   const [none, setNone] = useState("");
   const [errorNone, setErrorNone] = useState(false);
 
-  const [football, setFootball] = useState("");
-  const [errorFootball, setErrorFootball] = useState(false);
+  const [none2, setNone2] = useState(false);
 
-  const [futsal, setFutsal] = useState("");
-  const [errorFutsal, setErrorFutsal] = useState(false);
+  const [futebol, setFutebol] = useState(false);
 
-  const [voleyball, setVoleyball] = useState("");
-  const [errorVoleyball, setErrorVoleyball] = useState(false);
+  const [futsal, setFutsal] = useState(false);
 
-  const [padel, setPadel] = useState("");
-  const [errorPadel, setErrorPadel] = useState(false);
+  const [voleibol, setVoleibol] = useState(false);
 
-  const [tennis, setTennis] = useState("");
-  const [errorTennis, setErrorTennis] = useState(false);
+  const [padel, setPadel] = useState(false);
+
+  const [tenis, setTenis] = useState(false);
 
   const [competitive, setCompetitive] = useState("");
   const [social, setSocial] = useState("");
+
+  let preferences: string[] = [];
 
   const isValidEmail = (email: string) => {
     return /\S+@\S+\.\S+/.test(email);
@@ -61,27 +57,51 @@ export const SignUp = () => {
     }
   };
 
+  const prefList = () => {
+    preferences = [];
+    if (futebol) {
+      preferences.push("Futebol");
+    }
+    if (futsal) {
+      preferences.push("Futsal");
+    }
+    if (voleibol) {
+      preferences.push("Voleibol");
+    }
+    if (padel) {
+      preferences.push("Padel");
+    }
+    if (tenis) {
+      preferences.push("Tenis");
+    }
+  };
+
   const prefActHandler = (data: string) => {
-    if (data === "Football") {
-      setFootball(data);
-      setErrorFootball(true);
+    setNone2(false);
+    if (data === "Futebol") {
+      setFutebol(!futebol);
     }
     if (data === "Futsal") {
-      setFutsal(data);
-      setErrorFutsal(true);
+      setFutsal(!futsal);
     }
-    if (data === "Voleyball") {
-      setVoleyball(data);
-      setErrorVoleyball(true);
+    if (data === "Voleibol") {
+      setVoleibol(!voleibol);
     }
     if (data === "Padel") {
-      setPadel(data);
-      setErrorPadel(true);
+      setPadel(!padel);
     }
-    if (data === "Tennis") {
-      setTennis(data);
-      setErrorTennis(true);
+    if (data === "Tenis") {
+      setTenis(!tenis);
     }
+  };
+
+  const noFoot = () => {
+    setFutebol(false);
+    setFutsal(false);
+    setVoleibol(false);
+    setPadel(false);
+    setTenis(false);
+    setNone2(true);
   };
 
   const prefSocialHandler = (data: string) => {
@@ -103,12 +123,14 @@ export const SignUp = () => {
     console.log(password);
     console.log(confirmPassword);
     //console.log(none);
-    console.log(football);
-    console.log(futsal);
-    console.log(voleyball);
-    console.log(padel);
-    console.log(tennis);
+    //console.log(futebol);
+    //console.log(futsal);
+    //console.log(voleibol);
+    //console.log(padel);
+    //console.log(tenis);
     console.log(competitive);
+    prefList();
+    console.log(preferences);
   };
 
   return (
@@ -188,29 +210,32 @@ export const SignUp = () => {
                     <input type="radio" value={competitive} name="foobar" onChange={() => prefSocialHandler("None")} /> None
                   </label>
                   <label className="radio">
-                    <input type="radio" value={prefSocial} name="foobar" onChange={() => prefSocialHandler("Competitive")} /> Competitive
+                    <input type="radio" name="foobar" onChange={() => prefSocialHandler("Competitive")} /> Competitive
                   </label>
                   <label className="radio">
-                    <input type="radio" value={prefSocial} name="foobar" onChange={() => prefSocialHandler("Social")} /> Social
+                    <input type="radio" name="foobar" onChange={() => prefSocialHandler("Social")} /> Social
                   </label>
                 </div>
 
                 <label className="label">Activity Preference</label>
                 <div className="field is-grouped is-grouped-multiline">
                   <p className="control">
-                    <input type="checkbox" value={football} onChange={() => prefActHandler("Football")} /> Football
+                    <input type="checkbox" checked={none2} onChange={() => noFoot()} /> None
                   </p>
                   <p className="control">
-                    <input type="checkbox" value={futsal} onChange={() => prefActHandler("Futsal")} /> Futsal
+                    <input type="checkbox" checked={futebol} onChange={() => prefActHandler("Futebol")} /> Futebol
                   </p>
                   <p className="control">
-                    <input type="checkbox" value={voleyball} onChange={() => prefActHandler("Voleyball")} /> Voleyball
+                    <input type="checkbox" checked={futsal} onChange={() => prefActHandler("Futsal")} /> Futsal
                   </p>
                   <p className="control">
-                    <input type="checkbox" value={padel} onChange={() => prefActHandler("Padel")} /> Padel
+                    <input type="checkbox" checked={voleibol} onChange={() => prefActHandler("Voleibol")} /> Voleibol
                   </p>
                   <p className="control">
-                    <input type="checkbox" value={tennis} onChange={() => prefActHandler("Tennis")} /> Tennis
+                    <input type="checkbox" checked={padel} onChange={() => prefActHandler("Padel")} /> Padel
+                  </p>
+                  <p className="control">
+                    <input type="checkbox" checked={tenis} onChange={() => prefActHandler("Tenis")} /> Tenis
                   </p>
                 </div>
 
