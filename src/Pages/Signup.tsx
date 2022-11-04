@@ -118,19 +118,6 @@ export const SignUp = () => {
 
   const submitRequest = (event: any) => {
     event.preventDefault();
-    console.log(name);
-    console.log(email);
-    console.log(password);
-    console.log(confirmPassword);
-    //console.log(none);
-    //console.log(futebol);
-    //console.log(futsal);
-    //console.log(voleibol);
-    //console.log(padel);
-    //console.log(tenis);
-    console.log(competitive);
-    prefList();
-    console.log(preferences);
   };
 
   return (
