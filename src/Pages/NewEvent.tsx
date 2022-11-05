@@ -41,14 +41,34 @@ export const NewEvent = () => {
               </div>
               <div className="p-2">
                 <label className="label">Data de Fim</label>
-                <input type="datetime" />
+                <input type="date" />
+              </div>
+              <div className="p-2">
+                <label className="label">Hora de Fim</label>
+                <input type="time" />
               </div>
               <div className="p-2">
                 <label className="label">Atividade</label>
                 <div className="select is-primary is-multisized">
                   <select>
                     <option>Selecionar Atividade</option>
-                    <option>Desporto</option>
+                    <option>Vólei</option>
+                    <option>Futebol</option>
+                    <option>Futsal</option>
+                    <option>Basquetebol</option>
+                    <option>Padel</option>
+                    <option>Ténis</option>
+                  </select>
+                </div>
+              </div>
+              <div className="p-2">
+                <label className="label">Tipo Social</label>
+                <div className="select is-primary is-multisized">
+                  <select>
+                    <option>Selecionar Tipo Social</option>
+                    <option>Competitivo</option>
+                    <option>Casual</option>
+                    <option>None</option>
                   </select>
                 </div>
               </div>
