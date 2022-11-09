@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import ApiService from "../Services/Api.service";
+import AuthService from "../Services/Auth.service";
+import { Route, useNavigate } from "react-router-dom";
 
 export const SignUp = () => {
   const [name, setName] = useState("");
@@ -8,30 +10,74 @@ export const SignUp = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorPassword, setErrorPassword] = useState(false);
-
-  const [none, setNone] = useState("");
-  const [errorNone, setErrorNone] = useState(false);
-
+  const [error2Password, setError2Password] = useState(false);
   const [none2, setNone2] = useState(false);
-
   const [futebol, setFutebol] = useState(false);
-
   const [futsal, setFutsal] = useState(false);
-
   const [voleibol, setVoleibol] = useState(false);
-
   const [padel, setPadel] = useState(false);
-
   const [tenis, setTenis] = useState(false);
+  const [none, setNone] = useState(false);
+  const [competitive, setCompetitive] = useState(false);
+  const [social, setSocial] = useState(false);
 
-  const [competitive, setCompetitive] = useState("");
-  const [social, setSocial] = useState("");
+  let preferencesSocial = "";
+  let preferencesAct: string[] = [];
 
-  let preferences: string[] = [];
+  const submitRequest = (event: any) => {
+    event.preventDefault();
+    prefList();
+    prefStrSocial();
+    console.log(password);
+    AuthService.SignUpRequest({
+      Email: email,
+      Password: password,
+      Name: name,
+      Social: preferencesSocial,
+      Activities: preferencesAct,
+    })
+      .then((data) => {
+        //navigate("/about");
+        console.log("deu");
+      })
+      .catch((err) => {
+        console.log(err.response.data.message);
+      })
+      .finally();
+  };
 
   const isValidEmail = (email: string) => {
     return /\S+@\S+\.\S+/.test(email);
   };
+
+  const isValidPassword = (password: string) => {
+    //(?=.*\d) --> tem de ter pelo menos um dígito
+    //(?=.*[a-z]) --> tem de ter pelo menos uma letra minúscula
+    //(?=.*[A-Z]) --> tem de ter pelo menos uma letra maiúscula
+    //(?=.*[$*&@#]) --> tem de ter pelo menos um caracter especial
+    //[0-9a-zA-Z$*&@#]{8,} --> tem de ter pelo menos 8 dos caracteres mencionadas anteriormente
+    return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])(?=\S+$)[0-9a-zA-Z$*&@#]{8,}$/.test(password);
+  };
+
+  /*
+
+  const isValidPasswordNumeros = (password: string) => {
+    return /^(?=.*\d)[0-9a-zA-Z$*&@#]{1,}$/.test(password);
+  };
+
+  const isValidPasswordM = (password: string) => {
+    return /^(?=.*[A-Z])[0-9a-zA-Z$*&@#]{1,}$/.test(password);
+  };
+
+  const isValidPasswordm = (password: string) => {
+    return /^(?=.*[a-z])[0-9a-zA-Z$*&@#]{1,}$/.test(password);
+  };
+
+  const isValidPasswordCE = (password: string) => {
+    return /^(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{1,}$/.test(password);
+  };
+
+*/
 
   const emailHandler = (event: React.FormEvent<HTMLInputElement>) => {
     if (!event.currentTarget.value) {
@@ -46,31 +92,42 @@ export const SignUp = () => {
     setEmail(event.currentTarget.value);
   };
 
-  const confirmPasswordHandler = (event: React.FormEvent<HTMLInputElement>) => {
-    setConfirmPassword(event.currentTarget.value);
-    if (password !== event.currentTarget.value) {
+  const passwordHandler = (event: React.FormEvent<HTMLInputElement>) => {
+    if (!event.currentTarget.value) {
+      setErrorPassword(true);
+    } else if (!isValidPassword(event.currentTarget.value)) {
       setErrorPassword(true);
     } else {
       setErrorPassword(false);
     }
+    setPassword(event.currentTarget.value);
+  };
+
+  const confirmPasswordHandler = (event: React.FormEvent<HTMLInputElement>) => {
+    setConfirmPassword(event.currentTarget.value);
+    if (password !== event.currentTarget.value) {
+      setError2Password(true);
+    } else {
+      setError2Password(false);
+    }
   };
 
   const prefList = () => {
-    preferences = [];
+    preferencesAct = [];
     if (futebol) {
-      preferences.push("Futebol");
+      preferencesAct.push("Futebol");
     }
     if (futsal) {
-      preferences.push("Futsal");
+      preferencesAct.push("Futsal");
     }
     if (voleibol) {
-      preferences.push("Voleibol");
+      preferencesAct.push("Voleibol");
     }
     if (padel) {
-      preferences.push("Padel");
+      preferencesAct.push("Padel");
     }
     if (tenis) {
-      preferences.push("Tenis");
+      preferencesAct.push("Tenis");
     }
   };
 
@@ -102,20 +159,28 @@ export const SignUp = () => {
     setNone2(true);
   };
 
-  const prefSocialHandler = (data: string) => {
-    if (data === "Competitive") {
-      setCompetitive(data);
+  const prefStrSocial = () => {
+    if (competitive) {
+      preferencesSocial = "Competitive";
     }
-    if (data === "Social") {
-      setSocial(data);
+    if (social) {
+      preferencesSocial = "Social";
     }
-    if (data === "None") {
-      setNone(data);
+    if (none) {
+      preferencesSocial = "None";
     }
   };
 
-  const submitRequest = (event: any) => {
-    event.preventDefault();
+  const prefSocialHandler = (data: string) => {
+    if (data === "Competitive") {
+      setCompetitive(!competitive);
+    }
+    if (data === "Social") {
+      setSocial(!social);
+    }
+    if (data === "None") {
+      setNone(!none);
+    }
   };
 
   return (
@@ -135,7 +200,7 @@ export const SignUp = () => {
                   <img src="./logo-color.png" />
                 </figure>
                 <div className="field">
-                  <label className="label">Name</label>
+                  <label className="label">Nome</label>
                   <div className="control">
                     <input
                       className="input is-primary"
@@ -157,26 +222,27 @@ export const SignUp = () => {
                       placeholder="e.g. rodrigoslb2000@example.com"
                       onChange={emailHandler}
                     />
-                    {errorEmail && email.length == 0 && <p className="help is-danger">Email required</p>}
-                    {errorEmail && email.length != 0 && <p className="help is-danger">Email not valid</p>}
+                    {errorEmail && email.length == 0 && <p className="help is-danger">Email é necessário</p>}
+                    {errorEmail && email.length != 0 && <p className="help is-danger">Email inválido</p>}
                   </div>
                 </div>
 
                 <div className="field">
-                  <label className="label">Password</label>
+                  <label className="label">Palavra-Passe</label>
                   <div className="control">
-                    <input
-                      value={password}
-                      className="input is-primary"
-                      type="password"
-                      placeholder="******"
-                      onChange={(event) => setPassword(event.currentTarget.value)}
-                    />
+                    <input value={password} className="input is-primary" type="password" placeholder="******" onChange={passwordHandler} />
+                    {errorPassword && password.length == 0 && <p className="help is-danger">Password é necessária</p>}
+                    {errorPassword && password.length != 0 && (
+                      <p className="help is-danger">
+                        Palavra-passe tem de conter pelo menos 8 caracteres e conter pelo menos uma letra minúscula, maiúscula, número e
+                        caratér especial
+                      </p>
+                    )}
                   </div>
                 </div>
 
                 <div className="field">
-                  <label className="label">Confirm Password</label>
+                  <label className="label">Confirmação da Palavra-Passe</label>
                   <div className="control">
                     <input
                       value={confirmPassword}
@@ -185,17 +251,17 @@ export const SignUp = () => {
                       placeholder="******"
                       onChange={confirmPasswordHandler}
                     />
-                    {errorPassword && <p className="help is-danger">Password not match</p>}
+                    {error2Password && <p className="help is-danger">Palavra-Passe não coincide</p>}
                   </div>
                 </div>
 
                 <label className="label">Social Preference</label>
                 <div className="control">
                   <label className="radio">
-                    <input type="radio" value={competitive} name="foobar" onChange={() => prefSocialHandler("None")} /> None
+                    <input type="radio" name="foobar" onChange={() => prefSocialHandler("None")} /> None
                   </label>
                   <label className="radio">
-                    <input type="radio" name="foobar" onChange={() => prefSocialHandler("Competitive")} /> Competitive
+                    <input type="radio" name="foobar" onChange={() => prefSocialHandler("Competitive")} /> Competitivo
                   </label>
                   <label className="radio">
                     <input type="radio" name="foobar" onChange={() => prefSocialHandler("Social")} /> Social
