@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import ApiService from "../Services/Api.service";
+import AuthService from "../Services/Auth.service";
+import { Route, useNavigate } from "react-router-dom";
 
 export const SignUp = () => {
   const [name, setName] = useState("");
@@ -21,9 +23,60 @@ export const SignUp = () => {
   let preferencesSocial = "";
   let preferencesAct: string[] = [];
 
+  const submitRequest = (event: any) => {
+    event.preventDefault();
+    prefList();
+    prefStrSocial();
+    console.log(password);
+    AuthService.SignUpRequest({
+      Email: email,
+      Password: password,
+      Name: name,
+      Social: preferencesSocial,
+      Activities: preferencesAct,
+    })
+      .then((data) => {
+        //navigate("/about");
+        console.log("deu");
+      })
+      .catch((err) => {
+        console.log(err.response.data.message);
+      })
+      .finally();
+  };
+
   const isValidEmail = (email: string) => {
     return /\S+@\S+\.\S+/.test(email);
   };
+
+  const isValidPassword = (password: string) => {
+    //(?=.*\d) --> tem de ter pelo menos um dígito
+    //(?=.*[a-z]) --> tem de ter pelo menos uma letra minúscula
+    //(?=.*[A-Z]) --> tem de ter pelo menos uma letra maiúscula
+    //(?=.*[$*&@#]) --> tem de ter pelo menos um caracter especial
+    //[0-9a-zA-Z$*&@#]{8,} --> tem de ter pelo menos 8 dos caracteres mencionadas anteriormente
+    return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])(?=\S+$)[0-9a-zA-Z$*&@#]{8,}$/.test(password);
+  };
+
+  /*
+
+  const isValidPasswordNumeros = (password: string) => {
+    return /^(?=.*\d)[0-9a-zA-Z$*&@#]{1,}$/.test(password);
+  };
+
+  const isValidPasswordM = (password: string) => {
+    return /^(?=.*[A-Z])[0-9a-zA-Z$*&@#]{1,}$/.test(password);
+  };
+
+  const isValidPasswordm = (password: string) => {
+    return /^(?=.*[a-z])[0-9a-zA-Z$*&@#]{1,}$/.test(password);
+  };
+
+  const isValidPasswordCE = (password: string) => {
+    return /^(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{1,}$/.test(password);
+  };
+
+*/
 
   const emailHandler = (event: React.FormEvent<HTMLInputElement>) => {
     if (!event.currentTarget.value) {
@@ -38,12 +91,23 @@ export const SignUp = () => {
     setEmail(event.currentTarget.value);
   };
 
-  const confirmPasswordHandler = (event: React.FormEvent<HTMLInputElement>) => {
-    setConfirmPassword(event.currentTarget.value);
-    if (password !== event.currentTarget.value) {
+  const passwordHandler = (event: React.FormEvent<HTMLInputElement>) => {
+    if (!event.currentTarget.value) {
+      setErrorPassword(true);
+    } else if (!isValidPassword(event.currentTarget.value)) {
       setErrorPassword(true);
     } else {
       setErrorPassword(false);
+    }
+    setPassword(event.currentTarget.value);
+  };
+
+  const confirmPasswordHandler = (event: React.FormEvent<HTMLInputElement>) => {
+    setConfirmPassword(event.currentTarget.value);
+    if (password !== event.currentTarget.value) {
+      setError2Password(true);
+    } else {
+      setError2Password(false);
     }
   };
 
@@ -118,12 +182,6 @@ export const SignUp = () => {
     }
   };
 
-  const submitRequest = (event: any) => {
-    event.preventDefault();
-    prefStrSocial();
-    console.log(preferencesSocial);
-  };
-
   return (
     <>
       <header className="hero is-primary">
@@ -171,13 +229,14 @@ export const SignUp = () => {
                 <div className="field">
                   <label className="label">Palavra-Passe</label>
                   <div className="control">
-                    <input
-                      value={password}
-                      className="input is-primary"
-                      type="password"
-                      placeholder="******"
-                      onChange={(event) => setPassword(event.currentTarget.value)}
-                    />
+                    <input value={password} className="input is-primary" type="password" placeholder="******" onChange={passwordHandler} />
+                    {errorPassword && password.length == 0 && <p className="help is-danger">Password é necessária</p>}
+                    {errorPassword && password.length != 0 && (
+                      <p className="help is-danger">
+                        Palavra-passe tem de conter pelo menos 8 caracteres e conter pelo menos uma letra minúscula, maiúscula, número e
+                        caratér especial
+                      </p>
+                    )}
                   </div>
                 </div>
 
@@ -191,7 +250,7 @@ export const SignUp = () => {
                       placeholder="******"
                       onChange={confirmPasswordHandler}
                     />
-                    {errorPassword && <p className="help is-danger">Palavra-Passe não coincide</p>}
+                    {error2Password && <p className="help is-danger">Palavra-Passe não coincide</p>}
                   </div>
                 </div>
 

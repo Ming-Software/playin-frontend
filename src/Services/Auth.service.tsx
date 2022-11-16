@@ -16,6 +16,20 @@ const LoginRequest = async (body: any) => {
   });
 };
 
+const SignUpRequest = async (body: any) => {
+  return new Promise((resolve, reject) => {
+    ApiService.httpPost("/api/auth/register", body)
+      .then((data: any) => {
+        setAuthToken(data.data.AccessToken);
+        resolve(data);
+      })
+      .catch((err) => {
+        reject(err);
+      })
+      .finally();
+  });
+};
+
 const Logout = () => {
   setAuthToken("");
 };
@@ -37,4 +51,4 @@ export const setAuthToken = (token: string) => {
   } else delete axios.defaults.headers.common["Authorization"];
 };
 
-export default { LoginRequest };
+export default { LoginRequest, SignUpRequest };
