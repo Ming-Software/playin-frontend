@@ -8,26 +8,18 @@ export const SignUp = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorPassword, setErrorPassword] = useState(false);
-
-  const [none, setNone] = useState("");
-  const [errorNone, setErrorNone] = useState(false);
-
   const [none2, setNone2] = useState(false);
-
   const [futebol, setFutebol] = useState(false);
-
   const [futsal, setFutsal] = useState(false);
-
   const [voleibol, setVoleibol] = useState(false);
-
   const [padel, setPadel] = useState(false);
-
   const [tenis, setTenis] = useState(false);
+  const [none, setNone] = useState(false);
+  const [competitive, setCompetitive] = useState(false);
+  const [social, setSocial] = useState(false);
 
-  const [competitive, setCompetitive] = useState("");
-  const [social, setSocial] = useState("");
-
-  let preferences: string[] = [];
+  let preferencesSocial = "";
+  let preferencesAct: string[] = [];
 
   const isValidEmail = (email: string) => {
     return /\S+@\S+\.\S+/.test(email);
@@ -56,21 +48,21 @@ export const SignUp = () => {
   };
 
   const prefList = () => {
-    preferences = [];
+    preferencesAct = [];
     if (futebol) {
-      preferences.push("Futebol");
+      preferencesAct.push("Futebol");
     }
     if (futsal) {
-      preferences.push("Futsal");
+      preferencesAct.push("Futsal");
     }
     if (voleibol) {
-      preferences.push("Voleibol");
+      preferencesAct.push("Voleibol");
     }
     if (padel) {
-      preferences.push("Padel");
+      preferencesAct.push("Padel");
     }
     if (tenis) {
-      preferences.push("Tenis");
+      preferencesAct.push("Tenis");
     }
   };
 
@@ -102,20 +94,34 @@ export const SignUp = () => {
     setNone2(true);
   };
 
+  const prefStrSocial = () => {
+    if (competitive) {
+      preferencesSocial = "Competitive";
+    }
+    if (social) {
+      preferencesSocial = "Social";
+    }
+    if (none) {
+      preferencesSocial = "None";
+    }
+  };
+
   const prefSocialHandler = (data: string) => {
     if (data === "Competitive") {
-      setCompetitive(data);
+      setCompetitive(!competitive);
     }
     if (data === "Social") {
-      setSocial(data);
+      setSocial(!social);
     }
     if (data === "None") {
-      setNone(data);
+      setNone(!none);
     }
   };
 
   const submitRequest = (event: any) => {
     event.preventDefault();
+    prefStrSocial();
+    console.log(preferencesSocial);
   };
 
   return (
@@ -135,7 +141,7 @@ export const SignUp = () => {
                   <img src="./logo-color.png" />
                 </figure>
                 <div className="field">
-                  <label className="label">Name</label>
+                  <label className="label">Nome</label>
                   <div className="control">
                     <input
                       className="input is-primary"
@@ -157,13 +163,13 @@ export const SignUp = () => {
                       placeholder="e.g. rodrigoslb2000@example.com"
                       onChange={emailHandler}
                     />
-                    {errorEmail && email.length == 0 && <p className="help is-danger">Email required</p>}
-                    {errorEmail && email.length != 0 && <p className="help is-danger">Email not valid</p>}
+                    {errorEmail && email.length == 0 && <p className="help is-danger">Email é necessário</p>}
+                    {errorEmail && email.length != 0 && <p className="help is-danger">Email inválido</p>}
                   </div>
                 </div>
 
                 <div className="field">
-                  <label className="label">Password</label>
+                  <label className="label">Palavra-Passe</label>
                   <div className="control">
                     <input
                       value={password}
@@ -176,7 +182,7 @@ export const SignUp = () => {
                 </div>
 
                 <div className="field">
-                  <label className="label">Confirm Password</label>
+                  <label className="label">Confirmação da Palavra-Passe</label>
                   <div className="control">
                     <input
                       value={confirmPassword}
@@ -185,17 +191,17 @@ export const SignUp = () => {
                       placeholder="******"
                       onChange={confirmPasswordHandler}
                     />
-                    {errorPassword && <p className="help is-danger">Password not match</p>}
+                    {errorPassword && <p className="help is-danger">Palavra-Passe não coincide</p>}
                   </div>
                 </div>
 
                 <label className="label">Social Preference</label>
                 <div className="control">
                   <label className="radio">
-                    <input type="radio" value={competitive} name="foobar" onChange={() => prefSocialHandler("None")} /> None
+                    <input type="radio" name="foobar" onChange={() => prefSocialHandler("None")} /> None
                   </label>
                   <label className="radio">
-                    <input type="radio" name="foobar" onChange={() => prefSocialHandler("Competitive")} /> Competitive
+                    <input type="radio" name="foobar" onChange={() => prefSocialHandler("Competitive")} /> Competitivo
                   </label>
                   <label className="radio">
                     <input type="radio" name="foobar" onChange={() => prefSocialHandler("Social")} /> Social
