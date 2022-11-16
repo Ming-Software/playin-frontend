@@ -9,6 +9,7 @@ export const SignUp = () => {
   const [errorEmail, setErrorEmail] = useState(false);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [error2Password, setError2Password] = useState(false);
   const [errorPassword, setErrorPassword] = useState(false);
   const [none2, setNone2] = useState(false);
   const [futebol, setFutebol] = useState(false);
