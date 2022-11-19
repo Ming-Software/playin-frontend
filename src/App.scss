@@ -1,18 +1,18 @@
 @charset "utf-8";
 
 // Colors
-$black   : #0A0A0A;
-$white   : #FFFFFF;
-$dark    : #333333;
-$light   : #D6D6D6;
+$black: #0a0a0a;
+$white: #ffffff;
+$dark: #333333;
+$light: #d6d6d6;
 
-$primary : #113F67;
-$link    : #77D4FC;
-$info    : #00FFEF;
+$primary: #113f67;
+$link: #77d4fc;
+$info: #00ffef;
 
-$success : #157145;
-$danger  : #DB5461;
-$warning : #FFC145;
+$success: #157145;
+$danger: #db5461;
+$warning: #ffc145;
 
 @import "../node_modules/bulma/sass/base/_all.sass";
 @import "../node_modules/bulma/sass/components/_all.sass";
