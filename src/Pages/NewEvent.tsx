@@ -112,3 +112,5 @@ export const NewEvent = () => {
     </section>
   );
 };
+
+export default NewEvent;
