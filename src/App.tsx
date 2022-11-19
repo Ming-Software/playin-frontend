@@ -5,6 +5,8 @@ import AboutPage from "./Pages/About";
 import SignUpPage from "./Pages/Signup";
 import NewEvent from "./Pages/NewEvent";
 
+import { EventsPage } from "./Pages/Events";
+
 const App = () => {
   return (
     <BrowserRouter>
@@ -13,6 +15,8 @@ const App = () => {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/newevent" element={<NewEvent />} />
+
+        <Route path="/events" element={<EventsPage />} />
       </Routes>
     </BrowserRouter>
   );
