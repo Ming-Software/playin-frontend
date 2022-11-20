@@ -3,6 +3,9 @@ import { EventProps } from "./Event.interface";
 export const Event = (event: { eventProps: EventProps }) => {
   return (
     <div className="card">
+      <header className="card-header has-background-primary">
+        <p className="card-header-title has-text-white-bis">Novo Evento</p>
+      </header>
       <div className="card-image"></div>
       <div className="card-content">
         <div className="content">
@@ -45,10 +48,7 @@ export const Event = (event: { eventProps: EventProps }) => {
           <div>
             <strong>Descrição: </strong>
           </div>
-          <p>
-            Purus semper eget duis at tellus at urna condimentum mattis. Non blandit massa enim nec. Integer enim neque volutpat ac
-            tincidunt vitae semper quis. Accumsan tortor posuere ac ut consequat semper viverra nam.
-          </p>
+          <p>{event.eventProps.description}</p>
           <div className="columns">
             <div className="column is-5">
               <div>

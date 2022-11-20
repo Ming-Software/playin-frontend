@@ -1,7 +1,22 @@
 import bulmaCalendar from "bulma-calendar";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export const NewEvent = () => {
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [startTime, setStartTime] = useState("");
+  const [finishTime, setFinishTime] = useState("");
+  //const [public, setPublic] = useState(false);
+  const [maxUsers, setMaxUsers] = useState(0);
+  const [currentUsers, setCurrentUsers] = useState(0);
+  const [locale, setLocale] = useState("");
+  const [activity, setActivity] = useState("");
+  const [social, setSocial] = useState("");
+
+  const handleName = (event: React.FormEvent<HTMLInputElement>) => {
+    setName(event.currentTarget.value);
+  };
+
   return (
     <section className="section">
       <div className="card">
@@ -13,13 +28,13 @@ export const NewEvent = () => {
             <div className="field">
               <label className="label">Nome do Evento</label>
               <div className="control">
-                <input className="input is-primary" type="text" placeholder=" Event Name" />
+                <input value={name} className="input is-primary" type="text" placeholder=" Event Name" onChange={handleName} />
               </div>
             </div>
             <div className="field">
               <label className="label">Username do Criador</label>
               <div className="control">
-                <input className="input is-primary" type="text" placeholder="Text input" value="Username" />
+                <input className="input is-primary" type="text" placeholder="Text input" value="fjfj" />
               </div>
             </div>
 
