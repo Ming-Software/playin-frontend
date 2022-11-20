@@ -62,3 +62,5 @@ export const EventsPage = () => {
     </section>
   );
 };
+
+export default EventsPage;

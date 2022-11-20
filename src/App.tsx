@@ -3,20 +3,21 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./Pages/Login";
 import AboutPage from "./Pages/About";
 import SignUpPage from "./Pages/Signup";
-import NewEvent from "./Pages/NewEvent";
+import NewEvent from "./Pages/Portal/NewEvent";
 
-import { EventsPage } from "./Pages/Events";
+import { EventsPage } from "./Pages/Portal/Events";
+import { PortalPage } from "./Pages/Portal/portal";
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route index element={<LoginPage />} />
-        <Route path="/about" element={<AboutPage />} />
+        <Route path="/portal" element={<PortalPage />}>
+          <Route path="newevent" element={<NewEvent />} />
+          <Route path="events" element={<EventsPage />} />
+        </Route>
         <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/newevent" element={<NewEvent />} />
-
-        <Route path="/events" element={<EventsPage />} />
       </Routes>
     </BrowserRouter>
   );

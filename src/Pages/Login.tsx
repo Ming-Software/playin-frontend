@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { createContext, useState } from "react";
 import ApiService from "../Services/Api.service";
 import AuthService from "../Services/Auth.service";
 import { Route, useNavigate } from "react-router-dom";
+import create from "zustand";
+import { useUserStore } from "../Stores/userStore";
 
 export const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -10,6 +12,7 @@ export const LoginPage = () => {
   const [loading, setLoading] = useState(false);
   const [loggedin, setLoggedin] = useState(false);
   const [responseLogin, setResponseLogin] = useState("");
+
   const navigate = useNavigate();
 
   const isValidEmail = (email: string) => {
@@ -24,7 +27,7 @@ export const LoginPage = () => {
       Password: password,
     })
       .then((data) => {
-        navigate("/about");
+        navigate("/portal/events");
         setLoggedin(true);
       })
       .catch((err) => {
