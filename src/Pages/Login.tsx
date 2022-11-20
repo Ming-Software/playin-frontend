@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import ApiService from "../Services/Api.service";
 import AuthService from "../Services/Auth.service";
 import { Route, useNavigate } from "react-router-dom";
@@ -53,6 +53,10 @@ export const LoginPage = () => {
     setPassword(event.currentTarget.value);
   };
 
+  const handleToSignUp = (event: any) => {
+    navigate("/signup");
+  };
+
   return (
     <>
       <header className="hero is-primary">
@@ -89,7 +93,12 @@ export const LoginPage = () => {
                 <button onClick={handleLoginRequest} className="button is-primary is-fullwidth has-text-center is-center" type="submit">
                   Login
                 </button>
-                {!loggedin && <p className="help is-danger">{responseLogin}</p>}
+                {!loggedin && <p className="help is-danger pb-5">{responseLogin}</p>}
+
+                <p>Pode criar conta aqui</p>
+                <button onClick={handleToSignUp} className="button is-primary has-text-center is-center" type="submit">
+                  Criar nova conta
+                </button>
               </form>
             </div>
           </div>
