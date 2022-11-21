@@ -98,7 +98,7 @@ export const LoginPage = () => {
                 </button>
                 {!loggedin && <p className="help is-danger pb-5">{responseLogin}</p>}
 
-                <p>Pode criar conta aqui</p>
+                <label className="label">Não tem conta?</label>
                 <button onClick={handleToSignUp} className="button is-primary has-text-center is-center" type="submit">
                   Criar nova conta
                 </button>

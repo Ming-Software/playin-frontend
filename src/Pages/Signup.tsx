@@ -20,6 +20,10 @@ export const SignUp = () => {
   const [none, setNone] = useState(false);
   const [competitive, setCompetitive] = useState(false);
   const [social, setSocial] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [loggedin, setLoggedin] = useState(false);
+  const [responseLogin, setResponseLogin] = useState("");
+  const navigate = useNavigate();
 
   let preferencesSocial = "";
   let preferencesAct: string[] = [];
@@ -36,7 +40,8 @@ export const SignUp = () => {
       Activities: preferencesAct,
     })
       .then((data) => {
-        //navigate("/about");
+        handleLoginRequest(event);
+
         console.log("deu");
       })
       .catch((err) => {
@@ -155,6 +160,27 @@ export const SignUp = () => {
     if (data === "None") {
       setNone(!none);
     }
+  };
+
+  const handleLoginRequest = (event: any) => {
+    event.preventDefault();
+    setLoading(true);
+    AuthService.LoginRequest({
+      Email: email,
+      Password: password,
+    })
+      .then((data) => {
+        navigate("/portal/events");
+        setLoggedin(true);
+      })
+      .catch((err) => {
+        console.log(err.response.data.message);
+        setResponseLogin("Não foi possível efetuar login.");
+        setLoggedin(false);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
