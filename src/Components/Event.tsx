@@ -1,4 +1,4 @@
-import { EventProps } from "./Event.interface";
+import { EventProps } from "../Models/Events/event.interface";
 
 export const Event = (event: { eventProps: EventProps }) => {
   return (

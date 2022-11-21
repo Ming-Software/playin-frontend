@@ -25,7 +25,7 @@ export const Topbar = () => {
     <nav className="navbar" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
         <Link to="/login" className="navbar-item">
-          <img src="../public/logo-color.png" className="image is-256x256" />
+          <img src="/logo-color.png" className="image is-256x256" />
         </Link>
         <div className="navbar-start">
           <Link to="/portal/events" className="navbar-item">

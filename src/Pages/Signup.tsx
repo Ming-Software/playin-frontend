@@ -40,7 +40,7 @@ export const SignUp = () => {
       Activities: preferencesAct,
     })
       .then((data) => {
-        handleLoginRequest(event);
+        navigate("/");
 
         console.log("deu");
       })
@@ -160,27 +160,6 @@ export const SignUp = () => {
     if (data === "None") {
       setNone(!none);
     }
-  };
-
-  const handleLoginRequest = (event: any) => {
-    event.preventDefault();
-    setLoading(true);
-    AuthService.LoginRequest({
-      Email: email,
-      Password: password,
-    })
-      .then((data) => {
-        navigate("/portal/events");
-        setLoggedin(true);
-      })
-      .catch((err) => {
-        console.log(err.response.data.message);
-        setResponseLogin("Não foi possível efetuar login.");
-        setLoggedin(false);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
   };
 
   return (

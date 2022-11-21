@@ -1,20 +1,38 @@
 import bulmaCalendar from "bulma-calendar";
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 export const NewEvent = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [startTime, setStartTime] = useState("");
   const [finishTime, setFinishTime] = useState("");
-  //const [public, setPublic] = useState(false);
+  const [publico, setPublic] = useState(false);
   const [maxUsers, setMaxUsers] = useState(0);
   const [currentUsers, setCurrentUsers] = useState(0);
   const [locale, setLocale] = useState("");
   const [activity, setActivity] = useState("");
   const [social, setSocial] = useState("");
 
-  const handleName = (event: React.FormEvent<HTMLInputElement>) => {
-    setName(event.currentTarget.value);
+  let preferencesSocial = "";
+
+  const submitHandler = (event: any) => {
+    event.preventDefault();
+    console.log(name);
+    console.log(locale);
+    console.log(description);
+    console.log(social);
+    console.log(activity);
+    console.log(publico);
+  };
+
+  //funciona
+  const eventTypeHandler = (data: string) => {
+    if (data === "Publico") {
+      setPublic(true);
+    }
+    if (data === "Privado") {
+      setPublic(false);
+    }
   };
 
   return (
@@ -28,23 +46,36 @@ export const NewEvent = () => {
             <div className="field">
               <label className="label">Nome do Evento</label>
               <div className="control">
-                <input value={name} className="input is-primary" type="text" placeholder=" Event Name" onChange={handleName} />
+                <input
+                  value={name}
+                  className="input is-primary"
+                  type="text"
+                  placeholder="Event Name"
+                  onChange={(event) => setName(event.currentTarget.value)}
+                />
               </div>
             </div>
-            <div className="field">
-              <label className="label">Username do Criador</label>
-              <div className="control">
-                <input className="input is-primary" type="text" placeholder="Text input" value="fjfj" />
-              </div>
-            </div>
-
             <div className="field">
               <label className="label">Localização</label>
               <div className="control">
-                <input className="input is-primary" type="username" placeholder="Location" />
+                <input
+                  value={locale}
+                  className="input is-primary"
+                  type="username"
+                  placeholder="Location"
+                  onChange={(event) => setLocale(event.currentTarget.value)}
+                />
               </div>
             </div>
-
+            <label className="label">Tipo de Evento</label>
+            <div className="control">
+              <label className="radio">
+                <input type="radio" name="foobar" onChange={() => eventTypeHandler("Publico")} /> Publico
+              </label>
+              <label className="radio">
+                <input type="radio" name="foobar" onChange={() => eventTypeHandler("Privado")} /> Privado
+              </label>
+            </div>
             <div className="field is-grouped is-grouped-multiline">
               <div className="p-2">
                 <label className="label">Data de Início</label>
@@ -65,25 +96,24 @@ export const NewEvent = () => {
               <div className="p-2">
                 <label className="label">Atividade</label>
                 <div className="select is-primary is-multisized">
-                  <select>
-                    <option>Selecionar Atividade</option>
-                    <option>Vólei</option>
-                    <option>Futebol</option>
-                    <option>Futsal</option>
-                    <option>Basquetebol</option>
-                    <option>Padel</option>
-                    <option>Ténis</option>
+                  <select onChange={(event) => setActivity(event.currentTarget.value)}>
+                    <option value="None">None</option>
+                    <option value="Vólei">Vólei</option>
+                    <option value="Futebol">Futebol</option>
+                    <option value="Futsal">Futsal</option>
+                    <option value="Basquetebol">Basquetebol</option>
+                    <option value="Padel">Padel</option>
+                    <option value="Ténis">Ténis</option>
                   </select>
                 </div>
               </div>
               <div className="p-2">
                 <label className="label">Tipo Social</label>
                 <div className="select is-primary is-multisized">
-                  <select>
-                    <option>Selecionar Tipo Social</option>
-                    <option>Competitivo</option>
-                    <option>Casual</option>
-                    <option>None</option>
+                  <select onChange={(event) => setSocial(event.currentTarget.value)}>
+                    <option value="None">None</option>
+                    <option value="Competitivo">Competitivo</option>
+                    <option value="Casual">Casual</option>
                   </select>
                 </div>
               </div>
@@ -105,17 +135,23 @@ export const NewEvent = () => {
                 </div>
               </div>
             </div>
-
             <div className="field">
               <label className="label">Descrição</label>
               <div className="control">
-                <textarea className="textarea" placeholder="Description"></textarea>
+                <textarea
+                  value={description}
+                  className="textarea"
+                  placeholder="Description"
+                  onChange={(event) => setDescription(event.currentTarget.value)}
+                ></textarea>
               </div>
             </div>
 
             <div className="field is-grouped">
               <div className="control">
-                <button className="button is-primary">Submit</button>
+                <button className="button is-primary" type="submit" onClick={submitHandler}>
+                  Submit
+                </button>
               </div>
               <div className="control">
                 <button className="button is-link is-light">Cancel</button>
