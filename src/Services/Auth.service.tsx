@@ -31,7 +31,7 @@ const SignUpRequest = async (body: any) => {
 };
 
 const Logout = () => {
-  setAuthToken("");
+  delete axios.defaults.headers.common["Authorization"];
 };
 
 export const refreshToken = () => {
@@ -51,4 +51,4 @@ export const setAuthToken = (token: string) => {
   } else delete axios.defaults.headers.common["Authorization"];
 };
 
-export default { LoginRequest, SignUpRequest };
+export default { LoginRequest, SignUpRequest, Logout };

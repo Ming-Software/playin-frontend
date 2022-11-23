@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { createContext, useState } from "react";
 import ApiService from "../Services/Api.service";
 import AuthService from "../Services/Auth.service";
 import { Route, useNavigate } from "react-router-dom";
+import create from "zustand";
+import { useUserStore } from "../Stores/userStore";
 
 export const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -10,6 +12,7 @@ export const LoginPage = () => {
   const [loading, setLoading] = useState(false);
   const [loggedin, setLoggedin] = useState(false);
   const [responseLogin, setResponseLogin] = useState("");
+
   const navigate = useNavigate();
 
   const isValidEmail = (email: string) => {
@@ -24,7 +27,7 @@ export const LoginPage = () => {
       Password: password,
     })
       .then((data) => {
-        navigate("/about");
+        navigate("/portal/events");
         setLoggedin(true);
       })
       .catch((err) => {
@@ -51,6 +54,10 @@ export const LoginPage = () => {
 
   const handlePassword = (event: React.FormEvent<HTMLInputElement>) => {
     setPassword(event.currentTarget.value);
+  };
+
+  const handleToSignUp = (event: any) => {
+    navigate("/signup");
   };
 
   return (
@@ -89,7 +96,12 @@ export const LoginPage = () => {
                 <button onClick={handleLoginRequest} className="button is-primary is-fullwidth has-text-center is-center" type="submit">
                   Login
                 </button>
-                {!loggedin && <p className="help is-danger">{responseLogin}</p>}
+                {!loggedin && <p className="help is-danger pb-5">{responseLogin}</p>}
+
+                <label className="label">Não tem conta?</label>
+                <button onClick={handleToSignUp} className="button is-primary has-text-center is-center" type="submit">
+                  Criar nova conta
+                </button>
               </form>
             </div>
           </div>
