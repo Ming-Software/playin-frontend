@@ -1,69 +1,84 @@
+import { useState } from "react";
+import Event from "../../Models/Events/event";
+import { EventProps } from "../../Models/Events/event.interface";
+import Pagination from "bulma-pagination-react";
+import { useNavigate } from "react-router-dom";
+
 export const EventsPage = () => {
+  const [onlyOne, setOnlyOne] = useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [results, setResults] = useState<any[]>();
+  const POSTS_PER_PAGE = 2;
+  const pages = Math.ceil(totalPages / POSTS_PER_PAGE);
+
+  const navigate = useNavigate();
+  const seeEvent = (id: any) => {
+    navigate(`/portal/events/${id}`);
+  };
+
+  const getEvents = (page: number) => {
+    Event.getEvents(page).then((data: any) => {
+      setTotalPages(data.Total);
+      setResults([]);
+      let res: any = [];
+      for (let value of data.Events) {
+        res.push(
+          <div className="level">
+            <div className="level-left">
+              <p className="level-item">
+                <strong>Nome do Evento: </strong> {value.Name}
+              </p>
+              <p className="level-item ">
+                <strong>Local: </strong> {value.Locale}
+              </p>
+              <p className="level-item">
+                <strong>Atividade: </strong> {value.Activity}
+              </p>
+              <p className="level-item">
+                <strong>Competitividade: </strong> {value.Social}
+              </p>
+              <p className="level-item">
+                <strong>Dia: </strong> {value.Start.split("T")[0]}
+              </p>
+            </div>
+            <div className="level-right">
+              <p className="level-item">
+                <button onClick={() => seeEvent(value.ID)} className="button is-dark is-samll" type="submit">
+                  Ver
+                </button>
+              </p>
+            </div>
+          </div>
+        );
+      }
+      setResults(res);
+    });
+  };
+
+  if (!onlyOne) {
+    getEvents(1);
+    setOnlyOne(true);
+  }
+
   return (
     <section className="section">
       <div className="block">
         <ul>
           <li className="box">
-            <nav className="level">
-              <div className="level-left">
-                <div className="level-item">
-                  <figure className="eventImage">
-                    <img src="logo-color.png" className="image is-24x24" />
-                  </figure>
-                </div>
-                <p className="level-item">
-                  <strong>Nome do Evento</strong>
-                </p>
-                <p className="level-item ">
-                  <strong>Local: </strong> Braga
-                </p>
-                <p className="level-item">
-                  <strong>Atividade: </strong> Volei
-                </p>
-                <p className="level-item">
-                  <strong>Competitividade: </strong> Social
-                </p>
-                <p className="level-item">
-                  <strong>Dia: </strong> 12/2/2023
-                </p>
-              </div>
-              <div className="level-right">
-                <p className="level-item">
-                  <button className="button is-dark is-samll">Ver</button>
-                </p>
-              </div>
+            <nav className="block">
+              <div>{results}</div>
             </nav>
           </li>
-          <li className="box">
-            <figure className="eventImage">
-              <img src="logo-color.png" className="image is-16x16" />
-            </figure>
-          </li>
         </ul>
-
-        <nav className="pagination" role="navigation" aria-label="pagination">
-          <ul className="pagination-list">
-            <li>
-              <a className="pagination-link is-current" aria-label="Page 1" aria-current="page">
-                1
-              </a>
-            </li>
-            <li>
-              <a className="pagination-link" aria-label="Goto page 2">
-                2
-              </a>
-            </li>
-            <li>
-              <a className="pagination-link" aria-label="Goto page 3">
-                3
-              </a>
-            </li>
-          </ul>
-          <a className="pagination-previous" title="This is the first page">
-            Previous
-          </a>
-          <a className="pagination-next">Next page</a>
-        </nav>
+        <Pagination
+          pages={pages}
+          currentPage={currentPage}
+          onChange={(page: any) => {
+            setCurrentPage(page);
+            getEvents(page);
+          }}
+        />
       </div>
     </section>
   );
