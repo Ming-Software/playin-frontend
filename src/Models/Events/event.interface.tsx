@@ -1,14 +1,16 @@
 export interface EventProps {
-  nameEvent: string;
-  creator: string;
-  local: string;
+  ActivityID?: string;
+  ID?: string;
+  Name: string;
+  Creator: string;
+  Locale: string;
   date: string;
-  startTime: string;
-  endTime: string;
-  description: string;
-  maxParticipants: number;
-  actualParticipants: number;
-  social_label: string;
-  sport_label: string;
-  public?: boolean;
+  Start: string;
+  Finish: string;
+  Description: string;
+  MaxUsers: number;
+  CurrentUsers: number;
+  Social: string;
+  Activity: string;
+  Public?: boolean;
 }

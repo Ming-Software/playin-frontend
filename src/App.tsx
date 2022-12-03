@@ -8,22 +8,9 @@ import { EventProps } from "./Models/Events/event.interface";
 import { EventsPage } from "./Pages/Portal/Events";
 import { PortalPage } from "./Pages/Portal/portal";
 import Event from "./Components/Event-Component";
+import { EventPage } from "./Pages/Portal/Event";
 
 const App = () => {
-  let cenas: EventProps = {
-    nameEvent: "jogo",
-    creator: "joni",
-    local: "braga",
-    date: "1/12/2022",
-    startTime: "10:00",
-    endTime: "11:00",
-    description: "jogo de preparação",
-    maxParticipants: 10,
-    actualParticipants: 5,
-    social_label: "Competitivo",
-    sport_label: "Basquete",
-    public: true,
-  };
   return (
     <BrowserRouter>
       <Routes>
@@ -31,7 +18,7 @@ const App = () => {
         <Route path="/portal" element={<PortalPage />}>
           <Route path="newevent" element={<NewEvent />} />
           <Route path="events" element={<EventsPage />} />
-          <Route path="event" element={<Event eventProps={cenas} />} />
+          <Route path="events/:id" element={<EventPage />} />
         </Route>
         <Route path="/signup" element={<SignUpPage />} />
       </Routes>
