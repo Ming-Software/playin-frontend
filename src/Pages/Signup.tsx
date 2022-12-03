@@ -20,6 +20,10 @@ export const SignUp = () => {
   const [none, setNone] = useState(false);
   const [competitive, setCompetitive] = useState(false);
   const [social, setSocial] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [loggedin, setLoggedin] = useState(false);
+  const [responseLogin, setResponseLogin] = useState("");
+  const navigate = useNavigate();
 
   let preferencesSocial = "";
   let preferencesAct: string[] = [];
@@ -28,7 +32,6 @@ export const SignUp = () => {
     event.preventDefault();
     prefList();
     prefStrSocial();
-    console.log(password);
     AuthService.SignUpRequest({
       Email: email,
       Password: password,
@@ -37,7 +40,8 @@ export const SignUp = () => {
       Activities: preferencesAct,
     })
       .then((data) => {
-        //navigate("/about");
+        navigate("/");
+
         console.log("deu");
       })
       .catch((err) => {
@@ -51,33 +55,8 @@ export const SignUp = () => {
   };
 
   const isValidPassword = (password: string) => {
-    //(?=.*\d) --> tem de ter pelo menos um dígito
-    //(?=.*[a-z]) --> tem de ter pelo menos uma letra minúscula
-    //(?=.*[A-Z]) --> tem de ter pelo menos uma letra maiúscula
-    //(?=.*[$*&@#]) --> tem de ter pelo menos um caracter especial
-    //[0-9a-zA-Z$*&@#]{8,} --> tem de ter pelo menos 8 dos caracteres mencionadas anteriormente
-    return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])(?=\S+$)[0-9a-zA-Z$*&@#]{8,}$/.test(password);
+    return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#~!%^())_+|`-])(?=\S+$)[0-9a-zA-Z$*&@#~!%^()_+|`-]{8,}$/.test(password);
   };
-
-  /*
-
-  const isValidPasswordNumeros = (password: string) => {
-    return /^(?=.*\d)[0-9a-zA-Z$*&@#]{1,}$/.test(password);
-  };
-
-  const isValidPasswordM = (password: string) => {
-    return /^(?=.*[A-Z])[0-9a-zA-Z$*&@#]{1,}$/.test(password);
-  };
-
-  const isValidPasswordm = (password: string) => {
-    return /^(?=.*[a-z])[0-9a-zA-Z$*&@#]{1,}$/.test(password);
-  };
-
-  const isValidPasswordCE = (password: string) => {
-    return /^(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{1,}$/.test(password);
-  };
-
-*/
 
   const emailHandler = (event: React.FormEvent<HTMLInputElement>) => {
     if (!event.currentTarget.value) {
@@ -235,7 +214,7 @@ export const SignUp = () => {
                     {errorPassword && password.length != 0 && (
                       <p className="help is-danger">
                         Palavra-passe tem de conter pelo menos 8 caracteres e conter pelo menos uma letra minúscula, maiúscula, número e
-                        caratér especial
+                        caratere especial ($*&@#~!%^()_+|`-)
                       </p>
                     )}
                   </div>
