@@ -1,6 +1,7 @@
 import React from "react";
 import ApiService from "../../Services/Api.service";
 import { newEventProps } from "./newEvent.interface";
+import { EventProps } from "./event.interface";
 
 const setNewEvent = () => {
   return new Promise<newEventProps>((resolve, reject) => {
@@ -38,6 +39,19 @@ const getEvents = (page: number) => {
 const getEvent = (id: any) => {
   return new Promise((resolve, reject) => {
     ApiService.httpGet(`/api/event/${id}`)
+      .then((data: any) => {
+        resolve(data.data);
+      })
+      .catch((err: any) => {
+        reject(err);
+      })
+      .finally();
+  });
+};
+
+const registerEvent = (event: EventProps) => {
+  return new Promise((resolve, reject) => {
+    ApiService.httpPost(`/api/event`, event)
       .then((data: any) => {
         resolve(data.data);
       })
