@@ -3,7 +3,7 @@ import React, { ReactText, useState } from "react";
 import { newEventProps } from "../../Models/Events/newEvent.interface";
 import Event from "../../Models/Events/event";
 
-export const NewEvent = (event: { newEventProps: newEventProps }) => {
+export const NewEvent = () => {
   const [name, setName] = useState("");
   const [errorName, setErrorName] = useState(false);
   const [description, setDescription] = useState("");
@@ -22,6 +22,7 @@ export const NewEvent = (event: { newEventProps: newEventProps }) => {
   let start = startData + "-" + startTime;
   let finish = finishData + "-" + finishTime;
 
+  /*
   const saveVals = (event: any) => {
     event.newEventProps.nameEvent = name;
     event.newEventProps.local = locale;
@@ -33,12 +34,12 @@ export const NewEvent = (event: { newEventProps: newEventProps }) => {
     event.newEventProps.sport_label = activity;
     event.newEventProps.public = publico;
   };
-
+*/
   const submitHandler = (event: any) => {
     event.preventDefault();
-    saveVals(event);
+    //saveVals(event);
     Event.setNewEvent()
-      .then((data: newEventProps) => {
+      .then((data) => {
         console.log("deu");
       })
       .catch((err) => console.log(err))
