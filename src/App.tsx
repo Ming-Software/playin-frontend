@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./Pages/Login";
 import AboutPage from "./Pages/About";
 import SignUpPage from "./Pages/Signup";
-import NewEvent from "./Pages/Portal/NewEvent";
+import { NewEvent } from "./Pages/Portal/NewEvent";
 
 import { EventsPage } from "./Pages/Portal/Events";
 import { PortalPage } from "./Pages/Portal/portal";

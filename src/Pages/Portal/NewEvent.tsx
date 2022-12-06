@@ -1,10 +1,11 @@
 import bulmaCalendar from "bulma-calendar";
 import React, { ReactText, useState } from "react";
+import { newEventProps } from "../../Models/Events/newEvent.interface";
+import Event from "../../Models/Events/event";
 
-export const NewEvent = () => {
+export const NewEvent = (event: { newEventProps: newEventProps }) => {
   const [name, setName] = useState("");
   const [errorName, setErrorName] = useState(false);
-
   const [description, setDescription] = useState("");
   const [errorDescription, setErrorDescription] = useState(false);
   const [startData, setStartData] = useState("");
@@ -12,29 +13,49 @@ export const NewEvent = () => {
   const [finishData, setFinishData] = useState("");
   const [finishTime, setFinishTime] = useState("");
   const [publico, setPublic] = useState(false);
-
   const [maxUsers, setMaxUsers] = useState(0);
-  const [errormaxUsers, setErrorMaxUsers] = useState(false);
-  const [currentUsers, setCurrentUsers] = useState(0);
   const [locale, setLocale] = useState("");
   const [errorLocale, setErrorLocale] = useState(false);
   const [activity, setActivity] = useState("");
   const [social, setSocial] = useState("");
 
+  let start = startData + "-" + startTime;
+  let finish = finishData + "-" + finishTime;
+
+  const saveVals = (event: any) => {
+    event.newEventProps.nameEvent = name;
+    event.newEventProps.local = locale;
+    event.newEventProps.start = start;
+    event.newEventProps.finish = finish;
+    event.newEventProps.description = description;
+    event.newEventProps.maxParticipants = maxUsers;
+    event.newEventProps.social_label = social;
+    event.newEventProps.sport_label = activity;
+    event.newEventProps.public = publico;
+  };
+
   const submitHandler = (event: any) => {
     event.preventDefault();
+    saveVals(event);
+    Event.setNewEvent()
+      .then((data: newEventProps) => {
+        console.log("deu");
+      })
+      .catch((err) => console.log(err))
+      .finally();
+
+    /*
     console.log(name);
     console.log(locale);
     console.log(publico);
-    console.log(startData);
-    console.log(startTime);
-    console.log(finishData);
-    console.log(finishTime);
+    console.log(start);
+    console.log(finish);
     console.log(activity);
     console.log(social);
     console.log(maxUsers);
     console.log(currentUsers);
     console.log(description);
+    */
   };
 
   const eventTypeHandler = (data: string) => {
@@ -167,42 +188,25 @@ export const NewEvent = () => {
                   />
                 </div>
               </div>
-              <div className="p-2">
-                <label className="label">Convidados</label>
-                <div className="field has-addons">
-                  <p className="control">
-                    <input
-                      id="duration"
-                      className="input is-primary"
-                      type="username"
-                      placeholder="Guests"
-                      onChange={(event) => setCurrentUsers(Number(event.currentTarget.value))}
-                    />
-                  </p>
-                  <button type="submit" className="button is-primary">
-                    Adicionar
-                  </button>
-                </div>
-              </div>
             </div>
-            <div className="field">
-              <label className="label">Descrição</label>
-              <div className="control">
-                <textarea value={description} className="textarea" placeholder="Description" onChange={eventDescriptionHandler}></textarea>
-                {errorDescription && description.length == 0 && <p className="help is-danger">Descrição é necessária</p>}
-              </div>
-            </div>
+          </div>
+        </div>
+        <div className="field">
+          <label className="label">Descrição</label>
+          <div className="control">
+            <textarea value={description} className="textarea" placeholder="Description" onChange={eventDescriptionHandler}></textarea>
+            {errorDescription && description.length == 0 && <p className="help is-danger">Descrição é necessária</p>}
+          </div>
+        </div>
 
-            <div className="field is-grouped">
-              <div className="control">
-                <button className="button is-primary" type="submit" onClick={submitHandler}>
-                  Submit
-                </button>
-              </div>
-              <div className="control">
-                <button className="button is-link is-light">Cancel</button>
-              </div>
-            </div>
+        <div className="field is-grouped">
+          <div className="control">
+            <button className="button is-primary" type="submit" onClick={submitHandler}>
+              Submit
+            </button>
+          </div>
+          <div className="control">
+            <button className="button is-link is-light">Cancel</button>
           </div>
         </div>
       </div>
@@ -210,4 +214,4 @@ export const NewEvent = () => {
   );
 };
 
-export default NewEvent;
+export default { NewEvent };
