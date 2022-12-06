@@ -74,13 +74,13 @@ export const ProfilePage = () => {
                 </p>
                 <h2 className="subtitle mt-6">Últimos 20 jogos</h2>
                 <div className="box has-background-success has-text-white">
-                    <p> Padel + </p>
+                    <p> Padel + Ganhou </p>
                 </div>
                 <div className="box has-background-danger has-text-white">
-                    <p> Padel + </p>
+                    <p> Padel + Empatou</p>
                 </div>
                 <div className="box has-background-warning has-text-white">
-                    <p> Pade + </p>
+                    <p> Padel + Perdeu</p>
                 </div>
             </div>
         </div>
