@@ -1,7 +1,12 @@
-import { useState } from "react";
+import { createContext, useState } from "react";
 import ApiService from "../Services/Api.service";
 import AuthService from "../Services/Auth.service";
 import { Route, useNavigate } from "react-router-dom";
+<<<<<<< HEAD
+=======
+import create from "zustand";
+import { useUserStore } from "../Stores/userStore";
+>>>>>>> 4e38924fc0417f998cafcd20528ab6a07059d13e
 
 export const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -10,8 +15,14 @@ export const LoginPage = () => {
   const [loading, setLoading] = useState(false);
   const [loggedin, setLoggedin] = useState(false);
   const [responseLogin, setResponseLogin] = useState("");
+<<<<<<< HEAD
   const navigate = useNavigate();
 
+=======
+
+  const navigate = useNavigate();
+
+>>>>>>> 4e38924fc0417f998cafcd20528ab6a07059d13e
   const isValidEmail = (email: string) => {
     return /\S+@\S+\.\S+/.test(email);
   };
@@ -24,7 +35,11 @@ export const LoginPage = () => {
       Password: password,
     })
       .then((data) => {
+<<<<<<< HEAD
         navigate("/about");
+=======
+        navigate("/portal/events");
+>>>>>>> 4e38924fc0417f998cafcd20528ab6a07059d13e
         setLoggedin(true);
       })
       .catch((err) => {
@@ -53,6 +68,13 @@ export const LoginPage = () => {
     setPassword(event.currentTarget.value);
   };
 
+<<<<<<< HEAD
+=======
+  const handleToSignUp = (event: any) => {
+    navigate("/signup");
+  };
+
+>>>>>>> 4e38924fc0417f998cafcd20528ab6a07059d13e
   return (
     <>
       <header className="hero is-primary">
@@ -89,7 +111,16 @@ export const LoginPage = () => {
                 <button onClick={handleLoginRequest} className="button is-primary is-fullwidth has-text-center is-center" type="submit">
                   Login
                 </button>
+<<<<<<< HEAD
                 {!loggedin && <p className="help is-danger">{responseLogin}</p>}
+=======
+                {!loggedin && <p className="help is-danger pb-5">{responseLogin}</p>}
+
+                <label className="label">Não tem conta?</label>
+                <button onClick={handleToSignUp} className="button is-primary has-text-center is-center" type="submit">
+                  Criar nova conta
+                </button>
+>>>>>>> 4e38924fc0417f998cafcd20528ab6a07059d13e
               </form>
             </div>
           </div>

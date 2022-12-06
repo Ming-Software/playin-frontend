@@ -1,6 +1,11 @@
 import axios from "axios";
 axios.defaults.baseURL = "https://playin-backend.fly.dev";
 axios.defaults.withCredentials = true;
+<<<<<<< HEAD
+=======
+import jwt_decode from "jwt-decode";
+import { useUserStore } from "../Stores/userStore";
+>>>>>>> 4e38924fc0417f998cafcd20528ab6a07059d13e
 
 const httpGet = (endpoint: string) => {
   return new Promise((resolve, reject) => {
@@ -65,8 +70,22 @@ const httpRefresh = (error: any, endpoint: string, requestType: string, resolve:
   if (error.response.data.statusCode == 401) {
     httpGet("/api/auth/refresh")
       .then((data: any) => {
+<<<<<<< HEAD
         console.log(data);
         const token = data.data.AccessToken;
+=======
+        const currentUser = useUserStore();
+        console.log(data);
+        const token = data.data.AccessToken;
+        console.log(currentUser.email);
+        if (currentUser.email == null) {
+          let decoded = jwt_decode(token);
+          httpGet("/api/user").then((data: any) => {
+            currentUser.setEmail(data.data.Email);
+            console.log(data.data.Email);
+          });
+        }
+>>>>>>> 4e38924fc0417f998cafcd20528ab6a07059d13e
         console.log(token);
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         switch (requestType) {

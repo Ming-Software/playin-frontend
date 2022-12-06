@@ -31,7 +31,11 @@ const SignUpRequest = async (body: any) => {
 };
 
 const Logout = () => {
+<<<<<<< HEAD
   setAuthToken("");
+=======
+  delete axios.defaults.headers.common["Authorization"];
+>>>>>>> 4e38924fc0417f998cafcd20528ab6a07059d13e
 };
 
 export const refreshToken = () => {
@@ -51,4 +55,8 @@ export const setAuthToken = (token: string) => {
   } else delete axios.defaults.headers.common["Authorization"];
 };
 
+<<<<<<< HEAD
 export default { LoginRequest, SignUpRequest };
+=======
+export default { LoginRequest, SignUpRequest, Logout };
+>>>>>>> 4e38924fc0417f998cafcd20528ab6a07059d13e
