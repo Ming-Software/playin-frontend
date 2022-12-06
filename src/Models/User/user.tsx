@@ -1,5 +1,5 @@
 import ApiService from "../../Services/Api.service";
-import { UserPropsShort } from "./user.interface";
+import { UserProps, UserPropsShort } from "./user.interface";
 
 const setTopBarName = () => {
   return new Promise<UserPropsShort>((resolve, reject) => {
@@ -18,4 +18,17 @@ const setTopBarName = () => {
   });
 };
 
-export default { setTopBarName };
+const editUser = (user: UserProps) => {
+  return new Promise((resolve, reject) => {
+    ApiService.httpPatch("/api/user", user)
+      .then((data: any) => {
+        resolve(data.data);
+      })
+      .catch((err: any) => {
+        reject(err);
+      })
+      .finally();
+  });
+};
+
+export default { setTopBarName, editUser };
