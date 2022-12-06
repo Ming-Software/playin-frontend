@@ -66,6 +66,20 @@ const httpDelete = (endpoint: string, data: any) => {
   });
 };
 
+const httpPatch = (endpoint: string, data: any) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .patch(`${endpoint}`, data)
+      .then((response) => {
+        resolve(response);
+      })
+      .catch((error) => {
+        httpRefresh(error, endpoint, "patch", resolve, reject, data);
+      })
+      .finally();
+  });
+};
+
 const httpRefresh = (error: any, endpoint: string, requestType: string, resolve: any, reject: any, data1?: any) => {
   if (error.response.data.statusCode == 401) {
     httpGet("/api/auth/refresh")
@@ -113,6 +127,12 @@ const httpRefresh = (error: any, endpoint: string, requestType: string, resolve:
               .catch((err) => reject(err))
               .finally();
             break;
+          case "patch":
+            httpPatch(endpoint, data1)
+              .then((data) => resolve(data))
+              .catch((err) => reject(err))
+              .finally();
+            break;
         }
       })
       .catch((err) => {
@@ -124,4 +144,4 @@ const httpRefresh = (error: any, endpoint: string, requestType: string, resolve:
   }
 };
 
-export default { httpGet, httpPost, httpPut, httpDelete };
+export default { httpGet, httpPost, httpPut, httpDelete, httpPatch };
