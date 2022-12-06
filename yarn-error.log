@@ -1,30 +1,25 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\Utilizador\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add jwt-decod
+  E:\Programas\node.exe C:\Users\rodri\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js dev
 
 PATH: 
-  C:\Users\Utilizador\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\Utilizador\bin;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Microsoft SQL Server\130\Tools\Binn;C:\Program Files\PuTTY;C:\Program Files\nodejs;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\CMake\bin;C:\Program Files\Git\cmd;C:\Program Files\dotnet;C:\Users\Utilizador\AppData\Local\Microsoft\WindowsApps;C:\Users\Utilizador\AppData\Local\Programs\Microsoft VS Code\bin;C:\MinGW\bin;C:\Users\Utilizador\.vscode\extensions\twxs.cmake-0.0.17;C:\Users\Utilizador\AppData\Roaming\npm;C:\Program Files\JetBrains\CLion 2021.3.2\bin;C:\Users\Utilizador\Desktop\packer;C:\Program Files\Oracle\VirtualBox;C:\Program Files\JetBrains\IntelliJ IDEA 2021.3.2\bin;C:\OpenSSL-Win64\bin;C:\Program Files\JetBrains\GoLand 2022.2\bin;C:\Program Files\JetBrains\WebStorm 2022.2\bin;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
+  C:\Users\rodri\bin;E:\Programas\Git\mingw64\bin;E:\Programas\Git\usr\local\bin;E:\Programas\Git\usr\bin;E:\Programas\Git\usr\bin;E:\Programas\Git\mingw64\bin;E:\Programas\Git\usr\bin;C:\Users\rodri\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;E:\Programas\Git\cmd;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;E:\Programas;C:\Users\rodri\AppData\Local\Programs\Python\Python310\Scripts;C:\Users\rodri\AppData\Local\Programs\Python\Python310;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;E:\Programas\Git\cmd;C:\Users\rodri\AppData\Local\Microsoft\WindowsApps;E:\Programas\Microsoft VS Code\bin;C:\Python34\Scripts;C:\Users\rodri\AppData\Roaming\npm;E:\Programas\Git\usr\bin\vendor_perl;E:\Programas\Git\usr\bin\core_perl
 
 Yarn version: 
   1.22.19
 
 Node version: 
-  16.13.1
+  16.15.1
 
 Platform: 
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/jwt-decod: Not found
-      at Request.params.callback [as _callback] (C:\Users\Utilizador\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:66145:18)
-      at Request.self.callback (C:\Users\Utilizador\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:140890:22)
-      at Request.emit (node:events:390:28)
-      at Request.<anonymous> (C:\Users\Utilizador\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141862:10)
-      at Request.emit (node:events:390:28)
-      at IncomingMessage.<anonymous> (C:\Users\Utilizador\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141784:12)
-      at Object.onceWrapper (node:events:509:28)
-      at IncomingMessage.emit (node:events:402:35)
-      at endReadableNT (node:internal/streams/readable:1343:12)
-      at processTicksAndRejections (node:internal/process/task_queues:83:21)
+  SyntaxError: C:\Users\rodri\OneDrive\Ambiente de Trabalho\playin-frontend\package.json: Unexpected token < in JSON at position 271
+      at JSON.parse (<anonymous>)
+      at C:\Users\rodri\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:1629:59
+      at Generator.next (<anonymous>)
+      at step (C:\Users\rodri\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:310:30)
+      at C:\Users\rodri\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:321:13
 
 npm manifest: 
   {
@@ -40,6 +35,11 @@ npm manifest:
     "dependencies": {
       "axios": "^1.1.3",
       "bulma-calendar": "^6.1.18",
+  <<<<<<< HEAD
+  =======
+      "bulma-pagination-react": "^0.1.1",
+      "jwt-decode": "^3.1.2",
+  >>>>>>> 4e38924fc0417f998cafcd20528ab6a07059d13e
       "react": "^18.2.0",
       "react-dom": "^18.2.0",
       "react-router-dom": "6",
@@ -455,13 +455,6 @@ Lockfile:
       node-releases "^2.0.6"
       update-browserslist-db "^1.0.9"
   
-  bulma-calendar@^6.1.18:
-    version "6.1.18"
-    resolved "https://registry.npmjs.org/bulma-calendar/-/bulma-calendar-6.1.18.tgz"
-    integrity sha512-7yXo7YTNxx3adrPdBBWdWEuxvowpTjJcfpRuEj7lqK52LWb79CjG9F6uKxUpB5DSguUyKflHnimRsRjjQJgZlw==
-    dependencies:
-      date-fns "^2.21.3"
-  
   bulma@^0.9.4:
     version "0.9.4"
     resolved "https://registry.npmjs.org/bulma/-/bulma-0.9.4.tgz"
@@ -524,11 +517,6 @@ Lockfile:
     version "3.1.1"
     resolved "https://registry.npmjs.org/csstype/-/csstype-3.1.1.tgz"
     integrity sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==
-  
-  date-fns@^2.21.3:
-    version "2.29.3"
-    resolved "https://registry.npmjs.org/date-fns/-/date-fns-2.29.3.tgz"
-    integrity sha512-dDCnyH2WnnKusqvZZ6+jA1O51Ibt8ZMRNkDZdyAyK4YfbDwa/cEmuztzG5pk6hqlp9aSBPYcjOlktquahGwGeA==
   
   debug@^4.1.0:
     version "4.3.4"
@@ -796,7 +784,12 @@ Lockfile:
     resolved "https://registry.npmjs.org/json5/-/json5-2.2.1.tgz"
     integrity sha512-1hqLFMSrGHRHxav9q9gNjJ5EXznIxGVO09xQRrwplcS8qs28pZ8s8hupZAmqDwZUmVZ2Qb2jnyPOWcDH8m8dlA==
   
-  loose-envify@^1.1.0:
+  jwt-decode@^3.1.2:
+    version "3.1.2"
+    resolved "https://registry.yarnpkg.com/jwt-decode/-/jwt-decode-3.1.2.tgz#3fb319f3675a2df0c2895c8f5e9fa4b67b04ed59"
+    integrity sha512-UfpWE/VZn0iP50d8cz9NrZLM9lSWhcJ+0Gt/nm4by88UL+J1SiKN8/5dkjMmbEzwL2CAe+67GsegCbIKtbp75A==
+  
+  loose-envify@^1.1.0, loose-envify@^1.4.0:
     version "1.4.0"
     resolved "https://registry.npmjs.org/loose-envify/-/loose-envify-1.4.0.tgz"
     integrity sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==
@@ -842,6 +835,11 @@ Lockfile:
     resolved "https://registry.npmjs.org/normalize-path/-/normalize-path-3.0.0.tgz"
     integrity sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==
   
+  object-assign@^4.1.1:
+    version "4.1.1"
+    resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
+    integrity sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==
+  
   path-parse@^1.0.7:
     version "1.0.7"
     resolved "https://registry.npmjs.org/path-parse/-/path-parse-1.0.7.tgz"
@@ -866,6 +864,15 @@ Lockfile:
       picocolors "^1.0.0"
       source-map-js "^1.0.2"
   
+  prop-types@^15.6.2:
+    version "15.8.1"
+    resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
+    integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
+    dependencies:
+      loose-envify "^1.4.0"
+      object-assign "^4.1.1"
+      react-is "^16.13.1"
+  
   proxy-from-env@^1.1.0:
     version "1.1.0"
     resolved "https://registry.npmjs.org/proxy-from-env/-/proxy-from-env-1.1.0.tgz"
@@ -878,6 +885,11 @@ Lockfile:
     dependencies:
       loose-envify "^1.1.0"
       scheduler "^0.23.0"
+  
+  react-is@^16.13.1:
+    version "16.13.1"
+    resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
+    integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
   
   react-refresh@^0.14.0:
     version "0.14.0"
