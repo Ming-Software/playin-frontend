@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useState } from "react";
-import Topbar from "../../Components/Topbar";
+import Topbar from "../../Components/Topbar-Component";
 import { Routes, Route, Outlet, Link } from "react-router-dom";
 //ROUTES
 export const PortalPage = () => {
