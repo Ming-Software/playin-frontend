@@ -44,7 +44,11 @@ export const EventsPage = () => {
             </div>
             <div className="level-right">
               <p className="level-item">
-                <button onClick={() => seeEvent(value.ID)} className="button is-dark is-samll" type="submit">
+                <button
+                  onClick={() => seeEvent(value.ID)}
+                  className="button is-dark is-samll"
+                  type="submit"
+                >
                   Ver
                 </button>
               </p>
