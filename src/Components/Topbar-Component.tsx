@@ -29,7 +29,7 @@ export const Topbar = () => {
           <img src="/logo-no-background.png" />
         </Link>
         <a
-          className={`navbar-burger ${burger ? "is-active" : ""}`}
+          className={`navbar-burger ${burger && "is-active"}`}
           data-target="navbarItems"
           onClick={() => setBurger(!burger)}
         >
@@ -39,10 +39,7 @@ export const Topbar = () => {
         </a>
       </div>
 
-      <div
-        id="navbarItems"
-        className={`navbar-menu ${burger ? "is-active" : ""}`}
-      >
+      <div id="navbarItems" className={`navbar-menu ${burger && "is-active"}`}>
         <div className="navbar-start">
           <Link to="/portal/events" className="navbar-item">
             Events
