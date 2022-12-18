@@ -25,9 +25,9 @@ export const Topbar = () => {
   return (
     <nav className="navbar" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
-        <Link to="/portal/events" className="navbar-item">
+        <div className="navbar-item">
           <img src="/logo-no-background.png" />
-        </Link>
+        </div>
         <a
           className={`navbar-burger ${burger && "is-active"}`}
           data-target="navbarItems"
