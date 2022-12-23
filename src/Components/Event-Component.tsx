@@ -3,75 +3,54 @@ import { EventProps } from "../Models/Events/event.interface";
 export const Event = (event: { eventProps: EventProps }) => {
   return (
     <div className="card">
-      <div className="card-image"></div>
-      <div className="card-content">
-        <div className="content">
-          <h4 className="title is-1">{event.eventProps.Name}</h4>
-          <div className="columns is-mobile">
-            <div className="column is-6">
-              <div>
-                <strong>Criador:</strong>
-              </div>
-              {event.eventProps.Creator}
-            </div>
-            <div className="column is-6">
-              <div>
-                <strong>Date:</strong>
-              </div>
-              {event.eventProps.date}
-            </div>
-          </div>
-
-          <div className="columns is-mobile">
-            <div className="column is-4">
-              <div>
-                <strong>Local:</strong>
-              </div>
-              {event.eventProps.Locale}
-            </div>
-            <div className="column is-4">
-              <div>
-                <strong>Data de começo:</strong>
-              </div>
-              {event.eventProps.Start}
-            </div>
-            <div className="column is-4">
-              <div>
-                <strong>Data de final:</strong>
-              </div>
-              {event.eventProps.Finish}
-            </div>
-          </div>
-          <div>
-            <strong>Descrição: </strong>
-          </div>
-          <p>{event.eventProps.Description}</p>
-          <div className="columns">
-            <div className="column is-5">
-              <div>
-                <strong>nº atual de participantes: </strong>
-                {event.eventProps.CurrentUsers}
-              </div>
-              <div>
-                <strong>nº máximo de participantes: </strong>
-                {event.eventProps.MaxUsers}
-              </div>
-            </div>
-            <div className="column is-4">
-              <div>
-                <strong>Competitividade:</strong>
-              </div>
-              <span className="tag is-medium is-info is-centered">{event.eventProps.Social}</span>
-            </div>
-            <div className="column is-4">
-              <div>
-                <strong>Tipo de evento: </strong>
-              </div>
-              <span className="tag is-medium is-info">{event.eventProps.Activity}</span>
-            </div>
-          </div>
+      <header className="card-header">
+        <div className="card-header-title is-justify-content-space-between">
+          <p
+            className={`${
+              event.eventProps.CurrentUsers === event.eventProps.MaxUsers
+                ? "has-text-danger"
+                : "has-text-success"
+            }`}
+          >
+            {event.eventProps.Name}
+          </p>
+          <p>{event.eventProps.Creator} Joao Felix</p>
         </div>
-      </div>
+      </header>
+      <main className="card-content">
+        <div className="content">
+          <section className="tags are-medium is-flex is-justify-content-space-between">
+            <span className="tag is-link">{event.eventProps.Activity}</span>
+            <span className="tag is-info">{event.eventProps.Social}</span>
+            <span className="tag">
+              {event.eventProps.Public ? "Publico" : "Privado"}
+            </span>
+          </section>
+          <section>
+            <div className="is-flex is-justify-content-space-between">
+              <time>
+                <p>{event.eventProps.date}</p>
+                <p>
+                  {event.eventProps.Start} - {event.eventProps.Finish}
+                </p>
+              </time>
+              {event.eventProps.CurrentUsers === event.eventProps.MaxUsers ? (
+                <span className="tag is-danger">Não Existem Vagas</span>
+              ) : (
+                <span className="tag is-success">
+                  Ainda Existem{" "}
+                  {event.eventProps.MaxUsers - event.eventProps.CurrentUsers}{" "}
+                  Vagas
+                </span>
+              )}
+            </div>
+            <p>{event.eventProps.Locale}</p>
+          </section>
+        </div>
+      </main>
+      <footer className="card-footer">
+        <a className="card-footer-item">Ver</a>
+      </footer>
     </div>
   );
 };
