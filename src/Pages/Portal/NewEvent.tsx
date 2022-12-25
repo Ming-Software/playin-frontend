@@ -44,12 +44,10 @@ export const NewEvent = () => {
     event
       .registerEvent(cenas)
       .then(() => {
-        console.log("funceminas nino?");
         navigate("/portal/events");
       })
       .catch(() => {
-        console.log("atão nino");
-        //console.log(err.response.data.message);
+        alert("Algo correu mal..");
       })
       .finally();
   };
