@@ -24,30 +24,32 @@ export const InvitesPage = () => {
       let res: any = [];
       for (let value of data.Events) {
         res.push(
-          <div className="level">
-            <div className="level-left">
-              <p className="level-item">
-                <strong>Nome do Evento: </strong> {value.Name}
-              </p>
-              <p className="level-item ">
-                <strong>Local: </strong> {value.Locale}
-              </p>
-              <p className="level-item">
-                <strong>Atividade: </strong> {value.Activity}
-              </p>
-              <p className="level-item">
-                <strong>Competitividade: </strong> {value.Social}
-              </p>
-              <p className="level-item">
-                <strong>Dia: </strong> {value.Start.split("T")[0]}
-              </p>
-            </div>
-            <div className="level-right">
-              <p className="level-item">
-                <button onClick={() => seeEvent(value.ID)} className="button is-dark is-samll" type="submit">
-                  Ver
-                </button>
-              </p>
+          <div className="columns">
+            <div className="level">
+              <div className="level-left">
+                <p className="column">
+                  <strong>Nome do Evento: </strong> {value.Name}
+                </p>
+                <p className="column">
+                  <strong>Local: </strong> {value.Locale}
+                </p>
+                <p className="column">
+                  <strong>Atividade: </strong> {value.Activity}
+                </p>
+                <p className="column">
+                  <strong>Competitividade: </strong> {value.Social}
+                </p>
+                <p className="column">
+                  <strong>Dia: </strong> {value.Start.split("T")[0]}
+                </p>
+              </div>
+              <div className="level-right">
+                <p className="level-item">
+                  <button onClick={() => seeEvent(value.ID)} className="button is-dark is-samll" type="submit">
+                    Ver
+                  </button>
+                </p>
+              </div>
             </div>
           </div>
         );
@@ -65,24 +67,43 @@ export const InvitesPage = () => {
     <section className="section">
       <div className="block">
         <ul className="box">
-          <li className="box">
-            <div className="columns">
-              <div className="column is-11">Propriedades do Evento 1</div>
-              <div className="column">
-                <button className="button is-success is-small is-responsive is-rounded is-focused">
-                  <span className="icon is-small">
-                    <i className="fas fa-check">V</i>
-                  </span>
-                </button>
-                <button className="button is-danger is-small is-responsive is-rounded is-focused">
-                  <span className="icon is-small">
-                    <i className="fas fa-times">X</i>
-                  </span>
-                </button>
+          {results?.map((result) => (
+            <li className="box">
+              <div className="columns">
+                <div className="column has-text-centered is-11-desktop is-half-tablet">{result}</div>
+                <div className="column has-text-centered">
+                  <button className="button is-success is-small is-responsive is-rounded is-focused m-1">
+                    <span className="icon is-small">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-6 h-6"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                      </svg>
+                    </span>
+                  </button>
+                  <button className="button is-danger is-small is-responsive is-rounded is-focused m-1">
+                    <span className="icon is-small">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-6 h-6"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </span>
+                  </button>
+                </div>
               </div>
-            </div>
-          </li>
-          <li className="box">Propriedades do Evento 2</li>
+            </li>
+          ))}
         </ul>
         <Pagination
           pages={pages}
