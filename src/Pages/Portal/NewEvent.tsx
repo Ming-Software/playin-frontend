@@ -1,5 +1,8 @@
 import bulmaCalendar from "bulma-calendar";
 import React, { ReactText, useState } from "react";
+import { EventProps } from "../../Models/Events/event.interface";
+import event from "../../Models/Events/event";
+import { Route, useNavigate } from "react-router-dom";
 
 export const NewEvent = () => {
   const [name, setName] = useState("");
@@ -15,26 +18,38 @@ export const NewEvent = () => {
 
   const [maxUsers, setMaxUsers] = useState(0);
   const [errormaxUsers, setErrorMaxUsers] = useState(false);
-  const [currentUsers, setCurrentUsers] = useState(0);
+  const [currentUsers, setCurrentUsers] = useState(1);
   const [locale, setLocale] = useState("");
   const [errorLocale, setErrorLocale] = useState(false);
   const [activity, setActivity] = useState("");
   const [social, setSocial] = useState("");
+  const navigate = useNavigate();
 
-  const submitHandler = (event: any) => {
-    event.preventDefault();
-    console.log(name);
-    console.log(locale);
-    console.log(publico);
-    console.log(startData);
-    console.log(startTime);
-    console.log(finishData);
-    console.log(finishTime);
-    console.log(activity);
-    console.log(social);
-    console.log(maxUsers);
-    console.log(currentUsers);
-    console.log(description);
+  const submitHandler = (nini: any) => {
+    nini.preventDefault();
+    let cenas: EventProps = {
+      Name: name,
+      Description: description,
+      Public: publico,
+      Start: startData + "T" + startTime + ":" + "25.797Z",
+      Finish: finishData + "T" + finishTime + ":" + "25.797Z",
+      Locale: locale,
+      MaxUsers: maxUsers,
+      CurrentUsers: currentUsers,
+      Social: social,
+      Activity: activity,
+      Creator: "",
+      date: "",
+    };
+    event
+      .registerEvent(cenas)
+      .then(() => {
+        navigate("/portal/events");
+      })
+      .catch(() => {
+        alert("Algo correu mal..");
+      })
+      .finally();
   };
 
   const eventTypeHandler = (data: string) => {
@@ -72,17 +87,6 @@ export const NewEvent = () => {
     }
     setDescription(event.currentTarget.value);
   };
-
-  /*
-  const eventMaxUsersHandler = (event: React.FormEvent<HTMLInputElement>) => {
-    if (!Number(event.currentTarget.value)) {
-      setErrorMaxUsers(true);
-    } else {
-      setErrorMaxUsers(false);
-    }
-    setMaxUsers(Number(event.currentTarget.value));
-  };
-  */
 
   return (
     <section className="section">
