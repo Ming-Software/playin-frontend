@@ -1,11 +1,12 @@
 import ApiService from "../../Services/Api.service";
 import { UserProps, UserPropsShort } from "./user.interface";
 
-const setTopBarName = () => {
+const getSignInUser = () => {
   return new Promise<UserPropsShort>((resolve, reject) => {
     ApiService.httpGet("/api/user")
       .then((data: any) => {
         let user: UserPropsShort = {
+          id: data.data.ID,
           name: data.data.Name,
           email: data.data.Email,
         };
@@ -31,4 +32,4 @@ const editUser = (user: UserProps) => {
   });
 };
 
-export default { setTopBarName, editUser };
+export default { getSignInUser, editUser };

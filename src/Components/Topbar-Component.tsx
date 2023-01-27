@@ -14,8 +14,10 @@ export const Topbar = () => {
 
   const currentUser = useUserStore();
   if (currentUser.name === "") {
-    User.setTopBarName()
+    User.getSignInUser()
       .then((data: UserPropsShort) => {
+        currentUser.setId(data.id);
+        currentUser.setEmail(data.email);
         currentUser.setName(data.name);
       })
       .catch((err) => console.log(err))

@@ -2,20 +2,26 @@ import { useEffect, useState } from "react";
 import { EventProps } from "../../Models/Events/event.interface";
 import Event from "../../Models/Events/event";
 import EventComponent from "../../Components/Event-Component";
+import { useUserStore } from "../../Stores/userStore";
 
-const EventsPage = () => {
+const MyEventsPage = () => {
   const EVENTS_PER_PAGE = 15;
 
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [events, setEvents] = useState<EventProps[]>();
+  const currentUserId = useUserStore();
 
-  useEffect(() => {
-    Event.getEvents(currentPage).then((data: any) => {
-      setTotalPages(Math.ceil(data.Total / EVENTS_PER_PAGE));
-      setEvents(data.Events);
-    });
-  }, [currentPage]);
+  useEffect(
+    () =>
+      useUserStore.subscribe((state) => {
+        Event.getMyEvents(currentPage, state.id).then((data: any) => {
+          setTotalPages(Math.ceil(data.Total / EVENTS_PER_PAGE));
+          setEvents(data.Events);
+        });
+      }),
+    [currentPage]
+  );
 
   return (
     <div>
@@ -50,4 +56,4 @@ const EventsPage = () => {
     </div>
   );
 };
-export default EventsPage;
+export default MyEventsPage;

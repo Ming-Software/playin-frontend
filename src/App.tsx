@@ -7,6 +7,7 @@ import NewEvent from "./Pages/Portal/NewEvent";
 import EventsPage from "./Pages/Portal/Events";
 import { PortalPage } from "./Pages/Portal/portal";
 import { EventPage } from "./Pages/Portal/Event";
+import MyEventsPage from "./Pages/Portal/MyEvents";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <Route path="/portal" element={<PortalPage />}>
           <Route path="newevent" element={<NewEvent />} />
           <Route path="events" element={<EventsPage />} />
+          <Route path="myevents" element={<MyEventsPage />} />
           <Route path="events/:id" element={<EventPage />} />
         </Route>
         <Route path="/signup" element={<SignUpPage />} />
