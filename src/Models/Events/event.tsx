@@ -15,6 +15,20 @@ const getEvents = (page: number) => {
   });
 };
 
+const getMyEvents = (page: number, id: string) => {
+  return new Promise((resolve, reject) => {
+    console.log(`/api/event/eventspage/${id}?Page=${page}`);
+    ApiService.httpGet(`/api/event/eventspage/${id}?Page=${page}`)
+      .then((data: any) => {
+        resolve(data.data);
+      })
+      .catch((err: any) => {
+        reject(err);
+      })
+      .finally();
+  });
+};
+
 const getEvent = (id: any) => {
   return new Promise((resolve, reject) => {
     ApiService.httpGet(`/api/event/${id}`)
@@ -42,4 +56,4 @@ const registerEvent = (event: EventProps) => {
   });
 };
 
-export default { getEvents, getEvent, registerEvent };
+export default { getEvents, getEvent, getMyEvents, registerEvent };

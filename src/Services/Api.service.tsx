@@ -12,7 +12,8 @@ const httpGet = (endpoint: string) => {
         resolve(response);
       })
       .catch((error) => {
-        if (endpoint != "/api/auth/refresh") httpRefresh(error, endpoint, "get", resolve, reject);
+        if (endpoint != "/api/auth/refresh")
+          httpRefresh(error, endpoint, "get", resolve, reject);
         else {
           window.location.href = "/";
         }
@@ -77,22 +78,25 @@ const httpPatch = (endpoint: string, data: any) => {
   });
 };
 
-const httpRefresh = (error: any, endpoint: string, requestType: string, resolve: any, reject: any, data1?: any) => {
+const httpRefresh = (
+  error: any,
+  endpoint: string,
+  requestType: string,
+  resolve: any,
+  reject: any,
+  data1?: any
+) => {
   if (error.response.data.statusCode == 401) {
     httpGet("/api/auth/refresh")
       .then((data: any) => {
         const currentUser = useUserStore();
-        console.log(data);
         const token = data.data.AccessToken;
-        console.log(currentUser.email);
         if (currentUser.email == null) {
           let decoded = jwt_decode(token);
           httpGet("/api/user").then((data: any) => {
             currentUser.setEmail(data.data.Email);
-            console.log(data.data.Email);
           });
         }
-        console.log(token);
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         switch (requestType) {
           case "get":
