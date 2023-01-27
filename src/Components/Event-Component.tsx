@@ -1,20 +1,27 @@
+import { useNavigate } from "react-router-dom";
 import { EventProps } from "../Models/Events/event.interface";
 
 export const Event = (event: { eventProps: EventProps }) => {
+  const navigate = useNavigate();
+
+  const navigateToEventPage = () => {
+    navigate(`/portal/events/${event.eventProps.ID}`);
+  };
+
   return (
     <div className="card">
       <header className="card-header">
         <div className="card-header-title is-justify-content-space-between">
           <p
             className={`${
-              event.eventProps.CurrentUsers === event.eventProps.MaxUsers
+              event.eventProps.CurrentUsers >= event.eventProps.MaxUsers
                 ? "has-text-danger"
                 : "has-text-success"
             }`}
           >
             {event.eventProps.Name}
           </p>
-          <p>{event.eventProps.Creator} Joao Felix</p>
+          <p>{event.eventProps.Creator}</p>
         </div>
       </header>
       <main className="card-content">
@@ -31,10 +38,13 @@ export const Event = (event: { eventProps: EventProps }) => {
               <time>
                 <p>{event.eventProps.date}</p>
                 <p>
-                  {event.eventProps.Start} - {event.eventProps.Finish}
+                  {event.eventProps.Start}
+                  <br />
+                  <br />
+                  {event.eventProps.Finish}
                 </p>
               </time>
-              {event.eventProps.CurrentUsers === event.eventProps.MaxUsers ? (
+              {event.eventProps.CurrentUsers >= event.eventProps.MaxUsers ? (
                 <span className="tag is-danger">Não Existem Vagas</span>
               ) : (
                 <span className="tag is-success">
@@ -49,7 +59,9 @@ export const Event = (event: { eventProps: EventProps }) => {
         </div>
       </main>
       <footer className="card-footer">
-        <a className="card-footer-item">Ver</a>
+        <a onClick={navigateToEventPage} className="card-footer-item">
+          Ver
+        </a>
       </footer>
     </div>
   );

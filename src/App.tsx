@@ -4,10 +4,8 @@ import LoginPage from "./Pages/Login";
 import AboutPage from "./Pages/About";
 import SignUpPage from "./Pages/Signup";
 import NewEvent from "./Pages/Portal/NewEvent";
-import { EventProps } from "./Models/Events/event.interface";
-import { EventsPage } from "./Pages/Portal/Events";
+import EventsPage from "./Pages/Portal/Events";
 import { PortalPage } from "./Pages/Portal/portal";
-import Event from "./Components/Event-Component";
 import { EventPage } from "./Pages/Portal/Event";
 
 const App = () => {

@@ -1,91 +1,53 @@
-import { useState } from "react";
-import Event from "../../Models/Events/event";
+import { useEffect, useState } from "react";
 import { EventProps } from "../../Models/Events/event.interface";
-import Pagination from "bulma-pagination-react";
-import { useNavigate } from "react-router-dom";
+import Event from "../../Models/Events/event";
+import EventComponent from "../../Components/Event-Component";
 
-export const EventsPage = () => {
-  const [onlyOne, setOnlyOne] = useState<boolean>(false);
+const EventsPage = () => {
+  const EVENTS_PER_PAGE = 15;
+
+  const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
-  const [results, setResults] = useState<any[]>();
-  const POSTS_PER_PAGE = 2;
-  const pages = Math.ceil(totalPages / POSTS_PER_PAGE);
+  const [events, setEvents] = useState<EventProps[]>();
 
-  const navigate = useNavigate();
-  const seeEvent = (id: any) => {
-    navigate(`/portal/events/${id}`);
-  };
-
-  const getEvents = (page: number) => {
-    Event.getEvents(page).then((data: any) => {
-      setTotalPages(data.Total);
-      setResults([]);
-      let res: any = [];
-      for (let value of data.Events) {
-        res.push(
-          <div className="level">
-            <div className="level-left">
-              <p className="level-item">
-                <strong>Nome do Evento: </strong> {value.Name}
-              </p>
-              <p className="level-item ">
-                <strong>Local: </strong> {value.Locale}
-              </p>
-              <p className="level-item">
-                <strong>Atividade: </strong> {value.Activity}
-              </p>
-              <p className="level-item">
-                <strong>Competitividade: </strong> {value.Social}
-              </p>
-              <p className="level-item">
-                <strong>Dia: </strong> {value.Start.split("T")[0]}
-              </p>
-            </div>
-            <div className="level-right">
-              <p className="level-item">
-                <button
-                  onClick={() => seeEvent(value.ID)}
-                  className="button is-dark is-samll"
-                  type="submit"
-                >
-                  Ver
-                </button>
-              </p>
-            </div>
-          </div>
-        );
-      }
-      setResults(res);
+  useEffect(() => {
+    Event.getEvents(currentPage).then((data: any) => {
+      setTotalPages(Math.ceil(data.Total / EVENTS_PER_PAGE));
+      setEvents(data.Events);
     });
-  };
-
-  if (!onlyOne) {
-    getEvents(1);
-    setOnlyOne(true);
-  }
+  }, [currentPage]);
 
   return (
-    <section className="section">
-      <div className="block">
-        <ul>
-          <li className="box">
-            <nav className="block">
-              <div>{results}</div>
-            </nav>
-          </li>
-        </ul>
-        <Pagination
-          pages={pages}
-          currentPage={currentPage}
-          onChange={(page: any) => {
-            setCurrentPage(page);
-            getEvents(page);
-          }}
-        />
-      </div>
-    </section>
+    <div>
+      <main className="section">
+        <div className="columns is-mobile is-multiline">
+          {events?.map((event) => (
+            <div
+              className="column is-full-mobile is-half-tablet is-one-third-desktop"
+              key={event.ID}
+            >
+              <EventComponent eventProps={event} />
+            </div>
+          ))}
+        </div>
+      </main>
+      <footer className="section">
+        <nav className="pagination">
+          <ul className="pagination-list">
+            {Array.from(Array(totalPages).keys()).map((page) => (
+              <li key={page}>
+                <button
+                  className="pagination-link"
+                  onClick={() => setCurrentPage(page + 1)}
+                >
+                  {page + 1}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </footer>
+    </div>
   );
 };
-
 export default EventsPage;
