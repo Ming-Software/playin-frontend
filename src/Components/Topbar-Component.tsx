@@ -30,11 +30,7 @@ export const Topbar = () => {
         <div className="navbar-item">
           <img src="/logo-no-background.png" />
         </div>
-        <a
-          className={`navbar-burger ${burger && "is-active"}`}
-          data-target="navbarItems"
-          onClick={() => setBurger(!burger)}
-        >
+        <a className={`navbar-burger ${burger && "is-active"}`} data-target="navbarItems" onClick={() => setBurger(!burger)}>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
@@ -45,6 +41,9 @@ export const Topbar = () => {
         <div className="navbar-start">
           <Link to="/portal/events" className="navbar-item">
             Events
+          </Link>
+          <Link to="/portal/newevent" className="navbar-item">
+            Create Event
           </Link>
           <Link to="/portal/myevents" className="navbar-item">
             My Events

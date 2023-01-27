@@ -42,6 +42,7 @@ const getEvent = (id: any) => {
   });
 };
 
+//tenho que usar isto!!
 const registerEvent = (event: EventProps) => {
   return new Promise((resolve, reject) => {
     ApiService.httpPost(`/api/event`, event)
@@ -55,4 +56,4 @@ const registerEvent = (event: EventProps) => {
   });
 };
 
-export default { getEvents, getEvent, getMyEvents };
+export default { getEvents, getEvent, getMyEvents, registerEvent };
