@@ -30,11 +30,7 @@ export const Topbar = () => {
         <div className="navbar-item">
           <img src="/logo-no-background.png" />
         </div>
-        <a
-          className={`navbar-burger ${burger && "is-active"}`}
-          data-target="navbarItems"
-          onClick={() => setBurger(!burger)}
-        >
+        <a className={`navbar-burger ${burger && "is-active"}`} data-target="navbarItems" onClick={() => setBurger(!burger)}>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
@@ -54,6 +50,9 @@ export const Topbar = () => {
           </Link>
           <Link to="/portal/mypermissions" className="navbar-item">
             My Permissions
+          </Link>
+          <Link to="/portal/myinvites" className="navbar-item">
+            My Invites
           </Link>
         </div>
 

@@ -29,6 +29,45 @@ const getMyEvents = (page: number, id: string) => {
   });
 };
 
+const getMyInvites = (page: number) => {
+  return new Promise((resolve, reject) => {
+    ApiService.httpGet(`/api/guest/guestspage/user?Page=${page}`)
+      .then((data: any) => {
+        resolve(data.data);
+      })
+      .catch((err: any) => {
+        reject(err);
+      })
+      .finally();
+  });
+};
+
+const acceptMyInvite = (id: string, userId: any) => {
+  return new Promise((resolve, reject) => {
+    ApiService.httpPost(`/api/participant/${id}`, userId)
+      .then((data: any) => {
+        resolve(data.data);
+      })
+      .catch((err: any) => {
+        reject(err);
+      })
+      .finally();
+  });
+};
+
+const deleteMyInvite = (id: string) => {
+  return new Promise((resolve, reject) => {
+    ApiService.httpDelete(`/api/guest/decline/${id}`)
+      .then((data: any) => {
+        resolve(data.data);
+      })
+      .catch((err: any) => {
+        reject(err);
+      })
+      .finally();
+  });
+};
+
 const getEvent = (id: any) => {
   return new Promise((resolve, reject) => {
     ApiService.httpGet(`/api/event/${id}`)
