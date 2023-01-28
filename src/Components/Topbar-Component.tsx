@@ -40,19 +40,19 @@ export const Topbar = () => {
       <div id="navbarItems" className={`navbar-menu ${burger && "is-active"}`}>
         <div className="navbar-start">
           <Link to="/portal/events" className="navbar-item">
-            Events
+            Eventos
           </Link>
           <Link to="/portal/newevent" className="navbar-item">
-            Create Event
+            Criar Evento
           </Link>
           <Link to="/portal/myevents" className="navbar-item">
-            My Events
+            Meus Eventos
           </Link>
           <Link to="/portal/mypermissions" className="navbar-item">
-            My Permissions
+            Pedidos para Eventos
           </Link>
           <Link to="/portal/myinvites" className="navbar-item">
-            My Invites
+            Convites para Eventos
           </Link>
         </div>
 

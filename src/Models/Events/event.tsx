@@ -170,4 +170,7 @@ export default {
   getParticipants,
   getMyPermissions,
   deleteMyPermissions,
+  deleteMyInvite,
+  getMyInvites,
+  acceptMyInvite,
 };
