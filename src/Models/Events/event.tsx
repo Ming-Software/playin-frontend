@@ -29,6 +29,23 @@ const getMyEvents = (page: number, id: string) => {
   });
 };
 
+const getMyInvites = (page: number) => {
+  return new Promise((resolve, reject) => {
+    //console.log(`/api/permission/permissionspage/${id}?Page=${page}`);
+    console.log(`/api/guest/guestspage/user?Page=${page}`);
+    console.log(`/api/permission/permissionspage/user?Page=${page}`);
+    ApiService.httpGet(`/api/guest/guestspage/user?Page=${page}`)
+      //ApiService.httpGet(`/api/event/eventspage/${id}?Page=${page}`)
+      .then((data: any) => {
+        resolve(data.data);
+      })
+      .catch((err: any) => {
+        reject(err);
+      })
+      .finally();
+  });
+};
+
 const getEvent = (id: any) => {
   return new Promise((resolve, reject) => {
     ApiService.httpGet(`/api/event/${id}`)
@@ -56,4 +73,4 @@ const registerEvent = (event: EventProps) => {
   });
 };
 
-export default { getEvents, getEvent, getMyEvents, registerEvent };
+export default { getEvents, getEvent, getMyEvents, getMyInvites, registerEvent };
