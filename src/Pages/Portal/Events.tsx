@@ -13,7 +13,22 @@ const EventsPage = () => {
   useEffect(() => {
     Event.getEvents(currentPage).then((data: any) => {
       setTotalPages(Math.ceil(data.Total / EVENTS_PER_PAGE));
-      setEvents(data.Events);
+      const mappedData = data.Events.map((event: EventProps) => ({
+        ID: event.ID,
+        Name: event.Name,
+        Creator: event.Creator,
+        Locale: event.Locale,
+        date: event.Start.split("T")[0],
+        Start: event.Start.split("T")[1].split(".")[0],
+        Finish: event.Finish.split("T")[1].split(".")[0],
+        Description: event.Description,
+        MaxUsers: event.MaxUsers,
+        CurrentUsers: event.CurrentUsers,
+        Social: event.Social,
+        Activity: event.Activity,
+        Public: event.Public,
+      }));
+      setEvents(mappedData);
     });
   }, [currentPage]);
 
@@ -23,7 +38,7 @@ const EventsPage = () => {
         <div className="columns is-mobile is-multiline">
           {events?.map((event) => (
             <div
-              className="column is-full-mobile is-one-half-desktop is-one-third-widescreen"
+              className="column is-full-mobile is-half-tablet is-one-third-fullhd"
               key={event.ID}
             >
               <EventComponent eventProps={event} />

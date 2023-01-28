@@ -10,17 +10,9 @@ export const Event = (event: { eventProps: EventProps }) => {
 
   return (
     <div className="card">
-      <header className="card-header">
-        <div className="card-header-title is-justify-content-space-between">
-          <p
-            className={`${
-              event.eventProps.CurrentUsers >= event.eventProps.MaxUsers
-                ? "has-text-danger"
-                : "has-text-success"
-            }`}
-          >
-            {event.eventProps.Name}
-          </p>
+      <header className="card-header has-background-primary">
+        <div className="card-header-title has-text-white-bis is-justify-content-space-between">
+          <p>{event.eventProps.Name}</p>
           <p>{event.eventProps.Creator}</p>
         </div>
       </header>
@@ -38,10 +30,7 @@ export const Event = (event: { eventProps: EventProps }) => {
               <time>
                 <p>{event.eventProps.date}</p>
                 <p>
-                  {event.eventProps.Start}
-                  <br />
-                  <br />
-                  {event.eventProps.Finish}
+                  {event.eventProps.Start} - {event.eventProps.Finish}
                 </p>
               </time>
               {event.eventProps.CurrentUsers >= event.eventProps.MaxUsers ? (
