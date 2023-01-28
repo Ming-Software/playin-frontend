@@ -50,10 +50,10 @@ const httpPut = (endpoint: string, data: any) => {
   });
 };
 
-const httpDelete = (endpoint: string, data: any) => {
+const httpDelete = (endpoint: string, data?: any) => {
   return new Promise((resolve, reject) => {
     axios
-      .post(`${endpoint}`, data)
+      .delete(`${endpoint}`, data)
       .then((response) => {
         resolve(response);
       })
