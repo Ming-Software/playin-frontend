@@ -69,9 +69,35 @@ const getInvitedUsers = (id: any) => {
   });
 };
 
+const getMyPermissions = (page: number) => {
+  return new Promise((resolve, reject) => {
+    ApiService.httpGet(`/api/permission/permissionspage/user?Page=${page}`)
+      .then((data: any) => {
+        resolve(data.data);
+      })
+      .catch((err: any) => {
+        reject(err);
+      })
+      .finally();
+  });
+};
+
 const getAskedUsers = (id: any) => {
   return new Promise((resolve, reject) => {
     ApiService.httpGet(`/api/permission/permissionspage/event/${id}`)
+      .then((data: any) => {
+        resolve(data.data);
+      })
+      .catch((err: any) => {
+        reject(err);
+      })
+      .finally();
+  });
+};
+
+const deleteMyPermissions = (id: string) => {
+  return new Promise((resolve, reject) => {
+    ApiService.httpDelete(`/api/permission/cancel/${id}`)
       .then((data: any) => {
         resolve(data.data);
       })
@@ -95,4 +121,14 @@ const getParticipants = (id: any) => {
   });
 };
 
-export default { getEvents, getEvent, getMyEvents, registerEvent, getInvitedUsers, getAskedUsers, getParticipants };
+export default {
+  getEvents,
+  getEvent,
+  getMyEvents,
+  registerEvent,
+  getInvitedUsers,
+  getAskedUsers,
+  getParticipants,
+  getMyPermissions,
+  deleteMyPermissions,
+};
