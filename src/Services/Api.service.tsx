@@ -12,8 +12,7 @@ const httpGet = (endpoint: string) => {
         resolve(response);
       })
       .catch((error) => {
-        if (endpoint != "/api/auth/refresh")
-          httpRefresh(error, endpoint, "get", resolve, reject);
+        if (endpoint != "/api/auth/refresh") httpRefresh(error, endpoint, "get", resolve, reject);
         else {
           window.location.href = "/";
         }
@@ -50,10 +49,10 @@ const httpPut = (endpoint: string, data: any) => {
   });
 };
 
-const httpDelete = (endpoint: string, data: any) => {
+const httpDelete = (endpoint: string, data?: any) => {
   return new Promise((resolve, reject) => {
     axios
-      .post(`${endpoint}`, data)
+      .delete(`${endpoint}`, data)
       .then((response) => {
         resolve(response);
       })
@@ -78,14 +77,7 @@ const httpPatch = (endpoint: string, data: any) => {
   });
 };
 
-const httpRefresh = (
-  error: any,
-  endpoint: string,
-  requestType: string,
-  resolve: any,
-  reject: any,
-  data1?: any
-) => {
+const httpRefresh = (error: any, endpoint: string, requestType: string, resolve: any, reject: any, data1?: any) => {
   if (error.response.data.statusCode == 401) {
     httpGet("/api/auth/refresh")
       .then((data: any) => {
