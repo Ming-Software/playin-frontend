@@ -42,6 +42,19 @@ const getMyInvites = (page: number) => {
   });
 };
 
+const acceptMyInvite = (id: string, userId: any) => {
+  return new Promise((resolve, reject) => {
+    ApiService.httpPost(`/api/participant/${id}`, userId)
+      .then((data: any) => {
+        resolve(data.data);
+      })
+      .catch((err: any) => {
+        reject(err);
+      })
+      .finally();
+  });
+};
+
 const deleteMyInvite = (id: string) => {
   return new Promise((resolve, reject) => {
     ApiService.httpDelete(`/api/guest/decline/${id}`)
@@ -82,4 +95,4 @@ const registerEvent = (event: EventProps) => {
   });
 };
 
-export default { getEvents, getEvent, getMyEvents, getMyInvites, deleteMyInvite, registerEvent };
+export default { getEvents, getEvent, getMyEvents, getMyInvites, deleteMyInvite, acceptMyInvite, registerEvent };

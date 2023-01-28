@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { EventProps } from "../Models/Events/event.interface";
 import evento from "..//Models/Events/event";
 import { useState } from "react";
+import { UserPropsShort } from "../Models/User/user.interface";
+import User from "../Models/User/user";
 
 export const Invite = (event: { eventProps: EventProps }) => {
   const navigate = useNavigate();
@@ -14,6 +16,15 @@ export const Invite = (event: { eventProps: EventProps }) => {
   const deleteInvite = () => {
     evento.deleteMyInvite(event.eventProps.ID!).then((data: any) => {
       setVisible(false);
+    });
+  };
+
+  const acepptInvite = () => {
+    User.getSignInUser().then((data: UserPropsShort) => {
+      console.log(data.id);
+      evento.acceptMyInvite(event.eventProps.ID!, { UserID: data.id }).then((data: any) => {
+        setVisible(false);
+      });
     });
   };
 
@@ -62,7 +73,7 @@ export const Invite = (event: { eventProps: EventProps }) => {
               Ver
             </a>
             <div className="card-footer-item">
-              <button className="button is-success is-small is-responsive is-rounded is-focused m-1">
+              <button onClick={acepptInvite} className="button is-success is-small is-responsive is-rounded is-focused m-1">
                 <span className="icon is-small">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
