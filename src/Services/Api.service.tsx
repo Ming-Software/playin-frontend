@@ -4,16 +4,15 @@ axios.defaults.withCredentials = true;
 import jwt_decode from "jwt-decode";
 import { useUserStore } from "../Stores/userStore";
 
-const httpGet = (endpoint: string) => {
+const httpGet = (endpoint: string, params?: any) => {
   return new Promise((resolve, reject) => {
     axios
-      .get(`${endpoint}`)
+      .get(`${endpoint}`, params)
       .then((response) => {
         resolve(response);
       })
       .catch((error) => {
-        if (endpoint != "/api/auth/refresh")
-          httpRefresh(error, endpoint, "get", resolve, reject);
+        if (endpoint != "/api/auth/refresh") httpRefresh(error, endpoint, "get", resolve, reject);
         else {
           window.location.href = "/";
         }
@@ -78,14 +77,7 @@ const httpPatch = (endpoint: string, data: any) => {
   });
 };
 
-const httpRefresh = (
-  error: any,
-  endpoint: string,
-  requestType: string,
-  resolve: any,
-  reject: any,
-  data1?: any
-) => {
+const httpRefresh = (error: any, endpoint: string, requestType: string, resolve: any, reject: any, data1?: any) => {
   if (error.response.data.statusCode == 401) {
     httpGet("/api/auth/refresh")
       .then((data: any) => {

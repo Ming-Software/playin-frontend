@@ -56,4 +56,43 @@ const registerEvent = (event: EventProps) => {
   });
 };
 
-export default { getEvents, getEvent, getMyEvents, registerEvent };
+const getInvitedUsers = (id: any) => {
+  return new Promise((resolve, reject) => {
+    ApiService.httpGet(`/api/guest/guestspage/event/${id}`)
+      .then((data: any) => {
+        resolve(data.data);
+      })
+      .catch((err: any) => {
+        reject(err);
+      })
+      .finally();
+  });
+};
+
+const getAskedUsers = (id: any) => {
+  return new Promise((resolve, reject) => {
+    ApiService.httpGet(`/api/permission/permissionspage/event/${id}`)
+      .then((data: any) => {
+        resolve(data.data);
+      })
+      .catch((err: any) => {
+        reject(err);
+      })
+      .finally();
+  });
+};
+
+const getParticipants = (id: any) => {
+  return new Promise((resolve, reject) => {
+    ApiService.httpGet(`/api/participant/participantspage/event/${id}`)
+      .then((data: any) => {
+        resolve(data.data);
+      })
+      .catch((err: any) => {
+        reject(err);
+      })
+      .finally();
+  });
+};
+
+export default { getEvents, getEvent, getMyEvents, registerEvent, getInvitedUsers, getAskedUsers, getParticipants };
