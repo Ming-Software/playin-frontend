@@ -11,4 +11,5 @@ export interface UserPropsShort {
   id: string;
   email: string;
   name: string;
+  description?: string;
 }

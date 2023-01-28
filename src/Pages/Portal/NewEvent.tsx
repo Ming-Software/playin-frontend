@@ -200,11 +200,8 @@ export const NewEvent = () => {
             <div className="field is-grouped">
               <div className="control">
                 <button className="button is-primary" type="submit" onClick={submitHandler}>
-                  Submit
+                  Criar
                 </button>
-              </div>
-              <div className="control">
-                <button className="button is-link is-light">Cancel</button>
               </div>
             </div>
           </div>

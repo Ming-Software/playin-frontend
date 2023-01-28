@@ -29,6 +29,45 @@ const getMyEvents = (page: number, id: string) => {
   });
 };
 
+const getMyInvites = (page: number) => {
+  return new Promise((resolve, reject) => {
+    ApiService.httpGet(`/api/guest/guestspage/user?Page=${page}`)
+      .then((data: any) => {
+        resolve(data.data);
+      })
+      .catch((err: any) => {
+        reject(err);
+      })
+      .finally();
+  });
+};
+
+const acceptMyInvite = (id: string, userId: any) => {
+  return new Promise((resolve, reject) => {
+    ApiService.httpPost(`/api/participant/${id}`, userId)
+      .then((data: any) => {
+        resolve(data.data);
+      })
+      .catch((err: any) => {
+        reject(err);
+      })
+      .finally();
+  });
+};
+
+const deleteMyInvite = (id: string) => {
+  return new Promise((resolve, reject) => {
+    ApiService.httpDelete(`/api/guest/decline/${id}`)
+      .then((data: any) => {
+        resolve(data.data);
+      })
+      .catch((err: any) => {
+        reject(err);
+      })
+      .finally();
+  });
+};
+
 const getEvent = (id: any) => {
   return new Promise((resolve, reject) => {
     ApiService.httpGet(`/api/event/${id}`)
@@ -56,9 +95,35 @@ const registerEvent = (event: EventProps) => {
   });
 };
 
+const getInvitedUsers = (id: any) => {
+  return new Promise((resolve, reject) => {
+    ApiService.httpGet(`/api/guest/guestspage/event/${id}`)
+      .then((data: any) => {
+        resolve(data.data);
+      })
+      .catch((err: any) => {
+        reject(err);
+      })
+      .finally();
+  });
+};
+
 const getMyPermissions = (page: number) => {
   return new Promise((resolve, reject) => {
     ApiService.httpGet(`/api/permission/permissionspage/user?Page=${page}`)
+      .then((data: any) => {
+        resolve(data.data);
+      })
+      .catch((err: any) => {
+        reject(err);
+      })
+      .finally();
+  });
+};
+
+const getAskedUsers = (id: any) => {
+  return new Promise((resolve, reject) => {
+    ApiService.httpGet(`/api/permission/permissionspage/event/${id}`)
       .then((data: any) => {
         resolve(data.data);
       })
@@ -82,11 +147,30 @@ const deleteMyPermissions = (id: string) => {
   });
 };
 
+const getParticipants = (id: any) => {
+  return new Promise((resolve, reject) => {
+    ApiService.httpGet(`/api/participant/participantspage/event/${id}`)
+      .then((data: any) => {
+        resolve(data.data);
+      })
+      .catch((err: any) => {
+        reject(err);
+      })
+      .finally();
+  });
+};
+
 export default {
   getEvents,
   getEvent,
   getMyEvents,
   registerEvent,
+  getInvitedUsers,
+  getAskedUsers,
+  getParticipants,
   getMyPermissions,
   deleteMyPermissions,
+  deleteMyInvite,
+  getMyInvites,
+  acceptMyInvite,
 };
