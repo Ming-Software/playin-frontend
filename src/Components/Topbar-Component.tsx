@@ -52,6 +52,9 @@ export const Topbar = () => {
           <Link to="/portal/myevents" className="navbar-item">
             My Events
           </Link>
+          <Link to="/portal/mypermissions" className="navbar-item">
+            My Permissions
+          </Link>
         </div>
 
         <div className="navbar-end">
