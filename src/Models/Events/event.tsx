@@ -56,4 +56,37 @@ const registerEvent = (event: EventProps) => {
   });
 };
 
-export default { getEvents, getEvent, getMyEvents, registerEvent };
+const getMyPermissions = (page: number) => {
+  return new Promise((resolve, reject) => {
+    ApiService.httpGet(`/api/permission/permissionspage/user?Page=${page}`)
+      .then((data: any) => {
+        resolve(data.data);
+      })
+      .catch((err: any) => {
+        reject(err);
+      })
+      .finally();
+  });
+};
+
+const deleteMyPermissions = (id: string) => {
+  return new Promise((resolve, reject) => {
+    ApiService.httpDelete(`/api/permission/cancel/${id}`)
+      .then((data: any) => {
+        resolve(data.data);
+      })
+      .catch((err: any) => {
+        reject(err);
+      })
+      .finally();
+  });
+};
+
+export default {
+  getEvents,
+  getEvent,
+  getMyEvents,
+  registerEvent,
+  getMyPermissions,
+  deleteMyPermissions,
+};
