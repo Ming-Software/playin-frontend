@@ -1,7 +1,6 @@
-import React, { lazy, Suspense, useState } from "react";
 import Topbar from "../../Components/Topbar-Component";
-import { Routes, Route, Outlet, Link } from "react-router-dom";
-//ROUTES
+import { Outlet } from "react-router-dom";
+
 export const PortalPage = () => {
   return (
     <div>
