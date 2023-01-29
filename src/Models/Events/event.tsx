@@ -160,6 +160,62 @@ const getParticipants = (id: any) => {
   });
 };
 
+const deleteParticipants = (id: any, userid: string) => {
+  return new Promise((resolve, reject) => {
+    const user = { UserID: userid };
+    ApiService.httpDelete(`/api/participant/${id}`, user)
+      .then((data: any) => {
+        resolve(data.data);
+      })
+      .catch((err: any) => {
+        reject(err);
+      })
+      .finally();
+  });
+};
+
+const declineGuests = (id: any, userid: string) => {
+  return new Promise((resolve, reject) => {
+    const user = { UserID: userid };
+    ApiService.httpDelete(`/api/guest/cancel/${id}`, user)
+      .then((data: any) => {
+        resolve(data.data);
+      })
+      .catch((err: any) => {
+        reject(err);
+      })
+      .finally();
+  });
+};
+
+const declinePermissions = (id: any, userid: string) => {
+  return new Promise((resolve, reject) => {
+    const user = { UserID: userid };
+    ApiService.httpDelete(`/api/permission/decline/${id}`, user)
+      .then((data: any) => {
+        resolve(data.data);
+      })
+      .catch((err: any) => {
+        reject(err);
+      })
+      .finally();
+  });
+};
+
+const acceptPermissions = (id: any, userid: string) => {
+  return new Promise((resolve, reject) => {
+    const user = { UserID: userid };
+    ApiService.httpPost(`/api/participant/${id}`, user)
+      .then((data: any) => {
+        resolve(data.data);
+      })
+      .catch((err: any) => {
+        reject(err);
+      })
+      .finally();
+  });
+};
+
 export default {
   getEvents,
   getEvent,
@@ -173,4 +229,8 @@ export default {
   deleteMyInvite,
   getMyInvites,
   acceptMyInvite,
+  deleteParticipants,
+  declineGuests,
+  declinePermissions,
+  acceptPermissions,
 };

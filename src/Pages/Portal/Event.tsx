@@ -3,15 +3,27 @@ import { useParams } from "react-router-dom";
 import Event from "../../Models/Events/event";
 import { useEffect, useState } from "react";
 import User from "../../Models/User/user";
-import { UserProps, UserPropsShort } from "../../Models/User/user.interface";
 
 export const EventPage = () => {
-  const [isModal, setModal] = useState(false);
+  const [isModalParticipants, setModalParticipants] = useState(false);
+  const [isModalGuests, setModalGuests] = useState(false);
+  const [isModalPermissions, setModalPermissions] = useState(false);
 
-  const openModal = () => {
-    if (event.Creator === user) setModal(true);
+  const openModalParticipants = (id: string) => {
+    if (event.Creator === user) setModalParticipants(true);
+    setUserID(id);
+  };
+  const openModalGuests = (id: string) => {
+    if (event.Creator === user) setModalGuests(true);
+    setUserID(id);
   };
 
+  const openModalPermissions = (id: string) => {
+    if (event.Creator === user) setModalPermissions(true);
+    setUserID(id);
+  };
+
+  const [userID, setUserID] = useState<string>();
   const [userInvited, setUserInvited] = useState<any>();
   const [userAsked, setUserAsked] = useState<any>();
   const [participant, setParticipant] = useState<any>();
@@ -31,6 +43,61 @@ export const EventPage = () => {
     Public: false,
   });
   let { id } = useParams();
+
+  const deleteParticipant = () => {
+    Event.deleteParticipants(id, userID!)
+      .then(() => {
+        Event.getParticipants(id).then((data: any) => {
+          setParticipant(data.Participants);
+        });
+        setModalParticipants(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const declineGuests = () => {
+    Event.declineGuests(id, userID!)
+      .then(() => {
+        Event.getInvitedUsers(id).then((data: any) => {
+          setUserInvited(data.Guests);
+        });
+        setModalGuests(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const declinePermissions = () => {
+    Event.declinePermissions(id, userID!)
+      .then(() => {
+        Event.getAskedUsers(id).then((data: any) => {
+          setUserAsked(data.Permissions);
+        });
+        setModalPermissions(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const acceptPermissions = () => {
+    Event.acceptPermissions(id, userID!)
+      .then(() => {
+        Event.getAskedUsers(id).then((data: any) => {
+          setUserAsked(data.Permissions);
+          Event.getParticipants(id).then((data: any) => {
+            setParticipant(data.Participants);
+          });
+        });
+        setModalPermissions(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   useEffect(() => {
     Event.getEvent(id).then((data: any) => {
@@ -59,19 +126,19 @@ export const EventPage = () => {
     Event.getInvitedUsers(id).then((data: any) => {
       setUserInvited(data.Guests);
     });
-  }, [userInvited]);
+  }, []);
 
   useEffect(() => {
     Event.getAskedUsers(id).then((data: any) => {
       setUserAsked(data.Permissions);
     });
-  }, [userAsked]);
+  }, []);
 
   useEffect(() => {
     Event.getParticipants(id).then((data: any) => {
       setParticipant(data.Participants);
     });
-  }, [participant]);
+  }, []);
 
   return (
     <>
@@ -130,7 +197,7 @@ export const EventPage = () => {
                       {participant?.map((user: any) => (
                         <tr key={user.ID}>
                           <td>
-                            <a className="has-text-black" onClick={openModal}>
+                            <a className="has-text-black" onClick={() => openModalParticipants(user.ID)}>
                               {user.Name}
                             </a>
                           </td>
@@ -150,7 +217,7 @@ export const EventPage = () => {
                       {userInvited?.map((user: any) => (
                         <tr key={user.ID}>
                           <td>
-                            <a className="has-text-black" onClick={openModal}>
+                            <a className="has-text-black" onClick={() => openModalGuests(user.ID)}>
                               {user.Name}
                             </a>
                           </td>
@@ -170,7 +237,7 @@ export const EventPage = () => {
                       {userAsked?.map((user: any) => (
                         <tr key={user.ID}>
                           <td>
-                            <a className="has-text-black" onClick={openModal}>
+                            <a className="has-text-black" onClick={() => openModalPermissions(user.ID)}>
                               {user.Name}
                             </a>
                           </td>
@@ -184,15 +251,50 @@ export const EventPage = () => {
           </div>
         </div>
       </main>
-      <div className={`modal ${isModal && "is-active"}`}>
+      <div className={`modal ${isModalParticipants && "is-active"}`}>
         <div className="modal-background"></div>
         <div className="modal-card">
+          <header className="modal-card-head">
+            <p className="modal-card-title">Remover Participantes</p>
+            <button className="delete" aria-label="close" onClick={() => setModalParticipants(false)}></button>
+          </header>
           <footer className="modal-card-foot">
-            <button className="button is-success">Aceitar</button>
-            <button className="button is-danger">Rejeitar</button>
+            <button className="button is-danger" onClick={deleteParticipant}>
+              Remover
+            </button>
           </footer>
         </div>
-        <button className="modal-close is-large" aria-label="close" onClick={() => setModal(false)}></button>
+      </div>
+      <div className={`modal ${isModalGuests && "is-active"}`}>
+        <div className="modal-background"></div>
+        <div className="modal-card">
+          <header className="modal-card-head">
+            <p className="modal-card-title">Remover Convidados</p>
+            <button className="delete" aria-label="close" onClick={() => setModalGuests(false)}></button>
+          </header>
+          <footer className="modal-card-foot">
+            <button className="button is-danger" onClick={declineGuests}>
+              Rejeitar
+            </button>
+          </footer>
+        </div>
+      </div>
+      <div className={`modal ${isModalPermissions && "is-active"}`}>
+        <div className="modal-background"></div>
+        <div className="modal-card">
+          <header className="modal-card-head">
+            <p className="modal-card-title">Aceitar Pedido</p>
+            <button className="delete" aria-label="close" onClick={() => setModalPermissions(false)}></button>
+          </header>
+          <footer className="modal-card-foot">
+            <button className="button is-success" onClick={acceptPermissions}>
+              Aceitar
+            </button>
+            <button className="button is-danger" onClick={declinePermissions}>
+              Rejeitar
+            </button>
+          </footer>
+        </div>
       </div>
     </>
   );
