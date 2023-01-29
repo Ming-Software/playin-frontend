@@ -141,12 +141,12 @@ export const NewEvent = () => {
                 <div className="select is-primary is-multisized">
                   <select onChange={(event) => setActivity(event.currentTarget.value)}>
                     <option value="None">None</option>
-                    <option value="Vólei">Vólei</option>
+                    <option value="Voleibol">Vólei</option>
                     <option value="Futebol">Futebol</option>
                     <option value="Futsal">Futsal</option>
-                    <option value="Basquetebol">Basquetebol</option>
+                    {/*<option value="Basquetebol">Basquetebol</option> Nao temos basquet no backend*/}
                     <option value="Padel">Padel</option>
-                    <option value="Ténis">Ténis</option>
+                    <option value="Tenis">Ténis</option>
                   </select>
                 </div>
               </div>
