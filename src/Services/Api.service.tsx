@@ -52,7 +52,7 @@ const httpPut = (endpoint: string, data: any) => {
 const httpDelete = (endpoint: string, data?: any) => {
   return new Promise((resolve, reject) => {
     axios
-      .delete(`${endpoint}`, data)
+      .delete(`${endpoint}`, { data: data })
       .then((response) => {
         resolve(response);
       })
