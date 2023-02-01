@@ -17,7 +17,6 @@ const getEvents = (page: number) => {
 
 const getMyEvents = (page: number, id: string) => {
   return new Promise((resolve, reject) => {
-    console.log(`/api/event/eventspage/${id}?Page=${page}`);
     ApiService.httpGet(`/api/event/eventspage/${id}?Page=${page}`)
       .then((data: any) => {
         resolve(data.data);
@@ -32,6 +31,21 @@ const getMyEvents = (page: number, id: string) => {
 const getMyInvites = (page: number) => {
   return new Promise((resolve, reject) => {
     ApiService.httpGet(`/api/guest/guestspage/user?Page=${page}`)
+      .then((data: any) => {
+        resolve(data.data);
+      })
+      .catch((err: any) => {
+        reject(err);
+      })
+      .finally();
+  });
+};
+
+const inviteGuest = (id: string, userId: string) => {
+  return new Promise((resolve, reject) => {
+    const user = { UserID: userId };
+    console.log(user);
+    ApiService.httpPost(`/api/guest/${id}`, user)
       .then((data: any) => {
         resolve(data.data);
       })
@@ -216,6 +230,20 @@ const acceptPermissions = (id: any, userid: string) => {
   });
 };
 
+const getUserFiltered = (filter: string) => {
+  return new Promise((resolve, reject) => {
+    ApiService.httpGet(`/api/user/filter`, filter)
+      .then((data: any) => {
+        console.log(data);
+        resolve(data.data.Users);
+      })
+      .catch((err: any) => {
+        reject(err);
+      })
+      .finally();
+  });
+};
+
 export default {
   getEvents,
   getEvent,
@@ -233,4 +261,6 @@ export default {
   declineGuests,
   declinePermissions,
   acceptPermissions,
+  getUserFiltered,
+  inviteGuest,
 };

@@ -10,6 +10,7 @@ import { EventPage } from "./Pages/Portal/Event";
 import MyEventsPage from "./Pages/Portal/MyEvents";
 import MyPermissionsPage from "./Pages/Portal/MyPermissions";
 import MyInvitesPage from "./Pages/Portal/MyInvites";
+import PartEventsPage from "./Pages/Portal/PartEvents";
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
           <Route path="newevent" element={<NewEvent />} />
           <Route path="events" element={<EventsPage />} />
           <Route path="myevents" element={<MyEventsPage />} />
+          <Route path="partevents" element={<PartEventsPage />} />
           <Route path="mypermissions" element={<MyPermissionsPage />} />
           <Route path="myinvites" element={<MyInvitesPage />} />
           <Route path="events/:id" element={<EventPage />} />

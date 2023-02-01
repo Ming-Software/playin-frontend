@@ -3,26 +3,16 @@ import { useParams } from "react-router-dom";
 import Event from "../../Models/Events/event";
 import { useEffect, useState } from "react";
 import User from "../../Models/User/user";
+import { data } from "cypress/types/jquery";
 
 export const EventPage = () => {
   const [isModalParticipants, setModalParticipants] = useState(false);
   const [isModalGuests, setModalGuests] = useState(false);
   const [isModalPermissions, setModalPermissions] = useState(false);
-
-  const openModalParticipants = (id: string) => {
-    if (event.Creator === user) setModalParticipants(true);
-    setUserID(id);
-  };
-  const openModalGuests = (id: string) => {
-    if (event.Creator === user) setModalGuests(true);
-    setUserID(id);
-  };
-
-  const openModalPermissions = (id: string) => {
-    if (event.Creator === user) setModalPermissions(true);
-    setUserID(id);
-  };
-
+  const [isModalFilter, setModaFilter] = useState(false);
+  const [filter, setFilter] = useState("");
+  const [guestName, setGuestName] = useState("");
+  const [userList, setUserList] = useState([]);
   const [userID, setUserID] = useState<string>();
   const [userInvited, setUserInvited] = useState<any>();
   const [userAsked, setUserAsked] = useState<any>();
@@ -44,6 +34,23 @@ export const EventPage = () => {
   });
   let { id } = useParams();
 
+  const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
+    setFilter(event.currentTarget.value);
+  };
+  const openModalParticipants = (id: string) => {
+    if (event.Creator === user) setModalParticipants(true);
+    setUserID(id);
+  };
+  const openModalGuests = (id: string) => {
+    if (event.Creator === user) setModalGuests(true);
+    setUserID(id);
+  };
+
+  const openModalPermissions = (id: string) => {
+    if (event.Creator === user) setModalPermissions(true);
+    setUserID(id);
+  };
+
   const deleteParticipant = () => {
     Event.deleteParticipants(id, userID!)
       .then(() => {
@@ -55,6 +62,16 @@ export const EventPage = () => {
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  const addUser = (userId: string) => {
+    console.log(userId);
+    Event.inviteGuest(id!, userId!).then((data: any) => {
+      Event.getInvitedUsers(id).then((data: any) => {
+        setUserInvited(data.Guests);
+      });
+      setModaFilter(false);
+    });
   };
 
   const declineGuests = () => {
@@ -139,6 +156,12 @@ export const EventPage = () => {
       setParticipant(data.Participants);
     });
   }, []);
+
+  const applyFilter = () => {
+    Event.getUserFiltered(filter).then((data: any) => {
+      setUserList(data);
+    });
+  };
 
   return (
     <>
@@ -246,6 +269,9 @@ export const EventPage = () => {
                     </tbody>
                   </table>
                 </div>
+                <button className="button is-primary" aria-label="close" onClick={() => setModaFilter(true)}>
+                  Convidar Pessoas
+                </button>
               </div>
             </section>
           </div>
@@ -292,6 +318,38 @@ export const EventPage = () => {
             </button>
             <button className="button is-danger" onClick={declinePermissions}>
               Rejeitar
+            </button>
+          </footer>
+        </div>
+      </div>
+      <div className={`modal ${isModalFilter && "is-active"}`}>
+        <div className="modal-background"></div>
+        <div className="modal-card">
+          <header className="modal-card-head">
+            <p className="modal-card-title">Convidar Pessoas</p>
+            <button className="delete" aria-label="close" onClick={() => setModaFilter(false)}></button>
+          </header>
+          <footer className="modal-card-foot is-block-mobile is-block-fullhd">
+            <div className="modal-card-foot is-flex-mobile is-flex-fullhd">
+              <input value={filter} type="text" className="input is-primary" placeholder="filter" onChange={handleChange} />
+              <button className="button is-success" onClick={applyFilter}>
+                Pesquisa
+              </button>
+            </div>
+            <div className="select is-rounded is-focused is-medium is-justify-content-center">
+              <select value={guestName} onChange={(user) => setGuestName(user.target.value)}>
+                {userList?.map((user: any) => (
+                  <option key={user.ID} value={user.ID}>
+                    {user.Name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <button
+              className="button is-rounded is-primary is-focused is-small is-justify-content-center"
+              onClick={() => addUser(guestName)}
+            >
+              Convidar
             </button>
           </footer>
         </div>
