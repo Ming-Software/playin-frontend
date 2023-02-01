@@ -28,6 +28,10 @@ export const Topbar = () => {
 
   const handleClick = () => {
     setDropdown(!dropdown);
+  };
+
+  const handleLogout = () => {
+    setDropdown(!dropdown);
     User.logoutUser();
     AuthService.Logout();
     currentUser.setId("");
@@ -92,7 +96,7 @@ export const Topbar = () => {
               </div>
               <div className="dropdown-menu" id="dropdown-menu3" role="menu">
                 <div className="dropdown-content">
-                  <Link to="/" className="dropdown-item">
+                  <Link to="/" className="dropdown-item" onClick={handleLogout}>
                     Logout
                   </Link>
                 </div>

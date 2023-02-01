@@ -160,6 +160,8 @@ export const EventPage = () => {
   const applyFilter = () => {
     Event.getUserFiltered(filter).then((data: any) => {
       setUserList(data);
+      console.log(data[0].ID);
+      setGuestName(data[0].ID);
     });
   };
 
