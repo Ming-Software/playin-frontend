@@ -28,6 +28,19 @@ const getMyEvents = (page: number, id: string) => {
   });
 };
 
+const getPartEvents = (page: number, id: string) => {
+  return new Promise((resolve, reject) => {
+    ApiService.httpGet(`/api/event/participantpage/${id}?Page=${page}`)
+      .then((data: any) => {
+        resolve(data.data);
+      })
+      .catch((err: any) => {
+        reject(err);
+      })
+      .finally();
+  });
+};
+
 const getMyInvites = (page: number) => {
   return new Promise((resolve, reject) => {
     ApiService.httpGet(`/api/guest/guestspage/user?Page=${page}`)
@@ -263,4 +276,5 @@ export default {
   acceptPermissions,
   getUserFiltered,
   inviteGuest,
+  getPartEvents,
 };

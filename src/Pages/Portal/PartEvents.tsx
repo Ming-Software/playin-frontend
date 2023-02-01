@@ -14,7 +14,7 @@ const PartEventsPage = () => {
 
   useEffect(() => {
     User.getSignInUser().then((data: UserPropsShort) => {
-      Event.getMyEvents(currentPage, data.id).then((data: any) => {
+      Event.getPartEvents(currentPage, data.id).then((data: any) => {
         setTotalPages(Math.ceil(data.Total / EVENTS_PER_PAGE));
         const mappedData = data.Events.map((event: EventProps) => ({
           ID: event.ID,
