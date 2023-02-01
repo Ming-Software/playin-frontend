@@ -32,4 +32,17 @@ const editUser = (user: UserProps) => {
   });
 };
 
-export default { getSignInUser, editUser };
+const logoutUser = () => {
+  return new Promise<UserPropsShort>((resolve, reject) => {
+    ApiService.httpGet("/api/auth/logout")
+      .then((data: any) => {
+        resolve(data.data);
+      })
+      .catch((err: any) => {
+        reject(err);
+      })
+      .finally();
+  });
+};
+
+export default { getSignInUser, editUser, logoutUser };

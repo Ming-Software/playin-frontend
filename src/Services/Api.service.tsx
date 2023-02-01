@@ -7,7 +7,7 @@ import { useUserStore } from "../Stores/userStore";
 const httpGet = (endpoint: string, params?: any) => {
   return new Promise((resolve, reject) => {
     axios
-      .get(`${endpoint}`, params)
+      .get(`${endpoint}`, { params: { Name: params } })
       .then((response) => {
         resolve(response);
       })
