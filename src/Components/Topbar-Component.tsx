@@ -7,6 +7,8 @@ import { UserPropsShort } from "../Models/User/user.interface";
 import { useState } from "react";
 import AuthService from "../Services/Auth.service";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 //The TopBar receives de user email as an argument.
 //To use TopBar it is necessary to have a user legged in to show his email.
 
@@ -55,19 +57,29 @@ export const Topbar = () => {
       <div id="navbarItems" className={`navbar-menu ${burger && "is-active"}`}>
         <div className="navbar-start">
           <Link to="/portal/events" className="navbar-item">
-            Eventos
+            <>
+              Eventos <FontAwesomeIcon className="icon is-small ml-1" icon="calendar" />
+            </>
           </Link>
           <Link to="/portal/newevent" className="navbar-item">
-            Criar Evento
+            <>
+              Criar Evento <FontAwesomeIcon className="icon is-small ml-1" icon="calendar-plus" />
+            </>
           </Link>
           <Link to="/portal/myevents" className="navbar-item">
-            Meus Eventos
+            <>
+              Meus Eventos <FontAwesomeIcon className="icon is-small ml-1" icon="star" />
+            </>
           </Link>
           <Link to="/portal/mypermissions" className="navbar-item">
-            Pedidos para Eventos
+            <>
+              Meus Pedidos <FontAwesomeIcon className="icon is-small ml-1" icon="arrow-up" />
+            </>
           </Link>
           <Link to="/portal/myinvites" className="navbar-item">
-            Convites para Eventos
+            <>
+              Meus Convites <FontAwesomeIcon className="icon is-small ml-1" icon="arrow-down" />
+            </>
           </Link>
           <Link to="/portal/partevents" className="navbar-item">
             Participações

@@ -1,5 +1,41 @@
 import "./App.scss";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import {
+  faBasketball,
+  faCheckSquare,
+  faCoffee,
+  faFutbol,
+  faFutbolBall,
+  faTableTennisPaddleBall,
+  faTableTennis,
+  faVolleyball,
+  faCalendar,
+  faCalendarPlus,
+  faStar,
+  faUser,
+  faArrowUp,
+  faArrowDown,
+} from "@fortawesome/free-solid-svg-icons";
+library.add(
+  fab,
+  faCheckSquare,
+  faCoffee,
+  faFutbol,
+  faVolleyball,
+  faFutbolBall,
+  faBasketball,
+  faTableTennisPaddleBall,
+  faCalendar,
+  faCalendarPlus,
+  faStar,
+  faUser,
+  faArrowUp,
+  faArrowDown
+);
+
 import LoginPage from "./Pages/Login";
 import AboutPage from "./Pages/About";
 import SignUpPage from "./Pages/Signup";
