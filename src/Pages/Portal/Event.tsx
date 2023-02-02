@@ -215,16 +215,21 @@ export const EventPage = () => {
                 </div>
               </div>
             </section>
-            <section className="column">
+            <section className="column is-full-mobile is-two-fifths-tablet">
               <div className="columns is-mulitline is-mobile">
-                <div className="column is-mobile">
-                  <button className="button is-primary mb-2" aria-label="close" onClick={() => setModaFilter(true)}>
-                    Convidar Pessoas
+                <div className="column">
+                  <button className="button is-primary is-center" aria-label="close" onClick={() => setModaFilter(true)}>
+                    Convidar Utilizadores
                   </button>
-                  <table className="table is-bordered">
+                </div>
+                <div className="column"></div>
+              </div>
+              <div className="columns is-mulitline is-mobile">
+                <div className="column">
+                  <table className="table is-narrow">
                     <thead>
                       <tr>
-                        <th>Participantes</th>
+                        <th>Participam</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -240,26 +245,8 @@ export const EventPage = () => {
                     </tbody>
                   </table>
                 </div>
-                <div className="column  is-mobile">
-                  <table className="table">
-                    <thead>
-                      <tr>
-                        <th>Pedidos</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {userAsked?.map((user: any) => (
-                        <tr key={user.ID}>
-                          <td>
-                            <a className="has-text-black" onClick={() => openModalPermissions(user.ID)}>
-                              {user.Name}
-                            </a>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                  <table className="table">
+                <div className="column">
+                  <table className="table is-narrow">
                     <thead>
                       <tr>
                         <th>Convidados</th>
@@ -270,6 +257,26 @@ export const EventPage = () => {
                         <tr key={user.ID}>
                           <td>
                             <a className="has-text-black" onClick={() => openModalGuests(user.ID)}>
+                              {user.Name}
+                            </a>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <div className="column">
+                  <table className="table  is-narrow">
+                    <thead>
+                      <tr>
+                        <th>Pedidos</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {userAsked?.map((user: any) => (
+                        <tr key={user.ID}>
+                          <td>
+                            <a className="has-text-black" onClick={() => openModalPermissions(user.ID)}>
                               {user.Name}
                             </a>
                           </td>
