@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import Event from "../../Models/Events/event";
 import { useEffect, useState } from "react";
 import User from "../../Models/User/user";
-import { data } from "cypress/types/jquery";
 
 export const EventPage = () => {
   const [isModalParticipants, setModalParticipants] = useState(false);
@@ -157,6 +156,13 @@ export const EventPage = () => {
     });
   }, []);
 
+  useEffect(() => {
+    Event.getUserFiltered(filter).then((data: any) => {
+      setUserList(data);
+      setGuestName(data[0].ID);
+    });
+  }, []);
+
   const applyFilter = () => {
     Event.getUserFiltered(filter).then((data: any) => {
       setUserList(data);
@@ -189,29 +195,33 @@ export const EventPage = () => {
                     <p>{event.Description}</p>
                   </div>
                 </div>
-                <div className="column is-half-mobile is-one-third-tablet">
-                  <div className="box has-background-grey-lighter	has-text-white	">
+                <div className="column is-mobile is-one-third-tablet">
+                  <div className="box has-background-grey-lighter	has-text-white is-half-mobile is-one-third-tablet	">
                     <time>
                       <p>
                         <span className="tag is-link is-light">Data: {event.date}</span>
                       </p>
                       <p>
-                        <span className="tag is-link is-light">Inicio: {event.Start}</span>
-
-                        <span className="tag is-link is-light">Fim: {event.Finish}</span>
+                        <span className="tag is-link is-light mt-2">Inicio: {event.Start}</span>
+                      </p>
+                      <p>
+                        <span className="tag is-link is-light mt-2">Fim: {event.Finish}</span>
                       </p>
                     </time>
                     <p>
-                      <span className="tag is-link is-light">Local: {event.Locale}</span>
+                      <span className="tag is-link is-light mt-2">Local: {event.Locale}</span>
                     </p>
                   </div>
                 </div>
               </div>
             </section>
-            <section className="column is-full-mobile is-two-fifths-tablet">
+            <section className="column">
               <div className="columns is-mulitline is-mobile">
-                <div className="column">
-                  <table className="table">
+                <div className="column is-mobile">
+                  <button className="button is-primary mb-2" aria-label="close" onClick={() => setModaFilter(true)}>
+                    Convidar Pessoas
+                  </button>
+                  <table className="table is-bordered">
                     <thead>
                       <tr>
                         <th>Participantes</th>
@@ -230,7 +240,25 @@ export const EventPage = () => {
                     </tbody>
                   </table>
                 </div>
-                <div className="column">
+                <div className="column  is-mobile">
+                  <table className="table">
+                    <thead>
+                      <tr>
+                        <th>Pedidos</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {userAsked?.map((user: any) => (
+                        <tr key={user.ID}>
+                          <td>
+                            <a className="has-text-black" onClick={() => openModalPermissions(user.ID)}>
+                              {user.Name}
+                            </a>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                   <table className="table">
                     <thead>
                       <tr>
@@ -250,29 +278,6 @@ export const EventPage = () => {
                     </tbody>
                   </table>
                 </div>
-                <div className="column">
-                  <table className="table">
-                    <thead>
-                      <tr>
-                        <th>Pedidos</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {userAsked?.map((user: any) => (
-                        <tr key={user.ID}>
-                          <td>
-                            <a className="has-text-black" onClick={() => openModalPermissions(user.ID)}>
-                              {user.Name}
-                            </a>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-                <button className="button is-primary" aria-label="close" onClick={() => setModaFilter(true)}>
-                  Convidar Pessoas
-                </button>
               </div>
             </section>
           </div>
@@ -323,8 +328,8 @@ export const EventPage = () => {
           </footer>
         </div>
       </div>
-      <div className={`modal ${isModalFilter && "is-active"}`}>
-        <div className="modal-background"></div>
+      <div className={`modal ${isModalFilter && "is-active is-clipped is-fullheight"} `}>
+        <div className="modal-background is-centered is-fullheight"></div>
         <div className="modal-card">
           <header className="modal-card-head">
             <p className="modal-card-title">Convidar Pessoas</p>
