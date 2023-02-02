@@ -202,13 +202,14 @@ export const EventPage = () => {
                         <span className="tag is-link is-light">Data: {event.date}</span>
                       </p>
                       <p>
-                        <span className="tag is-link is-light">Inicio: {event.Start}</span>
-
-                        <span className="tag is-link is-light">Fim: {event.Finish}</span>
+                        <span className="tag is-link is-light mt-2">Inicio: {event.Start}</span>
+                      </p>
+                      <p>
+                        <span className="tag is-link is-light mt-2">Fim: {event.Finish}</span>
                       </p>
                     </time>
                     <p>
-                      <span className="tag is-link is-light">Local: {event.Locale}</span>
+                      <span className="tag is-link is-light mt-2">Local: {event.Locale}</span>
                     </p>
                   </div>
                 </div>
