@@ -18,6 +18,7 @@ import {
   faUser,
   faArrowUp,
   faArrowDown,
+  faEnvelopeCircleCheck,
 } from "@fortawesome/free-solid-svg-icons";
 library.add(
   fab,
@@ -33,7 +34,8 @@ library.add(
   faStar,
   faUser,
   faArrowUp,
-  faArrowDown
+  faArrowDown,
+  faEnvelopeCircleCheck
 );
 
 import LoginPage from "./Pages/Login";
