@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import Event from "../../Models/Events/event";
 import { useEffect, useState } from "react";
 import User from "../../Models/User/user";
-import { data } from "cypress/types/jquery";
 
 export const EventPage = () => {
   const [isModalParticipants, setModalParticipants] = useState(false);
@@ -216,8 +215,11 @@ export const EventPage = () => {
               </div>
             </section>
             <section className="column">
-              <div className="columns is-mulitline is-one-quarter-mobile">
-                <div className="column  is-mobile">
+              <div className="columns is-mulitline is-mobile">
+                <div className="column is-mobile">
+                  <button className="button is-primary mb-2" aria-label="close" onClick={() => setModaFilter(true)}>
+                    Convidar Pessoas
+                  </button>
                   <table className="table is-bordered">
                     <thead>
                       <tr>
@@ -229,26 +231,6 @@ export const EventPage = () => {
                         <tr key={user.ID}>
                           <td>
                             <a className="has-text-black" onClick={() => openModalParticipants(user.ID)}>
-                              {user.Name}
-                            </a>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-                <div className="column  is-mobile">
-                  <table className="table">
-                    <thead>
-                      <tr>
-                        <th>Convidados</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {userInvited?.map((user: any) => (
-                        <tr key={user.ID}>
-                          <td>
-                            <a className="has-text-black" onClick={() => openModalGuests(user.ID)}>
                               {user.Name}
                             </a>
                           </td>
@@ -276,11 +258,24 @@ export const EventPage = () => {
                       ))}
                     </tbody>
                   </table>
-                </div>
-                <div className="column  is-mobile">
-                  <button className="button is-primary" aria-label="close" onClick={() => setModaFilter(true)}>
-                    Convidar Pessoas
-                  </button>
+                  <table className="table">
+                    <thead>
+                      <tr>
+                        <th>Convidados</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {userInvited?.map((user: any) => (
+                        <tr key={user.ID}>
+                          <td>
+                            <a className="has-text-black" onClick={() => openModalGuests(user.ID)}>
+                              {user.Name}
+                            </a>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </section>
