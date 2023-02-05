@@ -50,6 +50,8 @@ import MyPermissionsPage from "./Pages/Portal/MyPermissions";
 import MyInvitesPage from "./Pages/Portal/MyInvites";
 import PartEventsPage from "./Pages/Portal/PartEvents";
 
+import UserPage from "./Pages/User";
+
 const App = () => {
   return (
     <BrowserRouter>
@@ -63,7 +65,9 @@ const App = () => {
           <Route path="mypermissions" element={<MyPermissionsPage />} />
           <Route path="myinvites" element={<MyInvitesPage />} />
           <Route path="events/:id" element={<EventPage />} />
+          <Route path="userpage" element={<UserPage />} />
         </Route>
+
         <Route path="/signup" element={<SignUpPage />} />
       </Routes>
     </BrowserRouter>
