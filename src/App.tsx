@@ -4,6 +4,7 @@ import LoginPage from "./Pages/Login";
 import AboutPage from "./Pages/About";
 import SignUpPage from "./Pages/Signup";
 import NewEvent from "./Pages/NewEvent";
+import { RouterGuard } from "react-router-guard";
 
 const App = () => {
   return (
