@@ -21,7 +21,7 @@ const httpGet = (endpoint: string, params?: any) => {
   });
 };
 
-const httpPost = (endpoint: string, data: any) => {
+const httpPost = (endpoint: string, data?: any) => {
   return new Promise((resolve, reject) => {
     axios
       .post(`${endpoint}`, data)
