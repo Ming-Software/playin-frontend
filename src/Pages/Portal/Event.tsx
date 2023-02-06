@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import Event from "../../Models/Events/event";
 import { useEffect, useState } from "react";
 import User from "../../Models/User/user";
+import { useUserStore } from "../../Stores/userStore";
 
 export const EventPage = () => {
   const [isModalParticipants, setModalParticipants] = useState(false);
@@ -32,6 +33,7 @@ export const EventPage = () => {
     Public: false,
   });
   let { id } = useParams();
+  const userLogged = useUserStore();
 
   const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
     setFilter(event.currentTarget.value);
@@ -170,6 +172,14 @@ export const EventPage = () => {
     });
   };
 
+  const requestParticipation = () => {
+    Event.sendRequest(id!).then((data: any) => {
+      Event.getAskedUsers(id).then((data: any) => {
+        setUserAsked(data.Permissions);
+      });
+    });
+  };
+
   return (
     <>
       <main className="section">
@@ -222,6 +232,13 @@ export const EventPage = () => {
                     Convidar Utilizadores
                   </button>
                 </div>
+                {event.Public && event.Creator !== userLogged.name && (
+                  <div className="column">
+                    <button className="button is-primary is-center" aria-label="close" onClick={requestParticipation}>
+                      Pedir para participar
+                    </button>
+                  </div>
+                )}
                 <div className="column"></div>
               </div>
               <div className="columns is-mulitline is-mobile">
