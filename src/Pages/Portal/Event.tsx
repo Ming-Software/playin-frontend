@@ -200,49 +200,44 @@ export const EventPage = () => {
     <>
       <main className="section">
         <div className="box has-background-white-ter">
-          <div className="columns is-mobile is-multiline">
-            <section className="column is-full-mobile is-three-fifths-tablet">
-              <h1 className="title">{event.Name}</h1>
-              <h2 className="subtitle">{event.Creator}</h2>
+          <div className="columns is-flex is-justify-content-space-around is-mobile is-multiline">
+            <div className="column box is-one-third-tablet is-full-mobile has-background-white is-flex">
+              <section className="column is-full-mobile">
+                <h1 className="title">{event.Name}</h1>
+                <h2 className="subtitle">{event.Creator}</h2>
 
-              <div className="tags are-medium">
-                <span className="tag is-link">{event.Activity}</span>
-                <span className="tag is-info">{event.Social}</span>
-                <span className="tag is-primary">{event.Public ? "Publico" : "Privado"}</span>
-                {event.CurrentUsers >= event.MaxUsers ? (
-                  <span className="tag is-danger">Não Existem Vagas</span>
-                ) : (
-                  <span className="tag is-success">Ainda Existem {event.MaxUsers - event.CurrentUsers} Vagas</span>
-                )}
-              </div>
-              <div className="columns is-mobile is-centered">
-                <div className="column is-half-mobile is-two-thirds-tablet">
-                  <div className="box">
-                    <p>{event.Description}</p>
-                  </div>
+                <div className="tags are-medium">
+                  <span className="tag is-link">{event.Activity}</span>
+                  <span className="tag is-info">{event.Social}</span>
+                  <span className="tag is-primary">{event.Public ? "Publico" : "Privado"}</span>
+                  {event.CurrentUsers >= event.MaxUsers ? (
+                    <span className="tag is-danger">Não Existem Vagas</span>
+                  ) : (
+                    <span className="tag is-success">Ainda Existem {event.MaxUsers - event.CurrentUsers} Vagas</span>
+                  )}
                 </div>
-                <div className="column is-mobile is-one-third-tablet">
-                  <div className="box has-background-grey-lighter	has-text-white is-half-mobile is-one-third-tablet	">
-                    <time>
-                      <p>
-                        <span className="tag is-link is-light">Data: {event.date}</span>
-                      </p>
-                      <p>
-                        <span className="tag is-link is-light mt-2">Inicio: {event.Start}</span>
-                      </p>
-                      <p>
-                        <span className="tag is-link is-light mt-2">Fim: {event.Finish}</span>
-                      </p>
-                    </time>
-                    <p>
-                      <span className="tag is-link is-light mt-2">Local: {event.Locale}</span>
-                    </p>
+              </section>
+            </div>
+            <div className="column box is-one-third-tablet is-full-mobile has-background-white is-flex">
+              <section className="column is-full-mobile">
+                <h1 className="title">Detalhes</h1>
+
+                <section className="columns is-mobile is-multiline is-centered is-justify-content-space-around is-flex has-text-centered">
+                  <div className="column  is-mobile  is-half is-one-quarter-tablet">
+                    <span className="subtitle">Data: {event.date}</span>
                   </div>
-                </div>
-              </div>
-            </section>
-            <section className="column is-full-mobile is-two-fifths-tablet">
-              <div className="columns is-mulitline is-mobile">
+                  <div className="column is-mobile is-half is-one-quarter-tablet ">
+                    <span className="subtitle">Local: {event.Locale}</span>
+                  </div>
+
+                  <div className="column is-mobile is-half  is-one-quarter-tablet">
+                    <span className="subtitle">Inicio: {event.Start}</span>
+                  </div>
+                  <div className="column is-mobile is-half  is-one-quarter-tablet">
+                    <span className="subtitle">Fim: {event.Finish}</span>
+                  </div>
+                </section>
+
                 {event.Creator === userLogged.name && (
                   <div className="column">
                     <button className="button is-primary is-center" aria-label="close" onClick={() => setModaFilter(true)}>
@@ -262,6 +257,7 @@ export const EventPage = () => {
                     )}
                   </div>
                 )}
+
                 {event.Public && event.Creator !== userLogged.name && (
                   <div className="column">
                     <button className="button is-primary is-center" aria-label="close" onClick={requestParticipation}>
@@ -281,10 +277,14 @@ export const EventPage = () => {
                     )}
                   </div>
                 )}
-                <div className="column"></div>
-              </div>
-              <div className="columns is-mulitline is-mobile">
-                <div className="column">
+              </section>
+            </div>
+          </div>
+
+          <section className="column is-full-mobile ">
+            <div className="columns is-multiline is-mobile">
+              <div className="column ">
+                <div className="box has-background-white">
                   <table className="table is-narrow">
                     <thead>
                       <tr>
@@ -304,8 +304,10 @@ export const EventPage = () => {
                     </tbody>
                   </table>
                 </div>
-                <div className="column">
-                  <table className="table is-narrow">
+              </div>
+              <div className="column">
+                <div className="box has-background-white">
+                  <table className="table">
                     <thead>
                       <tr>
                         <th>Convidados</th>
@@ -324,8 +326,11 @@ export const EventPage = () => {
                     </tbody>
                   </table>
                 </div>
-                <div className="column">
-                  <table className="table  is-narrow">
+              </div>
+
+              <div className="column">
+                <div className="box has-background-white">
+                  <table className="table">
                     <thead>
                       <tr>
                         <th>Pedidos</th>
@@ -345,8 +350,8 @@ export const EventPage = () => {
                   </table>
                 </div>
               </div>
-            </section>
-          </div>
+            </div>
+          </section>
         </div>
       </main>
       <div className={`modal ${isModalParticipants && "is-active"}`}>
