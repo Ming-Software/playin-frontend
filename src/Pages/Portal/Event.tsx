@@ -227,11 +227,13 @@ export const EventPage = () => {
             </section>
             <section className="column is-full-mobile is-two-fifths-tablet">
               <div className="columns is-mulitline is-mobile">
-                <div className="column">
-                  <button className="button is-primary is-center" aria-label="close" onClick={() => setModaFilter(true)}>
-                    Convidar Utilizadores
-                  </button>
-                </div>
+                {event.Creator === userLogged.name && (
+                  <div className="column">
+                    <button className="button is-primary is-center" aria-label="close" onClick={() => setModaFilter(true)}>
+                      Convidar Utilizadores
+                    </button>
+                  </div>
+                )}
                 {event.Public && event.Creator !== userLogged.name && (
                   <div className="column">
                     <button className="button is-primary is-center" aria-label="close" onClick={requestParticipation}>
