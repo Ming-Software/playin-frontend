@@ -1,10 +1,11 @@
 export interface UserProps {
-  email?: string;
-  name?: string;
-  description?: string;
-  social?: string;
-  activities?: string[];
-  admin?: boolean;
+  ID: string;
+  Email?: string;
+  Name?: string;
+  Description?: string;
+  Social?: string;
+  Activities: string[];
+  Admin?: boolean;
 }
 
 export interface UserPropsShort {
