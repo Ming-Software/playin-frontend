@@ -33,8 +33,10 @@ export const EventPage = () => {
     Public: false,
   });
   const [showModalError, setShowModalError] = useState(false);
+  const [showModalErrorInvite, setShowModalErrorInvite] = useState(false);
   let { id } = useParams();
   const userLogged = useUserStore();
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
     setFilter(event.currentTarget.value);
@@ -68,12 +70,20 @@ export const EventPage = () => {
 
   const addUser = (userId: string) => {
     console.log(userId);
-    Event.inviteGuest(id!, userId!).then((data: any) => {
-      Event.getInvitedUsers(id).then((data: any) => {
-        setUserInvited(data.Guests);
+    Event.inviteGuest(id!, userId!)
+      .then((data: any) => {
+        Event.getInvitedUsers(id).then((data: any) => {
+          setUserInvited(data.Guests);
+        });
+        setModaFilter(false);
+      })
+      .catch((err) => {
+        console.log(err.response.data.ErrorMessage);
+        if (err.response.data.ErrorMessage === "User has already been invited") setErrorMessage("Utilizador já foi convidado.");
+        else setErrorMessage("Utilizador já pediu para participar.");
+        setModaFilter(false);
+        setShowModalErrorInvite(true);
       });
-      setModaFilter(false);
-    });
   };
 
   const declineGuests = () => {
@@ -239,6 +249,18 @@ export const EventPage = () => {
                     <button className="button is-primary is-center" aria-label="close" onClick={() => setModaFilter(true)}>
                       Convidar Utilizadores
                     </button>
+                    {showModalErrorInvite && (
+                      <div className={`modal ${showModalErrorInvite && "is-active is-clipped is-fullheight"} `}>
+                        <div className="modal-background"></div>
+                        <div className="modal-content">
+                          <div className="notification is-danger">
+                            <button className="delete" onClick={() => setShowModalErrorInvite(false)}></button>
+                            <h1>ERRO!</h1>
+                            <strong>{errorMessage}</strong>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
                 {event.Public && event.Creator !== userLogged.name && (
