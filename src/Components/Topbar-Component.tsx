@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-
+import { UserProps } from "../Models/User/user.interface";
 import { useUserStore } from "../Stores/userStore";
 
 import User from "../Models/User/user";
@@ -108,6 +108,9 @@ export const Topbar = () => {
               </div>
               <div className="dropdown-menu" id="dropdown-menu3" role="menu">
                 <div className="dropdown-content">
+                  <Link to={{ pathname: `/portal/userpage/${currentUser.id}` }} className="dropdown-item">
+                    Perfil
+                  </Link>
                   <Link to="/" className="dropdown-item" onClick={handleLogout}>
                     Logout
                   </Link>
