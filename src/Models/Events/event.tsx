@@ -257,6 +257,19 @@ const getUserFiltered = (filter: string) => {
   });
 };
 
+const sendRequest = (id: string) => {
+  return new Promise((resolve, reject) => {
+    ApiService.httpPost(`/api/permission/${id}`)
+      .then((data: any) => {
+        resolve(data.data);
+      })
+      .catch((err: any) => {
+        reject(err);
+      })
+      .finally();
+  });
+};
+
 export default {
   getEvents,
   getEvent,
@@ -277,4 +290,5 @@ export default {
   getUserFiltered,
   inviteGuest,
   getPartEvents,
+  sendRequest,
 };

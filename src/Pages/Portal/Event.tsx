@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import Event from "../../Models/Events/event";
 import { useEffect, useState } from "react";
 import User from "../../Models/User/user";
+import { useUserStore } from "../../Stores/userStore";
 
 export const EventPage = () => {
   const [isModalParticipants, setModalParticipants] = useState(false);
@@ -31,7 +32,11 @@ export const EventPage = () => {
     Activity: "",
     Public: false,
   });
+  const [showModalError, setShowModalError] = useState(false);
+  const [showModalErrorInvite, setShowModalErrorInvite] = useState(false);
   let { id } = useParams();
+  const userLogged = useUserStore();
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
     setFilter(event.currentTarget.value);
@@ -64,12 +69,20 @@ export const EventPage = () => {
   };
 
   const addUser = (userId: string) => {
-    Event.inviteGuest(id!, userId!).then((data: any) => {
-      Event.getInvitedUsers(id).then((data: any) => {
-        setUserInvited(data.Guests);
+    Event.inviteGuest(id!, userId!)
+      .then((data: any) => {
+        Event.getInvitedUsers(id).then((data: any) => {
+          setUserInvited(data.Guests);
+        });
+        setModaFilter(false);
+      })
+      .catch((err) => {
+        console.log(err.response.data.ErrorMessage);
+        if (err.response.data.ErrorMessage === "User has already been invited") setErrorMessage("Utilizador já foi convidado.");
+        else setErrorMessage("Utilizador já pediu para participar.");
+        setModaFilter(false);
+        setShowModalErrorInvite(true);
       });
-      setModaFilter(false);
-    });
   };
 
   const declineGuests = () => {
@@ -169,6 +182,20 @@ export const EventPage = () => {
     });
   };
 
+  const requestParticipation = () => {
+    Event.sendRequest(id!)
+      .then((data: any) => {
+        Event.getAskedUsers(id).then((data: any) => {
+          setUserAsked(data.Permissions);
+        });
+      })
+      .catch((err) => {
+        console.log(err.response.data.message);
+        setShowModalError(true);
+        //alert("Já pediu para participar neste evento.");
+      });
+  };
+
   return (
     <>
       <main className="section">
@@ -216,11 +243,44 @@ export const EventPage = () => {
             </section>
             <section className="column is-full-mobile is-two-fifths-tablet">
               <div className="columns is-mulitline is-mobile">
-                <div className="column">
-                  <button className="button is-primary is-center" aria-label="close" onClick={() => setModaFilter(true)}>
-                    Convidar Utilizadores
-                  </button>
-                </div>
+                {event.Creator === userLogged.name && (
+                  <div className="column">
+                    <button className="button is-primary is-center" aria-label="close" onClick={() => setModaFilter(true)}>
+                      Convidar Utilizadores
+                    </button>
+                    {showModalErrorInvite && (
+                      <div className={`modal ${showModalErrorInvite && "is-active is-clipped is-fullheight"} `}>
+                        <div className="modal-background"></div>
+                        <div className="modal-content">
+                          <div className="notification is-danger">
+                            <button className="delete" onClick={() => setShowModalErrorInvite(false)}></button>
+                            <h1>ERRO!</h1>
+                            <strong>{errorMessage}</strong>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+                {event.Public && event.Creator !== userLogged.name && (
+                  <div className="column">
+                    <button className="button is-primary is-center" aria-label="close" onClick={requestParticipation}>
+                      Pedir para participar
+                    </button>
+                    {showModalError && (
+                      <div className={`modal ${showModalError && "is-active is-clipped is-fullheight"} `}>
+                        <div className="modal-background"></div>
+                        <div className="modal-content">
+                          <div className="notification is-danger">
+                            <button className="delete" onClick={() => setShowModalError(false)}></button>
+                            <h1>ERRO!</h1>
+                            <strong>Já pediu para participar neste evento.</strong>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
                 <div className="column"></div>
               </div>
               <div className="columns is-mulitline is-mobile">
