@@ -32,6 +32,7 @@ export const EventPage = () => {
     Activity: "",
     Public: false,
   });
+  const [showModalError, setShowModalError] = useState(false);
   let { id } = useParams();
   const userLogged = useUserStore();
 
@@ -173,11 +174,17 @@ export const EventPage = () => {
   };
 
   const requestParticipation = () => {
-    Event.sendRequest(id!).then((data: any) => {
-      Event.getAskedUsers(id).then((data: any) => {
-        setUserAsked(data.Permissions);
+    Event.sendRequest(id!)
+      .then((data: any) => {
+        Event.getAskedUsers(id).then((data: any) => {
+          setUserAsked(data.Permissions);
+        });
+      })
+      .catch((err) => {
+        console.log(err.response.data.message);
+        setShowModalError(true);
+        //alert("Já pediu para participar neste evento.");
       });
-    });
   };
 
   return (
@@ -239,6 +246,18 @@ export const EventPage = () => {
                     <button className="button is-primary is-center" aria-label="close" onClick={requestParticipation}>
                       Pedir para participar
                     </button>
+                    {showModalError && (
+                      <div className={`modal ${showModalError && "is-active is-clipped is-fullheight"} `}>
+                        <div className="modal-background"></div>
+                        <div className="modal-content">
+                          <div className="notification is-danger">
+                            <button className="delete" onClick={() => setShowModalError(false)}></button>
+                            <h1>ERRO!</h1>
+                            <strong>Já pediu para participar neste evento.</strong>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
                 <div className="column"></div>
