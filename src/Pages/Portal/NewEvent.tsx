@@ -171,23 +171,6 @@ export const NewEvent = () => {
                   />
                 </div>
               </div>
-              <div className="p-2">
-                <label className="label">Convidados</label>
-                <div className="field has-addons">
-                  <p className="control">
-                    <input
-                      id="duration"
-                      className="input is-primary"
-                      type="username"
-                      placeholder="Guests"
-                      onChange={(event) => setCurrentUsers(Number(event.currentTarget.value))}
-                    />
-                  </p>
-                  <button type="submit" className="button is-primary">
-                    Adicionar
-                  </button>
-                </div>
-              </div>
             </div>
             <div className="field">
               <label className="label">Descrição</label>
