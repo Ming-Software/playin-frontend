@@ -9,12 +9,16 @@ export const Event = (event: { eventProps: EventProps }) => {
     navigate(`/portal/events/${event.eventProps.ID}`);
   };
 
+  const navigateToUserPage = () => {
+    navigate(`/portal/userpage/${event.eventProps.CreatorID}`);
+  };
+
   return (
     <div className="card">
       <header className="card-header has-background-primary">
         <div className="card-header-title has-text-white-bis is-justify-content-space-between">
           <p>{event.eventProps.Name}</p>
-          <p>{event.eventProps.Creator}</p>
+          <a onClick={navigateToUserPage}>{event.eventProps.Creator}</a>
         </div>
       </header>
       <main className="card-content">

@@ -71,7 +71,7 @@ export const UserPage = () => {
           <p className="title is-4">{user.Name}</p>
           <div className="column is-half">
             <div className="box">
-              {!user.Description ? <p className="subtitle is-5">Nada a dizer</p> : <p className="subtitle is-5">{user.Description}</p>}
+              {!user.Description ? <p className="subtitle is-5">Sem Descrição</p> : <p className="subtitle is-5">{user.Description}</p>}
             </div>
           </div>
           <hr />
