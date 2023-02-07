@@ -64,9 +64,9 @@ export const Permission = (event: { eventProps: EventProps }) => {
               <section>
                 <div className="is-flex is-justify-content-space-between">
                   <time>
-                    <p>{event.eventProps.date}</p>
+                    <p>{event.eventProps.Start.split("T")[0]}</p>
                     <p>
-                      {event.eventProps.Start} - {event.eventProps.Finish}
+                      {event.eventProps.Start.split("T")[1].split(".")[0]} - {event.eventProps.Finish.split("T")[1].split(".")[0]}
                     </p>
                   </time>
                   {event.eventProps.CurrentUsers >= event.eventProps.MaxUsers ? (
