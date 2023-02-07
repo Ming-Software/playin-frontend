@@ -19,6 +19,19 @@ const getSignInUser = () => {
   });
 };
 
+const getUser = (id: any) => {
+  return new Promise<UserProps>((resolve, reject) => {
+    ApiService.httpGet(`/api/user/userprofile/${id}`)
+      .then((data: any) => {
+        resolve(data.data);
+      })
+      .catch((err: any) => {
+        reject(err);
+      })
+      .finally();
+  });
+};
+
 const editUser = (user: UserProps) => {
   return new Promise((resolve, reject) => {
     ApiService.httpPatch("/api/user", user)
@@ -45,4 +58,4 @@ const logoutUser = () => {
   });
 };
 
-export default { getSignInUser, editUser, logoutUser };
+export default { getSignInUser, editUser, logoutUser, getUser };

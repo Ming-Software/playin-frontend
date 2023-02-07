@@ -3,6 +3,7 @@ export interface EventProps {
   ID?: string;
   Name: string;
   Creator: string;
+  CreatorID?: string;
   Locale: string;
   date: string;
   Start: string;
