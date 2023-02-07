@@ -125,6 +125,9 @@ export const EventPage = () => {
       })
       .catch((err) => {
         console.log(err);
+        setErrorMessage("Neste momento não existem vagas. Não é possível adicionar utilizadores.");
+        setModalPermissions(false);
+        setShowModalErrorInvite(true);
       });
   };
 
@@ -389,6 +392,18 @@ export const EventPage = () => {
             <button className="button is-success" onClick={acceptPermissions}>
               Aceitar
             </button>
+            {showModalErrorInvite && (
+              <div className={`modal ${showModalErrorInvite && "is-active is-clipped is-fullheight"} `}>
+                <div className="modal-background"></div>
+                <div className="modal-content">
+                  <div className="notification is-danger">
+                    <button className="delete" onClick={() => setShowModalErrorInvite(false)}></button>
+                    <h1>ERRO!</h1>
+                    <strong>{errorMessage}</strong>
+                  </div>
+                </div>
+              </div>
+            )}
             <button className="button is-danger" onClick={declinePermissions}>
               Rejeitar
             </button>
