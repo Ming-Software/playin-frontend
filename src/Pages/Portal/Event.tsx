@@ -64,7 +64,6 @@ export const EventPage = () => {
   };
 
   const addUser = (userId: string) => {
-    console.log(userId);
     Event.inviteGuest(id!, userId!).then((data: any) => {
       Event.getInvitedUsers(id).then((data: any) => {
         setUserInvited(data.Guests);

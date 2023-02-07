@@ -23,7 +23,6 @@ export const UserPage = () => {
 
   useEffect(() => {
     User.getUser(id).then((data: any) => {
-      console.log(data.Name);
       setUser({
         ID: data.ID,
         Email: data.Email,
@@ -34,8 +33,6 @@ export const UserPage = () => {
         Admin: data.Admin,
       });
     });
-    console.log(id);
-    console.log(user.Activities);
   }, []);
 
   /*const [user, setUser] = useState({
