@@ -1,13 +1,8 @@
-import ApiService from "../../Services/Api.service";
-import AuthService from "../../Services/Auth.service";
-import { Route, useNavigate } from "react-router-dom";
-import create from "zustand";
-import { useUserStore } from "../../Stores/userStore";
-import { useParams } from "react-router-dom";
-import { UserProps } from "../../Models/User/user.interface";
-import Event from "../../Models/Events/event";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
 import User from "../../Models/User/user";
+import { UserProps } from "../../Models/User/user.interface";
 
 export const UserPage = () => {
   const [user, setUser] = useState<UserProps>({
@@ -45,7 +40,11 @@ export const UserPage = () => {
     contact: "johndoe@email.com",
   });*/
 
-  const [sports, setSports] = useState(["Football", "Basketball", "Volleyball"]);
+  const [sports, setSports] = useState([
+    "Football",
+    "Basketball",
+    "Volleyball",
+  ]);
 
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -68,7 +67,11 @@ export const UserPage = () => {
           <p className="title is-4">{user.Name}</p>
           <div className="column is-half">
             <div className="box">
-              {!user.Description ? <p className="subtitle is-5">Sem Descrição</p> : <p className="subtitle is-5">{user.Description}</p>}
+              {!user.Description ? (
+                <p className="subtitle is-5">Sem Descrição</p>
+              ) : (
+                <p className="subtitle is-5">{user.Description}</p>
+              )}
             </div>
           </div>
           <hr />

@@ -1,9 +1,7 @@
 import { createContext, useState } from "react";
-import ApiService from "../Services/Api.service";
+import { useNavigate } from "react-router-dom";
+
 import AuthService from "../Services/Auth.service";
-import { Route, useNavigate } from "react-router-dom";
-import create from "zustand";
-import { useUserStore } from "../Stores/userStore";
 
 export const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -79,27 +77,56 @@ export const LoginPage = () => {
                 <div className="field">
                   <label className="label">Email</label>
                   <div className="control">
-                    <input value={email} type="email" className="input is-primary" placeholder="Endereço-email" onChange={handleChange} />
-                    {email.length == 0 && <p className="help is-danger">{error}</p>}
-                    {error && email.length != 0 && <p className="help is-danger">{error}</p>}
+                    <input
+                      value={email}
+                      type="email"
+                      className="input is-primary"
+                      placeholder="Endereço-email"
+                      onChange={handleChange}
+                    />
+                    {email.length == 0 && (
+                      <p className="help is-danger">{error}</p>
+                    )}
+                    {error && email.length != 0 && (
+                      <p className="help is-danger">{error}</p>
+                    )}
                   </div>
                 </div>
                 <div className="field">
                   <label className="label">Password</label>
                   <div className="control">
-                    <input value={password} onChange={handlePassword} className="input is-primary" type="password" placeholder="Password" />
-                    <a href="forget.html" className="is-size-7 has-text-primary">
+                    <input
+                      value={password}
+                      onChange={handlePassword}
+                      className="input is-primary"
+                      type="password"
+                      placeholder="Password"
+                    />
+                    <a
+                      href="forget.html"
+                      className="is-size-7 has-text-primary"
+                    >
                       Esqueceu-se da palavra-passe?
                     </a>
                   </div>
                 </div>
-                <button onClick={handleLoginRequest} className="button is-primary is-fullwidth has-text-center is-center" type="submit">
+                <button
+                  onClick={handleLoginRequest}
+                  className="button is-primary is-fullwidth has-text-center is-center"
+                  type="submit"
+                >
                   Login
                 </button>
-                {!loggedin && <p className="help is-danger pb-5">{responseLogin}</p>}
+                {!loggedin && (
+                  <p className="help is-danger pb-5">{responseLogin}</p>
+                )}
 
                 <label className="label">Não tem conta?</label>
-                <button onClick={handleToSignUp} className="button is-primary has-text-center is-center" type="submit">
+                <button
+                  onClick={handleToSignUp}
+                  className="button is-primary has-text-center is-center"
+                  type="submit"
+                >
                   Criar nova conta
                 </button>
               </form>
