@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { EventProps } from "../../Models/Events/event.interface";
-import Event from "../../Models/Events/event";
-import User from "../../Models/User/user";
+
 import PermissionComponent from "../../Components/Permission-Component";
+import Event from "../../Models/Events/event";
+import { EventProps } from "../../Models/Events/event.interface";
+import User from "../../Models/User/user";
 import { UserPropsShort } from "../../Models/User/user.interface";
-import Permission from "../../Components/Permission-Component";
 
 const MyPermissions = () => {
   const EVENTS_PER_PAGE = 15;
@@ -18,8 +18,6 @@ const MyPermissions = () => {
       Event.getMyPermissions(currentPage).then((data: any) => {
         setTotalPages(Math.ceil(data.Total / EVENTS_PER_PAGE));
         setEvents(data.Permissions);
-        console.log(data);
-        console.log(data.Permissions);
       });
     });
   }, [currentPage]);

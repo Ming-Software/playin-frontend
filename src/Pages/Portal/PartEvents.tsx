@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { EventProps } from "../../Models/Events/event.interface";
-import Event from "../../Models/Events/event";
-import User from "../../Models/User/user";
+
 import EventComponent from "../../Components/Event-Component";
+import Event from "../../Models/Events/event";
+import { EventProps } from "../../Models/Events/event.interface";
+import User from "../../Models/User/user";
 import { UserPropsShort } from "../../Models/User/user.interface";
 
 const PartEventsPage = () => {
@@ -41,7 +42,10 @@ const PartEventsPage = () => {
       <main className="section">
         <div className="columns is-mobile is-multiline">
           {events?.map((event) => (
-            <div className="column is-full-mobile is-half-tablet is-one-third-fullhd" key={event.ID}>
+            <div
+              className="column is-full-mobile is-half-tablet is-one-third-fullhd"
+              key={event.ID}
+            >
               <EventComponent eventProps={event} />
             </div>
           ))}
@@ -52,7 +56,10 @@ const PartEventsPage = () => {
           <ul className="pagination-list">
             {Array.from(Array(totalPages).keys()).map((page) => (
               <li key={page}>
-                <button className="pagination-link" onClick={() => setCurrentPage(page + 1)}>
+                <button
+                  className="pagination-link"
+                  onClick={() => setCurrentPage(page + 1)}
+                >
                   {page + 1}
                 </button>
               </li>

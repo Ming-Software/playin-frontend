@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import ApiService from "../Services/Api.service";
+import { useNavigate } from "react-router-dom";
+
 import AuthService from "../Services/Auth.service";
-import { Route, useNavigate } from "react-router-dom";
 
 export const SignUp = () => {
   const [name, setName] = useState("");
@@ -55,7 +55,9 @@ export const SignUp = () => {
   };
 
   const isValidPassword = (password: string) => {
-    return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#~!%^())_+|`-])(?=\S+$)[0-9a-zA-Z$*&@#~!%^()_+|`-]{8,}$/.test(password);
+    return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#~!%^())_+|`-])(?=\S+$)[0-9a-zA-Z$*&@#~!%^()_+|`-]{8,}$/.test(
+      password
+    );
   };
 
   const emailHandler = (event: React.FormEvent<HTMLInputElement>) => {
@@ -201,20 +203,33 @@ export const SignUp = () => {
                       placeholder="e.g. rodrigoslb2000@example.com"
                       onChange={emailHandler}
                     />
-                    {errorEmail && email.length == 0 && <p className="help is-danger">Email é necessário</p>}
-                    {errorEmail && email.length != 0 && <p className="help is-danger">Email inválido</p>}
+                    {errorEmail && email.length == 0 && (
+                      <p className="help is-danger">Email é necessário</p>
+                    )}
+                    {errorEmail && email.length != 0 && (
+                      <p className="help is-danger">Email inválido</p>
+                    )}
                   </div>
                 </div>
 
                 <div className="field">
                   <label className="label">Palavra-Passe</label>
                   <div className="control">
-                    <input value={password} className="input is-primary" type="password" placeholder="******" onChange={passwordHandler} />
-                    {errorPassword && password.length == 0 && <p className="help is-danger">Password é necessária</p>}
+                    <input
+                      value={password}
+                      className="input is-primary"
+                      type="password"
+                      placeholder="******"
+                      onChange={passwordHandler}
+                    />
+                    {errorPassword && password.length == 0 && (
+                      <p className="help is-danger">Password é necessária</p>
+                    )}
                     {errorPassword && password.length != 0 && (
                       <p className="help is-danger">
-                        Palavra-passe tem de conter pelo menos 8 caracteres e conter pelo menos uma letra minúscula, maiúscula, número e
-                        caratere especial ($*&@#~!%^()_+|`-)
+                        Palavra-passe tem de conter pelo menos 8 caracteres e
+                        conter pelo menos uma letra minúscula, maiúscula, número
+                        e caratere especial ($*&@#~!%^()_+|`-)
                       </p>
                     )}
                   </div>
@@ -230,46 +245,99 @@ export const SignUp = () => {
                       placeholder="******"
                       onChange={confirmPasswordHandler}
                     />
-                    {error2Password && <p className="help is-danger">Palavra-Passe não coincide</p>}
+                    {error2Password && (
+                      <p className="help is-danger">
+                        Palavra-Passe não coincide
+                      </p>
+                    )}
                   </div>
                 </div>
 
                 <label className="label">Social Preference</label>
                 <div className="control">
                   <label className="radio">
-                    <input type="radio" name="foobar" onChange={() => prefSocialHandler("None")} /> None
+                    <input
+                      type="radio"
+                      name="foobar"
+                      onChange={() => prefSocialHandler("None")}
+                    />{" "}
+                    None
                   </label>
                   <label className="radio">
-                    <input type="radio" name="foobar" onChange={() => prefSocialHandler("Competitive")} /> Competitivo
+                    <input
+                      type="radio"
+                      name="foobar"
+                      onChange={() => prefSocialHandler("Competitive")}
+                    />{" "}
+                    Competitivo
                   </label>
                   <label className="radio">
-                    <input type="radio" name="foobar" onChange={() => prefSocialHandler("Social")} /> Social
+                    <input
+                      type="radio"
+                      name="foobar"
+                      onChange={() => prefSocialHandler("Social")}
+                    />{" "}
+                    Social
                   </label>
                 </div>
 
                 <label className="label">Activity Preference</label>
                 <div className="field is-grouped is-grouped-multiline">
                   <p className="control">
-                    <input type="checkbox" checked={none2} onChange={() => noFoot()} /> None
+                    <input
+                      type="checkbox"
+                      checked={none2}
+                      onChange={() => noFoot()}
+                    />{" "}
+                    None
                   </p>
                   <p className="control">
-                    <input type="checkbox" checked={futebol} onChange={() => prefActHandler("Futebol")} /> Futebol
+                    <input
+                      type="checkbox"
+                      checked={futebol}
+                      onChange={() => prefActHandler("Futebol")}
+                    />{" "}
+                    Futebol
                   </p>
                   <p className="control">
-                    <input type="checkbox" checked={futsal} onChange={() => prefActHandler("Futsal")} /> Futsal
+                    <input
+                      type="checkbox"
+                      checked={futsal}
+                      onChange={() => prefActHandler("Futsal")}
+                    />{" "}
+                    Futsal
                   </p>
                   <p className="control">
-                    <input type="checkbox" checked={voleibol} onChange={() => prefActHandler("Voleibol")} /> Voleibol
+                    <input
+                      type="checkbox"
+                      checked={voleibol}
+                      onChange={() => prefActHandler("Voleibol")}
+                    />{" "}
+                    Voleibol
                   </p>
                   <p className="control">
-                    <input type="checkbox" checked={padel} onChange={() => prefActHandler("Padel")} /> Padel
+                    <input
+                      type="checkbox"
+                      checked={padel}
+                      onChange={() => prefActHandler("Padel")}
+                    />{" "}
+                    Padel
                   </p>
                   <p className="control">
-                    <input type="checkbox" checked={tenis} onChange={() => prefActHandler("Tenis")} /> Tenis
+                    <input
+                      type="checkbox"
+                      checked={tenis}
+                      onChange={() => prefActHandler("Tenis")}
+                    />{" "}
+                    Tenis
                   </p>
                 </div>
 
-                <button className="button is-primary is-fullwidth has-text-center" type="submit" onClick={submitRequest}>
+                <button
+                  className="button is-primary is-fullwidth has-text-center"
+                  type="submit"
+                  onClick={submitRequest}
+                >
                   Sign Up
                 </button>
               </form>
