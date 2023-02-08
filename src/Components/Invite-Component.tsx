@@ -10,6 +10,7 @@ export const Invite = (event: { eventProps: EventProps }) => {
   const navigate = useNavigate();
 
   const [visible, setVisible] = useState(true);
+  const [showModalError, setShowModalError] = useState(false);
 
   const navigateToEventPage = () => {
     navigate(`/portal/events/${event.eventProps.ID}`);
@@ -21,16 +22,33 @@ export const Invite = (event: { eventProps: EventProps }) => {
   };
 
   const acepptInvite = () => {
-    User.getSignInUser().then((data: UserPropsShort) => {
-      console.log(data.id);
-      evento.acceptMyInvite(event.eventProps.ID!, { UserID: data.id }).then((data: any) => {
-        setVisible(false);
+    User.getSignInUser()
+      .then((data: UserPropsShort) => {
+        //console.log(data.id);
+        evento.acceptMyInvite(event.eventProps.ID!, { UserID: data.id }).then((data: any) => {
+          setVisible(false);
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        setShowModalError(true);
       });
-    });
   };
 
   return (
     <>
+      {showModalError && (
+        <div className={`modal ${showModalError && "is-active is-clipped is-fullheight"} `}>
+          <div className="modal-background"></div>
+          <div className="modal-content">
+            <div className="notification is-danger">
+              <button className="delete" onClick={() => setShowModalError(false)}></button>
+              <h1>ERRO!</h1>
+              <strong>Neste momento não existem vagas.</strong>
+            </div>
+          </div>
+        </div>
+      )}
       {visible && (
         <div className="card">
           <header className="card-header has-background-primary">
@@ -76,9 +94,9 @@ export const Invite = (event: { eventProps: EventProps }) => {
               <section>
                 <div className="is-flex is-justify-content-space-between">
                   <time>
-                    <p>{event.eventProps.date}</p>
+                    <p>{event.eventProps.Start.split("T")[0]}</p>
                     <p>
-                      {event.eventProps.Start} - {event.eventProps.Finish}
+                      {event.eventProps.Start.split("T")[1].split(".")[0]} - {event.eventProps.Finish.split("T")[1].split(".")[0]}
                     </p>
                   </time>
                   {event.eventProps.CurrentUsers >= event.eventProps.MaxUsers ? (
